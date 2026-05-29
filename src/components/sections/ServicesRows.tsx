@@ -188,17 +188,12 @@ export function ServicesRows() {
                       >
                         {s.label}
                       </p>
-                      {/* Counter — only on active */}
-                      <p
-                        className="text-[11px] mt-0.5 transition-all duration-300"
-                        style={{
-                          color: "#9ca3af",
-                          opacity: isActive ? 1 : 0,
-                          transform: isActive ? "translateY(0)" : "translateY(-4px)",
-                        }}
-                      >
-                        {counter}
-                      </p>
+                      {/* Counter — static, shown on active item only */}
+                      {isActive && (
+                        <p className="text-[11px] mt-0.5 text-text-muted">
+                          {counter}
+                        </p>
+                      )}
                     </div>
                   </div>
                 );
