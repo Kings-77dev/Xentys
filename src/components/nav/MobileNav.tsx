@@ -1,0 +1,71 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { cn } from "@/lib/cn";
+import { LinkButton } from "@/components/ui/Button";
+
+interface MobileNavProps {
+  open: boolean;
+  onClose: () => void;
+  lang: "EN" | "NL";
+  setLang: (l: "EN" | "NL") => void;
+}
+
+function Accordion({ label, children }: { label: string; children: React.ReactNode }) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <div className="border-b border-white/10">
+      <button
+        className="flex items-center justify-between w-full py-4 text-left font-semibold text-lg text-white"
+        onClick={() => setExpanded(!expanded)}
+        aria-expanded={expanded}
+      >
+        {label}
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+          className={cn("transition-transform duration-150 flex-shrink-0", expanded && "rotate-180")} aria-hidden="true">
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+      {expanded && <div className="flex flex-col gap-1 pb-4">{children}</div>}
+    </div>
+  );
+}
+
+export function MobileNav({ open, onClose, lang, setLang }: MobileNavProps) {
+  return (
+    <div className={cn(
+      "fixed inset-0 z-30 bg-navy overflow-y-auto transition-opacity duration-200",
+      open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+    )}>
+      <div className="px-6 pt-24 pb-8 flex flex-col gap-2">
+        <Accordion label="I need to hire">
+          {["Permanent Recruitment", "Interim Inkoop", "Detachering", "Executive Search"].map((s) => (
+            <Link key={s} href="/about#services" onClick={onClose}
+              className="px-4 py-3 rounded-lg text-white/80 hover:bg-white/8 hover:text-white transition-colors">{s}</Link>
+          ))}
+        </Accordion>
+        <Accordion label="I want a role">
+          <Link href="/vacancies" onClick={onClose} className="px-4 py-3 rounded-lg text-white/80 hover:bg-white/8 hover:text-white transition-colors">Browse Vacancies</Link>
+          <Link href="/open-application" onClick={onClose} className="px-4 py-3 rounded-lg text-white/80 hover:bg-white/8 hover:text-white transition-colors">Open Application</Link>
+        </Accordion>
+        <Link href="/about" onClick={onClose} className="py-4 font-semibold text-lg text-white border-b border-white/10">About</Link>
+        <Link href="/contact" onClick={onClose} className="py-4 font-semibold text-lg text-white border-b border-white/10">Contact</Link>
+
+        <div className="flex flex-col gap-3 mt-6">
+          <LinkButton href="/consultation" variant="primary" className="justify-center" onClick={onClose}>Get in touch →</LinkButton>
+          <LinkButton href="/vacancies" variant="ghost-inv" className="justify-center" onClick={onClose}>Browse vacancies</LinkButton>
+        </div>
+
+        <div className="flex items-center gap-2 mt-4">
+          {(["EN", "NL"] as const).map((l) => (
+            <button key={l} onClick={() => setLang(l)}
+              className={cn("px-3 py-1 rounded text-xs font-semibold tracking-widest transition-colors",
+                lang === l ? "bg-white/10 text-white" : "text-white/50 hover:text-white")}>
+              {l}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
