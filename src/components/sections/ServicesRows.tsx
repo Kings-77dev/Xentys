@@ -1,3 +1,5 @@
+"use client";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import Link from "next/link";
 
@@ -57,15 +59,64 @@ function ServiceImage({ src, alt }: { src: string; alt: string }) {
 }
 
 export function ServicesRows() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [amberHeight, setAmberHeight] = useState(4); // px from track top to active dot centre
+
+  // Refs for IntersectionObserver targets (one per row)
+  const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // Refs for each dot (to measure exact position for amber bar)
+  const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // Ref for the track line container (measures from here)
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  // Recalculate amber bar height whenever activeIndex changes or window resizes
+  const updateAmberHeight = useCallback(() => {
+    const track = trackRef.current;
+    const dot = dotRefs.current[activeIndex];
+    if (!track || !dot) return;
+    const trackTop = track.getBoundingClientRect().top;
+    const dotRect = dot.getBoundingClientRect();
+    const dotCentre = dotRect.top + dotRect.height / 2;
+    setAmberHeight(Math.max(0, dotCentre - trackTop));
+  }, [activeIndex]);
+
+  useEffect(() => {
+    updateAmberHeight();
+    window.addEventListener("resize", updateAmberHeight);
+    return () => window.removeEventListener("resize", updateAmberHeight);
+  }, [updateAmberHeight]);
+
+  // IntersectionObserver — each row fires when it enters the middle band of the viewport
+  useEffect(() => {
+    const observers = rowRefs.current.map((row, i) => {
+      if (!row) return null;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveIndex(i);
+        },
+        {
+          // Trigger when the row's top edge crosses into the top-third of the viewport
+          rootMargin: "-20% 0px -55% 0px",
+          threshold: 0,
+        }
+      );
+      obs.observe(row);
+      return obs;
+    });
+    return () => observers.forEach((obs) => obs?.disconnect());
+  }, []);
+
+  const counter = `${String(activeIndex + 1).padStart(2, "0")} of 03`;
+
   return (
     <section className="bg-[#f6f8fa] py-[120px]" aria-labelledby="services-heading">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
 
-        {/* Header */}
-        <div className="text-center max-w-[580px] mx-auto mb-16">
-          <Eyebrow label="How we place" center />
+        {/* Header — left-aligned */}
+        <div className="mb-16">
+          <Eyebrow label="How we place" />
           <h2
-            className="font-bold text-navy tracking-[-0.025em]"
+            className="font-bold text-navy tracking-[-0.025em] max-w-[580px]"
             style={{ fontSize: "28px" }}
             id="services-heading"
           >
@@ -73,45 +124,100 @@ export function ServicesRows() {
           </h2>
         </div>
 
-        {/* Rows */}
+        {/* Body */}
         <div className="flex gap-14 items-start">
+
           {/* Left rail — sticky, desktop only */}
           <div className="hidden lg:block sticky top-28 self-start w-[140px] flex-shrink-0">
-            <div className="relative pl-4">
-              {/* Track */}
-              <div className="absolute left-0 top-0 w-[2px] h-full bg-[#e1e4e8]" aria-hidden="true" />
-              {/* Amber active */}
-              <div className="absolute left-0 top-0 w-[2px] h-10 bg-amber" aria-hidden="true" />
+            <div className="relative pl-4" ref={trackRef}>
 
-              {services.map((s, i) => (
-                <div key={s.id} className={`flex items-start gap-3 ${i < services.length - 1 ? "mb-20" : ""}`}>
+              {/* Track line — full height, always grey */}
+              <div
+                className="absolute left-0 top-0 w-[2px] bg-[#e1e4e8]"
+                style={{ height: "100%" }}
+                aria-hidden="true"
+              />
+
+              {/* Amber progress — animates height to active dot centre */}
+              <div
+                className="absolute left-0 top-0 w-[2px] bg-amber"
+                style={{
+                  height: `${amberHeight}px`,
+                  transition: "height 420ms cubic-bezier(0.4, 0, 0.2, 1)",
+                }}
+                aria-hidden="true"
+              />
+
+              {/* Items */}
+              {services.map((s, i) => {
+                const isActive = i === activeIndex;
+                return (
                   <div
-                    className={`w-2 h-2 rounded-full flex-shrink-0 mt-1 border-2 ${i === 0 ? "border-amber bg-amber" : "border-[#c9cdd3] bg-[#f6f8fa]"}`}
-                    aria-hidden="true"
-                  />
-                  <div>
-                    <p className={`font-semibold text-[10px] tracking-[0.08em] uppercase ${i === 0 ? "text-amber-text" : "text-text-muted"}`}>
-                      {s.id}
-                    </p>
-                    <p className={`text-[13px] mt-0.5 ${i === 0 ? "font-semibold text-navy" : "text-text-muted"}`}>
-                      {s.label}
-                    </p>
+                    key={s.id}
+                    className={`flex items-start gap-3 ${i < services.length - 1 ? "mb-20" : ""}`}
+                  >
+                    {/* Dot */}
+                    <div
+                      ref={(el) => { dotRefs.current[i] = el; }}
+                      className="w-2 h-2 rounded-full flex-shrink-0 mt-1 border-2 transition-all duration-300"
+                      style={{
+                        borderColor: isActive ? "#ffa300" : "#c9cdd3",
+                        backgroundColor: isActive ? "#ffa300" : "#f6f8fa",
+                        transform: isActive ? "scale(1.25)" : "scale(1)",
+                      }}
+                      aria-hidden="true"
+                    />
+
+                    {/* Label */}
+                    <div>
+                      <p
+                        className="text-[10px] tracking-[0.08em] uppercase transition-colors duration-300"
+                        style={{
+                          fontWeight: isActive ? 700 : 400,
+                          color: isActive ? "#d97706" : "#9ca3af",
+                        }}
+                      >
+                        {s.id}
+                      </p>
+                      <p
+                        className="text-[13px] mt-0.5 transition-colors duration-300"
+                        style={{
+                          fontWeight: isActive ? 600 : 400,
+                          color: isActive ? "#0d2b55" : "#9ca3af",
+                        }}
+                      >
+                        {s.label}
+                      </p>
+                      {/* Counter — only on active */}
+                      <p
+                        className="text-[11px] mt-0.5 transition-all duration-300"
+                        style={{
+                          color: "#9ca3af",
+                          opacity: isActive ? 1 : 0,
+                          transform: isActive ? "translateY(0)" : "translateY(-4px)",
+                        }}
+                      >
+                        {counter}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
           {/* Service rows */}
           <div className="flex flex-col gap-14 flex-1 min-w-0">
             {services.map((s, i) => (
-              <div key={s.id}>
+              <div
+                key={s.id}
+                ref={(el) => { rowRefs.current[i] = el; }}
+              >
                 <div className={`flex flex-col lg:flex-row gap-10 items-start ${!s.imageLeft ? "lg:flex-row-reverse" : ""}`}>
                   <ServiceImage src={s.imgSrc} alt={s.imgAlt} />
 
                   <div className="flex flex-col justify-between flex-1 min-w-0 py-2">
                     <div className="mb-8">
-                      {/* Tag — refined */}
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-none text-[11px] font-semibold tracking-[0.04em] mb-4 ${s.tag.className}`}>
                         {s.tag.label}
                       </span>
@@ -140,6 +246,7 @@ export function ServicesRows() {
               </div>
             ))}
           </div>
+
         </div>
       </div>
     </section>
