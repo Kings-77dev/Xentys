@@ -1,69 +1,127 @@
-"use client";
-import { useState } from "react";
-import { LinkButton, Button } from "@/components/ui/Button";
-import { Modal } from "@/components/ui/Modal";
 import Link from "next/link";
+import Image from "next/image";
+
+const trustItems = [
+  "15+ Years specialist focus",
+  "Procurement and supply chain only",
+  "3–5 vetted candidates",
+];
 
 export function Hero() {
-  const [modal, setModal] = useState<"hire" | "candidate" | null>(null);
-
   return (
     <>
-      <section className="bg-navy pt-40 pb-24 overflow-hidden" aria-labelledby="hero-heading">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h1 className="font-bold text-5xl lg:text-6xl leading-tight tracking-[-0.56px] text-white mb-6" id="hero-heading">
-                Procurement recruitment<br />done with <span className="text-amber">precision.</span>
-              </h1>
-              <p className="text-lg text-white/75 mb-10 max-w-lg">
-                We recruit exclusively in procurement and supply chain — for industrial, construction, and offshore organisations in the Netherlands. Since 2010.
-              </p>
-              <div className="flex flex-wrap gap-4 mb-12">
-                <Button variant="primary" onClick={() => setModal("hire")}>I need to hire →</Button>
-                <Button variant="ghost-inv" onClick={() => setModal("candidate")}>I want a role</Button>
-              </div>
-              <div className="flex flex-wrap gap-4 items-center pt-8 border-t border-white/12" aria-label="Key facts">
-                {["15+ Years specialist focus", "Procurement only", "3–5 vetted candidates", "1-day response"].map((item, i) => (
-                  <div key={item} className="flex items-center gap-3">
-                    {i > 0 && <span className="w-1 h-1 rounded-full bg-amber" aria-hidden="true" />}
-                    <span className="text-xs font-semibold tracking-wider text-white/60 uppercase">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+      {/* Hero */}
+      <section className="relative overflow-hidden" aria-labelledby="hero-heading">
+        {/* Photo background */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero-bg.jpg"
+            alt=""
+            fill
+            className="object-cover object-center"
+            priority
+            aria-hidden="true"
+          />
+        </div>
 
-            <div aria-hidden="true">
-              <div className="w-full aspect-[4/5] bg-white/6 rounded-3xl border border-white/10 flex flex-col items-center justify-center gap-3 text-white/30">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-                </svg>
-                <span className="text-sm text-center px-8">Photo: recruiter in conversation, warm office setting</span>
+        {/* Gradient overlay */}
+        <div
+          className="absolute inset-0 z-10"
+          style={{
+            background:
+              "linear-gradient(to bottom, #071935 0%, rgba(13,43,85,0.92) 45%, rgba(13,43,85,0.78) 100%)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Content */}
+        <div className="relative z-20 max-w-[1280px] mx-auto px-6 lg:px-[120px] pt-48 pb-32">
+          {/* Eyebrow */}
+          <p className="text-amber font-semibold text-[11px] tracking-[1.98px] uppercase mb-6">
+            SPECIALIST RECRUITMENT · SINCE 2010
+          </p>
+
+          {/* Headline */}
+          <h1
+            id="hero-heading"
+            className="font-bold text-white max-w-[600px] mb-8"
+            style={{
+              fontSize: "58px",
+              lineHeight: 1.08,
+              letterSpacing: "-1.16px",
+            }}
+          >
+            The procurement<br />
+            recruitment partner<br />
+            you can trust.
+          </h1>
+
+          {/* Subheadline */}
+          <p
+            className="text-white max-w-[560px] mb-12"
+            style={{ fontSize: "17px", lineHeight: 1.62 }}
+          >
+            We place procurement and supply chain professionals across industry,
+            construction and offshore — permanently, interim, or on secondment.
+          </p>
+
+          {/* Door CTAs */}
+          <div className="flex flex-wrap gap-4 mb-16">
+            {/* Amber — hiring */}
+            <Link
+              href="/consultation"
+              className="flex flex-col justify-center px-6 py-5 rounded-lg bg-amber min-w-[264px] h-20 group transition-opacity hover:opacity-90"
+            >
+              <span className="font-semibold text-navy text-base leading-tight">
+                I'm looking for a buyer
+              </span>
+              <span className="text-[#071935] text-[13px] mt-1 opacity-80">
+                Request a Consultation →
+              </span>
+            </Link>
+
+            {/* Dark blue — role seekers */}
+            <Link
+              href="/vacancies"
+              className="flex flex-col justify-center px-6 py-5 rounded-lg bg-[#15396b] border border-[#406b9e] min-w-[264px] h-20 group transition-opacity hover:opacity-90"
+            >
+              <span className="font-semibold text-white text-base leading-tight">
+                I'm looking for a new role
+              </span>
+              <span className="text-[#a6c2e0] text-[13px] mt-1">
+                Browse vacancies →
+              </span>
+            </Link>
+          </div>
+
+          {/* Trust bar */}
+          <div className="flex flex-wrap items-center gap-4" aria-label="Key facts">
+            {trustItems.map((item, i) => (
+              <div key={item} className="flex items-center gap-4">
+                {i > 0 && (
+                  <div className="w-[3px] h-[3px] rounded-full bg-amber flex-shrink-0" aria-hidden="true" />
+                )}
+                <span className="text-[14px] font-medium text-slate-400">{item}</span>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Client modal */}
-      <Modal open={modal === "hire"} onClose={() => setModal(null)} title="Looking to hire a procurement specialist?">
-        <h2 className="font-bold text-3xl tracking-tight text-text-primary mb-3">Looking to hire a procurement specialist?</h2>
-        <p className="text-base text-text-secondary mb-8">We recruit exclusively in procurement and supply chain — and we keep it simple. Tell us what you need, and we'll come back to you within one working day with a clear plan.</p>
-        <div className="flex flex-col gap-3">
-          <LinkButton href="/consultation" variant="primary" className="justify-center" onClick={() => setModal(null)}>Submit a vacancy →</LinkButton>
-          <LinkButton href="/about#services" variant="ghost" className="justify-center" onClick={() => setModal(null)}>Explore our services</LinkButton>
+      {/* Quick-contact FAB — fixed bottom-right */}
+      <div className="fixed bottom-8 right-8 z-50 flex items-center gap-3 group" aria-label="Quick contact">
+        {/* Tooltip */}
+        <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-navy text-white text-[13px] font-medium px-3 py-1.5 rounded-md whitespace-nowrap pointer-events-none">
+          Quick contact →
         </div>
-      </Modal>
-
-      {/* Candidate modal */}
-      <Modal open={modal === "candidate"} onClose={() => setModal(null)} title="Ready for your next procurement role?">
-        <h2 className="font-bold text-3xl tracking-tight text-text-primary mb-3">Ready for your next procurement role?</h2>
-        <p className="text-base text-text-secondary mb-8">We don't just forward your CV — we represent you. We take your profile directly to clients in industrial, construction, and offshore, and give you honest feedback throughout.</p>
-        <div className="flex flex-col gap-3">
-          <LinkButton href="/vacancies" variant="primary" className="justify-center" onClick={() => setModal(null)}>Browse vacancies →</LinkButton>
-          <LinkButton href="/open-application" variant="ghost" className="justify-center" onClick={() => setModal(null)}>Register your profile</LinkButton>
-        </div>
-      </Modal>
+        <Link
+          href="/contact"
+          className="w-[52px] h-[52px] rounded-full bg-amber flex items-center justify-center text-[22px] shadow-lg hover:scale-105 transition-transform"
+          aria-label="Quick contact"
+        >
+          💬
+        </Link>
+      </div>
     </>
   );
 }
