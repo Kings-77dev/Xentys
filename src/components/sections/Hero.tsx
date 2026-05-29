@@ -22,13 +22,19 @@ export function Hero() {
         />
       </div>
 
-      {/* Gradient overlay — more precise, less stock-photo */}
+      {/* Gradient overlay — heavier on the left where text sits, lets warm sunset show right */}
       <div
         className="absolute inset-0 z-10"
         style={{
           background:
-            "linear-gradient(105deg, rgba(7,25,53,0.97) 0%, rgba(13,43,85,0.88) 50%, rgba(13,43,85,0.60) 100%)",
+            "linear-gradient(100deg, rgba(5,18,42,0.96) 0%, rgba(10,35,70,0.82) 42%, rgba(13,43,85,0.45) 70%, rgba(13,43,85,0.20) 100%)",
         }}
+        aria-hidden="true"
+      />
+      {/* Bottom fade — ensures trust bar text is always readable */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-40 z-10"
+        style={{ background: "linear-gradient(to top, rgba(5,18,42,0.5) 0%, transparent 100%)" }}
         aria-hidden="true"
       />
 

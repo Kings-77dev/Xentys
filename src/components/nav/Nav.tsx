@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useScrolled } from "@/lib/useScrolled";
 import { cn } from "@/lib/cn";
 import { MegaDropdown, type DropdownContent } from "./MegaDropdown";
@@ -87,24 +88,20 @@ export default function Nav() {
             {/* Logo */}
             <Link
               href="/"
-              className="flex items-center gap-2.5 flex-shrink-0 mr-auto group"
+              className="flex items-center flex-shrink-0 mr-auto"
               aria-label="Xentys home"
             >
-              {/* Clean lettermark */}
-              <div
-                className="w-8 h-8 bg-amber rounded-none flex items-center justify-center flex-shrink-0 transition-opacity duration-200 group-hover:opacity-90"
-                aria-hidden="true"
-              >
-                <span className="font-bold text-navy text-[15px] leading-none tracking-tight">X</span>
-              </div>
-              <span
+              <Image
+                src="/images/xentys-logo.svg"
+                width={112}
+                height={21}
+                alt="Xentys"
+                priority
                 className={cn(
-                  "font-semibold text-[15px] tracking-[-0.02em] transition-colors duration-200",
-                  isLight ? "text-text-primary" : "text-white"
+                  "transition-all duration-[240ms]",
+                  isLight ? "" : "brightness-0 invert"
                 )}
-              >
-                Xentys
-              </span>
+              />
             </Link>
 
             {/* Desktop links */}

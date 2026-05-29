@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -8,11 +9,14 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="flex flex-col gap-4">
-            <Link href="/" aria-label="Xentys home" className="inline-flex items-center gap-2.5 group w-fit">
-              <div className="w-8 h-8 bg-amber rounded-none flex items-center justify-center flex-shrink-0">
-                <span className="font-bold text-navy text-[14px] leading-none">X</span>
-              </div>
-              <span className="font-semibold text-[15px] text-white tracking-[-0.02em]">Xentys</span>
+            <Link href="/" aria-label="Xentys home" className="inline-flex items-center w-fit">
+              <Image
+                src="/images/xentys-logo.svg"
+                width={100}
+                height={19}
+                alt="Xentys"
+                className="brightness-0 invert opacity-75"
+              />
             </Link>
             <p className="text-[13px] text-white/50 max-w-[220px] leading-[1.6]">
               Specialist procurement and supply chain recruitment. Since 2010. The Hague.
