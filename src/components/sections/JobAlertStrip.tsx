@@ -39,11 +39,11 @@ export function JobAlertStrip() {
                     type="email"
                     required
                     placeholder="your@email.com"
-                    className="flex-1 h-11 px-4 rounded-lg bg-white border border-[#e0e2e5] text-[14px] text-text-primary placeholder:text-[#c7cace] focus:outline-none focus:border-amber transition-colors"
+                    className="flex-1 h-11 px-4 rounded-[2px] bg-white border border-[#e0e2e5] text-[14px] text-text-primary placeholder:text-[#c7cace] focus:outline-none focus:border-amber transition-colors"
                   />
                   <button
                     type="submit"
-                    className="h-11 px-5 bg-amber rounded-lg text-[13px] font-semibold text-[#071935] whitespace-nowrap hover:opacity-90 transition-opacity flex-shrink-0"
+                    className="h-11 px-5 bg-amber rounded-[2px] text-[13px] font-semibold text-[#071935] whitespace-nowrap hover:opacity-90 transition-opacity flex-shrink-0"
                   >
                     Notify me
                   </button>
@@ -54,7 +54,7 @@ export function JobAlertStrip() {
                     { id: "alert-role", label: "I am looking for a role" },
                   ].map(({ id, label }) => (
                     <label key={id} htmlFor={id} className="flex items-center gap-2 cursor-pointer">
-                      <div className="w-[14px] h-[14px] rounded-sm border border-[#c7cace] bg-[#f3f7fb] flex-shrink-0">
+                      <div className="w-[14px] h-[14px] rounded-none border border-[#c7cace] bg-[#f3f7fb] flex-shrink-0">
                         <input type="checkbox" id={id} className="sr-only" />
                       </div>
                       <span className="text-[12px] text-[#d9e5f2]">{label}</span>
@@ -64,7 +64,7 @@ export function JobAlertStrip() {
               </>
             ) : (
               <div className="flex items-center gap-3 py-3">
-                <div className="w-8 h-8 rounded-full bg-amber/20 flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-none bg-amber/20 flex items-center justify-center flex-shrink-0">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffa300" strokeWidth="2.5" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>

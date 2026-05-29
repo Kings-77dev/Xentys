@@ -69,7 +69,7 @@ export default function VacanciesPage() {
 
           {/* Filters */}
           <aside aria-label="Filter vacancies">
-            <div className="bg-white border border-border rounded-2xl p-8 sticky top-20">
+            <div className="bg-white border border-border rounded-none p-8 sticky top-20">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="font-semibold text-lg text-text-primary">Filters</h2>
                 {hasFilters ? (
@@ -129,7 +129,7 @@ export default function VacanciesPage() {
                 {filtered.map((v) => <VacancyCard key={v.slug} vacancy={v} />)}
               </div>
             ) : (
-              <div className="text-center py-16 px-6 bg-off-white rounded-2xl border border-border">
+              <div className="text-center py-16 px-6 bg-off-white rounded-none border border-border">
                 <h2 className="font-semibold text-xl text-text-primary mb-3">No matches right now</h2>
                 <p className="text-base text-text-secondary max-w-md mx-auto mb-6">We have new roles daily. Register your profile and we'll reach out when something fits.</p>
                 <LinkButton href="/open-application" variant="primary">Register your profile →</LinkButton>

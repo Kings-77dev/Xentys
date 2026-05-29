@@ -50,11 +50,11 @@ export function Testimonials() {
           {testimonials.map((t) => (
             <blockquote
               key={t.name + t.context}
-              className="bg-white border border-[#e1e4e8] rounded-xl p-7 flex flex-col gap-5 transition-all duration-[200ms] ease-out hover:border-[#c9cdd3] hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]"
+              className="bg-white border border-[#e1e4e8] rounded-none p-7 flex flex-col gap-5 transition-all duration-[200ms] ease-out hover:border-[#c9cdd3] hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]"
             >
               {/* Type tag — muted */}
               <div className="inline-flex items-center self-start">
-                <span className="text-[11px] font-semibold tracking-[0.06em] uppercase text-text-muted bg-[#f6f8fa] px-2 py-1 rounded-[4px]">
+                <span className="text-[11px] font-semibold tracking-[0.06em] uppercase text-text-muted bg-[#f6f8fa] px-2 py-1 rounded-none">
                   {t.type}
                 </span>
               </div>

@@ -35,9 +35,9 @@ export function MegaDropdown({ open, content }: { open: boolean; content: Dropdo
                 <Link
                   key={link.href + link.title}
                   href={link.href}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-[8px] hover:bg-[#f6f8fa] transition-colors duration-[180ms] group"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-[2px] hover:bg-[#f6f8fa] transition-colors duration-[180ms] group"
                 >
-                  <div className="w-8 h-8 bg-[#f6f8fa] group-hover:bg-[#eef0f2] rounded-[6px] flex items-center justify-center text-text-muted flex-shrink-0 transition-colors duration-[180ms]">
+                  <div className="w-8 h-8 bg-[#f6f8fa] group-hover:bg-[#eef0f2] rounded-none flex items-center justify-center text-text-muted flex-shrink-0 transition-colors duration-[180ms]">
                     {icons[link.icon]}
                   </div>
                   <div>

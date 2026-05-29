@@ -33,7 +33,7 @@ export function FileUpload({ id, name, required, hint = "PDF, DOC, DOCX — max 
   return (
     <div
       className={cn(
-        "relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors",
+        "relative border-2 border-dashed rounded-none p-8 text-center cursor-pointer transition-colors",
         dragging ? "border-amber bg-amber/5" : "border-border hover:border-amber"
       )}
       onDragOver={(e) => { e.preventDefault(); setDragging(true); }}

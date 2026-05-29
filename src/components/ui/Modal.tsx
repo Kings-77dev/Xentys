@@ -67,7 +67,7 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
     >
       <div
         className={cn(
-          "bg-white rounded-3xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-12 relative transition-transform duration-200",
+          "bg-white rounded-none w-full max-w-lg max-h-[90vh] overflow-y-auto p-12 relative transition-transform duration-200",
           open ? "scale-100" : "scale-95",
           className
         )}
@@ -76,7 +76,7 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
           ref={closeRef}
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-6 right-6 w-9 h-9 flex items-center justify-center rounded-full text-text-muted hover:bg-off-white hover:text-text-primary transition-colors"
+          className="absolute top-6 right-6 w-9 h-9 flex items-center justify-center rounded-none text-text-muted hover:bg-off-white hover:text-text-primary transition-colors"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />

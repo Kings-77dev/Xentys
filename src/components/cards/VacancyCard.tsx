@@ -6,7 +6,7 @@ interface VacancyCardProps { vacancy: Vacancy; }
 
 export function VacancyCard({ vacancy }: VacancyCardProps) {
   return (
-    <article className="bg-white border border-[#e1e4e8] rounded-xl p-6 flex flex-col gap-4 transition-all duration-[200ms] ease-out hover:-translate-y-px hover:border-[#c9cdd3] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
+    <article className="bg-white border border-[#e1e4e8] rounded-none p-6 flex flex-col gap-4 transition-all duration-[200ms] ease-out hover:-translate-y-px hover:border-[#c9cdd3] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
       <div className="flex justify-between items-start gap-3">
         <Badge type={vacancy.type} />
       </div>

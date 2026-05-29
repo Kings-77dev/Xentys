@@ -6,7 +6,7 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({ quote, name, role }: TestimonialCardProps) {
   return (
-    <blockquote className="bg-white/7 border border-white/12 rounded-2xl p-8 flex flex-col gap-6">
+    <blockquote className="bg-white/7 border border-white/12 rounded-none p-8 flex flex-col gap-6">
       <div className="text-amber text-5xl font-bold leading-none" aria-hidden="true">"</div>
       <p className="text-lg text-white/90 italic flex-1">{quote}</p>
       <footer className="flex flex-col gap-1">

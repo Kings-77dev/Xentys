@@ -70,7 +70,7 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
               </div>
             ))}
 
-            <div className="mt-8 p-6 bg-off-white rounded-2xl border-l-4 border-amber">
+            <div className="mt-8 p-6 bg-off-white rounded-none border-l-4 border-amber">
               <p className="text-xs font-semibold tracking-wider uppercase text-amber-text mb-2">From {vacancy.recruiterName.split(" ")[0]}</p>
               <p className="text-base text-text-secondary">{vacancy.recruiterNote}</p>
             </div>
@@ -81,7 +81,7 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
             </div>
 
             {/* Post-apply timeline */}
-            <div className="mt-12 p-8 bg-off-white rounded-2xl border border-border">
+            <div className="mt-12 p-8 bg-off-white rounded-none border border-border">
               <h2 className="font-semibold text-base text-text-primary mb-6">What happens after you apply</h2>
               <div className="flex flex-col gap-4">
                 {[
@@ -104,7 +104,7 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
 
           {/* Sidebar */}
           <aside className="flex flex-col gap-6 sticky top-20" aria-label="Recruiter and related roles">
-            <div className="bg-white border border-border rounded-2xl p-8 flex flex-col gap-4">
+            <div className="bg-white border border-border rounded-none p-8 flex flex-col gap-4">
               <p className="text-xs font-semibold tracking-wider uppercase text-text-muted">Your recruiter for this role</p>
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-full bg-off-white border-2 border-border flex items-center justify-center font-bold text-navy text-lg" aria-hidden="true">
@@ -132,7 +132,7 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
             </div>
 
             {related.length > 0 && (
-              <div className="bg-off-white rounded-2xl p-6">
+              <div className="bg-off-white rounded-none p-6">
                 <h2 className="font-semibold text-sm text-text-primary mb-4">Related vacancies</h2>
                 {related.map((r) => (
                   <div key={r.slug} className="py-4 border-b border-border last:border-0">
@@ -157,24 +157,24 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
                   <label className="text-sm font-semibold text-text-primary" htmlFor="first">First name <span className="text-red-500">*</span></label>
-                  <input id="first" required className="h-12 px-4 rounded-lg border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" placeholder="Jan" />
+                  <input id="first" required className="h-12 px-4 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" placeholder="Jan" />
                 </div>
                 <div className="flex flex-col gap-2">
                   <label className="text-sm font-semibold text-text-primary" htmlFor="last">Last name <span className="text-red-500">*</span></label>
-                  <input id="last" required className="h-12 px-4 rounded-lg border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" placeholder="de Vries" />
+                  <input id="last" required className="h-12 px-4 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" placeholder="de Vries" />
                 </div>
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-text-primary" htmlFor="email">Email <span className="text-red-500">*</span></label>
-                <input id="email" type="email" required className="h-12 px-4 rounded-lg border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" placeholder="jan@example.com" />
+                <input id="email" type="email" required className="h-12 px-4 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" placeholder="jan@example.com" />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-text-primary" htmlFor="phone">Phone <span className="text-red-500">*</span></label>
-                <input id="phone" type="tel" required className="h-12 px-4 rounded-lg border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" placeholder="+31 6 …" />
+                <input id="phone" type="tel" required className="h-12 px-4 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" placeholder="+31 6 …" />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-text-primary" htmlFor="linkedin">LinkedIn <span className="font-normal text-text-muted">(optional)</span></label>
-                <input id="linkedin" type="url" className="h-12 px-4 rounded-lg border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" placeholder="https://linkedin.com/in/…" />
+                <input id="linkedin" type="url" className="h-12 px-4 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" placeholder="https://linkedin.com/in/…" />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-text-primary">CV / Resume <span className="text-red-500">*</span></label>
@@ -182,15 +182,15 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-text-primary" htmlFor="note">Cover note <span className="font-normal text-text-muted">(optional)</span></label>
-                <textarea id="note" rows={3} className="px-4 py-3 rounded-lg border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors resize-y" placeholder={`Anything you'd like ${vacancy.recruiterName.split(" ")[0]} to know before the call…`} />
+                <textarea id="note" rows={3} className="px-4 py-3 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors resize-y" placeholder={`Anything you'd like ${vacancy.recruiterName.split(" ")[0]} to know before the call…`} />
               </div>
-              <button type="submit" className="w-full h-12 bg-amber text-navy font-semibold rounded-full hover:scale-[1.02] hover:shadow-md transition-all">Submit application →</button>
+              <button type="submit" className="w-full h-12 bg-amber text-navy font-semibold rounded-[2px] hover:bg-[#e8970a] transition-all duration-[200ms]">Submit application →</button>
               <p className="text-xs text-text-muted text-center">Your details are handled in accordance with our <Link href="#" className="underline underline-offset-2 text-amber-text">privacy policy</Link>.</p>
             </form>
           </>
         ) : (
           <div className="flex flex-col items-center text-center gap-4 py-8">
-            <div className="w-16 h-16 bg-amber/10 rounded-full flex items-center justify-center text-amber-text">
+            <div className="w-16 h-16 bg-amber/10 rounded-none flex items-center justify-center text-amber-text">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <h2 className="font-bold text-2xl text-text-primary">We've received your application</h2>

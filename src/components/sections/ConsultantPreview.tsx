@@ -33,12 +33,12 @@ export function ConsultantPreview() {
 
           {/* Right — recruiter card */}
           <div
-            className="bg-[#f8f8f7] rounded-xl p-6 flex gap-6 items-start flex-1 min-w-0"
+            className="bg-[#f8f8f7] rounded-none p-6 flex gap-6 items-start flex-1 min-w-0"
             style={{ minWidth: "min(100%, 560px)" }}
           >
             {/* Photo placeholder */}
             <div
-              className="w-[139px] h-[195px] rounded-lg bg-[#c7cace] flex-shrink-0 overflow-hidden flex items-center justify-center"
+              className="w-[139px] h-[195px] rounded-[2px] bg-[#c7cace] flex-shrink-0 overflow-hidden flex items-center justify-center"
               aria-hidden="true"
             >
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" opacity="0.5">

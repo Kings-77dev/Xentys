@@ -27,13 +27,13 @@ export function CTABanner() {
           <div className="flex flex-col sm:flex-row gap-4 items-start">
             <Link
               href="/consultation"
-              className="inline-flex items-center justify-center h-[52px] px-6 bg-amber rounded-lg text-[14px] font-semibold text-navy hover:opacity-90 transition-opacity whitespace-nowrap"
+              className="inline-flex items-center justify-center h-[52px] px-6 bg-amber rounded-[2px] text-[14px] font-semibold text-navy hover:opacity-90 transition-opacity whitespace-nowrap"
             >
               Request a Consultation
             </Link>
             <Link
               href="/vacancies"
-              className="inline-flex items-center justify-center h-[52px] px-6 rounded-lg border-[1.5px] border-[#668fbd] text-[14px] font-semibold text-white hover:border-white transition-colors whitespace-nowrap"
+              className="inline-flex items-center justify-center h-[52px] px-6 rounded-[2px] border-[1.5px] border-[#668fbd] text-[14px] font-semibold text-white hover:border-white transition-colors whitespace-nowrap"
             >
               Browse vacancies
             </Link>

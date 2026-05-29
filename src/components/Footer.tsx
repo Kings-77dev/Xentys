@@ -9,7 +9,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex flex-col gap-4">
             <Link href="/" aria-label="Xentys home" className="inline-flex items-center gap-2.5 group w-fit">
-              <div className="w-8 h-8 bg-amber rounded-[6px] flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 bg-amber rounded-none flex items-center justify-center flex-shrink-0">
                 <span className="font-bold text-navy text-[14px] leading-none">X</span>
               </div>
               <span className="font-semibold text-[15px] text-white tracking-[-0.02em]">Xentys</span>
@@ -22,7 +22,7 @@ export default function Footer() {
                 href="https://linkedin.com"
                 aria-label="Xentys on LinkedIn"
                 rel="noopener noreferrer"
-                className="w-8 h-8 bg-white/6 rounded-[6px] flex items-center justify-center text-white/50 hover:bg-white/12 hover:text-white/80 transition-all duration-[180ms]"
+                className="w-8 h-8 bg-white/6 rounded-none flex items-center justify-center text-white/50 hover:bg-white/12 hover:text-white/80 transition-all duration-[180ms]"
               >
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>

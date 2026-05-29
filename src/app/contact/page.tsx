@@ -26,7 +26,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-6">
               {details.map(({ icon, label, value, href }) => (
                 <div key={label} className="flex gap-4 items-start">
-                  <div className="w-10 h-10 bg-amber/10 rounded-xl flex items-center justify-center text-amber-text flex-shrink-0">
+                  <div className="w-10 h-10 bg-amber/10 rounded-none flex items-center justify-center text-amber-text flex-shrink-0">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d={icon}/></svg>
                   </div>
                   <div>
@@ -38,7 +38,7 @@ export default function ContactPage() {
                 </div>
               ))}
             </div>
-            <div className="mt-8 p-6 bg-off-white rounded-2xl border-l-4 border-amber text-base text-text-secondary">
+            <div className="mt-8 p-6 bg-off-white rounded-none border-l-4 border-amber text-base text-text-secondary">
               <strong className="text-text-primary">We respond to all enquiries within 1 working day.</strong> If you send a brief, a consultant will call you back — not an automated response system.
             </div>
           </section>
@@ -60,8 +60,8 @@ export default function ContactPage() {
                   links: [{ href: "/vacancies", label: "Browse vacancies →" }, { href: "/open-application", label: "Register your profile →" }],
                 },
               ].map(({ icon, title, desc, links }) => (
-                <div key={title} className="bg-white border border-border rounded-2xl p-8 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
-                  <div className="w-12 h-12 bg-amber/10 rounded-xl flex items-center justify-center text-amber-text mb-4">
+                <div key={title} className="bg-white border border-border rounded-none p-8 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
+                  <div className="w-12 h-12 bg-amber/10 rounded-none flex items-center justify-center text-amber-text mb-4">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d={icon}/></svg>
                   </div>
                   <h3 className="font-semibold text-lg text-text-primary mb-2">{title}</h3>

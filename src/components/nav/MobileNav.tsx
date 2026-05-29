@@ -41,12 +41,12 @@ export function MobileNav({ open, onClose, lang, setLang }: MobileNavProps) {
         <Accordion label="I need to hire">
           {["Permanent Recruitment", "Interim Inkoop", "Detachering", "Executive Search"].map((s) => (
             <Link key={s} href="/about#services" onClick={onClose}
-              className="px-4 py-3 rounded-lg text-white/80 hover:bg-white/8 hover:text-white transition-colors">{s}</Link>
+              className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">{s}</Link>
           ))}
         </Accordion>
         <Accordion label="I want a role">
-          <Link href="/vacancies" onClick={onClose} className="px-4 py-3 rounded-lg text-white/80 hover:bg-white/8 hover:text-white transition-colors">Browse Vacancies</Link>
-          <Link href="/open-application" onClick={onClose} className="px-4 py-3 rounded-lg text-white/80 hover:bg-white/8 hover:text-white transition-colors">Open Application</Link>
+          <Link href="/vacancies" onClick={onClose} className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Browse Vacancies</Link>
+          <Link href="/open-application" onClick={onClose} className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Open Application</Link>
         </Accordion>
         <Link href="/about" onClick={onClose} className="py-4 font-semibold text-lg text-white border-b border-white/10">About</Link>
         <Link href="/contact" onClick={onClose} className="py-4 font-semibold text-lg text-white border-b border-white/10">Contact</Link>

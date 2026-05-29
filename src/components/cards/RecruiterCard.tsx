@@ -8,7 +8,7 @@ interface RecruiterCardProps {
 
 export function RecruiterCard({ initials, name, title, bio, email }: RecruiterCardProps) {
   return (
-    <article className="bg-white border border-border rounded-2xl p-8 flex flex-col items-center text-center gap-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+    <article className="bg-white border border-border rounded-none p-8 flex flex-col items-center text-center gap-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
       <div className="w-24 h-24 rounded-full bg-off-white border-3 border-border flex items-center justify-center text-2xl font-bold text-navy" aria-hidden="true">
         {initials}
       </div>

@@ -92,7 +92,7 @@ export default function Nav() {
             >
               {/* Clean lettermark */}
               <div
-                className="w-8 h-8 bg-amber rounded-[6px] flex items-center justify-center flex-shrink-0 transition-opacity duration-200 group-hover:opacity-90"
+                className="w-8 h-8 bg-amber rounded-none flex items-center justify-center flex-shrink-0 transition-opacity duration-200 group-hover:opacity-90"
                 aria-hidden="true"
               >
                 <span className="font-bold text-navy text-[15px] leading-none tracking-tight">X</span>
@@ -113,7 +113,7 @@ export default function Nav() {
                 <button
                   key={key}
                   className={cn(
-                    "flex items-center gap-1.5 px-3.5 py-2 rounded-[6px] text-[13px] font-medium tracking-[0.01em] transition-all duration-[180ms] ease-out",
+                    "flex items-center gap-1.5 px-3.5 py-2 rounded-none text-[13px] font-medium tracking-[0.01em] transition-all duration-[180ms] ease-out",
                     isLight
                       ? open === key
                         ? "text-text-primary bg-[#f6f8fa]"
@@ -142,7 +142,7 @@ export default function Nav() {
                   key={label}
                   href={`/${label.toLowerCase()}`}
                   className={cn(
-                    "px-3.5 py-2 rounded-[6px] text-[13px] font-medium tracking-[0.01em] transition-all duration-[180ms] ease-out",
+                    "px-3.5 py-2 rounded-none text-[13px] font-medium tracking-[0.01em] transition-all duration-[180ms] ease-out",
                     isLight
                       ? "text-text-secondary hover:text-text-primary hover:bg-[#f6f8fa]"
                       : "text-white/80 hover:text-white hover:bg-white/8"
@@ -185,7 +185,7 @@ export default function Nav() {
 
             {/* Hamburger */}
             <button
-              className="lg:hidden flex flex-col gap-[5px] p-2 ml-auto rounded-[6px] transition-colors hover:bg-white/10"
+              className="lg:hidden flex flex-col gap-[5px] p-2 ml-auto rounded-none transition-colors hover:bg-white/10"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(!mobileOpen)}

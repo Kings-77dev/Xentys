@@ -42,7 +42,7 @@ const services = [
 
 function ServiceImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="relative w-full lg:w-[420px] flex-shrink-0 h-[280px] rounded-xl overflow-hidden bg-[#15396b]">
+    <div className="relative w-full lg:w-[420px] flex-shrink-0 h-[280px] rounded-none overflow-hidden bg-[#15396b]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt={alt} className="absolute inset-0 w-full h-full object-cover" />
       <div
@@ -112,7 +112,7 @@ export function ServicesRows() {
                   <div className="flex flex-col justify-between flex-1 min-w-0 py-2">
                     <div className="mb-8">
                       {/* Tag — refined */}
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-[4px] text-[11px] font-semibold tracking-[0.04em] mb-4 ${s.tag.className}`}>
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-none text-[11px] font-semibold tracking-[0.04em] mb-4 ${s.tag.className}`}>
                         {s.tag.label}
                       </span>
                       <h3

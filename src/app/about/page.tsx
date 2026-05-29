@@ -35,7 +35,7 @@ export default function AboutPage() {
                 <p>Fifteen years later, 745+ placed professionals later, 250+ client organisations later — that's still exactly what we do.</p>
               </div>
             </div>
-            <div className="aspect-[4/3] bg-off-white rounded-3xl border border-border flex flex-col items-center justify-center gap-3 text-text-muted" aria-hidden="true">
+            <div className="aspect-[4/3] bg-off-white rounded-none border border-border flex flex-col items-center justify-center gap-3 text-text-muted" aria-hidden="true">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
               <span className="text-sm text-center px-8">Photo: Xentys office or team at work</span>
             </div>
@@ -57,8 +57,8 @@ export default function AboutPage() {
               { icon: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z", title: "Named recruiter model", desc: "One consultant from first call to placement. No handoffs, no getting passed around a team." },
               { icon: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z", title: "Honest feedback culture", desc: "Candidates get real assessment. Clients get straight talk on the market. Hard conversations once beat comfortable ones that waste time." },
             ].map(({ icon, title, desc }) => (
-              <div key={title} className="bg-white border border-border rounded-2xl p-8 flex flex-col gap-4">
-                <div className="w-12 h-12 bg-amber/10 rounded-xl flex items-center justify-center text-amber-text">
+              <div key={title} className="bg-white border border-border rounded-none p-8 flex flex-col gap-4">
+                <div className="w-12 h-12 bg-amber/10 rounded-none flex items-center justify-center text-amber-text">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d={icon}/></svg>
                 </div>
                 <h3 className="font-semibold text-xl text-text-primary">{title}</h3>
@@ -82,7 +82,7 @@ export default function AboutPage() {
               { emoji: "🏗️", title: "Construction", desc: "Infrastructure, civil, and building construction — including major project procurement, subcontract management, and supply chain roles." },
               { emoji: "⚓", title: "Offshore & Maritime", desc: "Oil and gas, renewable offshore, and maritime — project buying, category management, and technical procurement for complex asset environments." },
             ].map(({ emoji, title, desc }) => (
-              <div key={title} className="bg-white/5 border border-white/10 rounded-2xl p-8 flex flex-col gap-4">
+              <div key={title} className="bg-white/5 border border-white/10 rounded-none p-8 flex flex-col gap-4">
                 <div className="text-4xl">{emoji}</div>
                 <h3 className="font-semibold text-xl text-white">{title}</h3>
                 <p className="text-base text-white/65">{desc}</p>
@@ -101,7 +101,7 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map(({ i, name, role, years, quote, email }) => (
-              <article key={name} className="bg-off-white border border-border rounded-2xl p-8 flex flex-col items-center text-center gap-3">
+              <article key={name} className="bg-off-white border border-border rounded-none p-8 flex flex-col items-center text-center gap-3">
                 <div className="w-24 h-24 rounded-full bg-navy flex items-center justify-center text-white font-bold text-2xl mb-2">{i}</div>
                 <h3 className="font-semibold text-lg text-text-primary">{name}</h3>
                 <p className="text-sm text-text-muted">{role}</p>
@@ -130,7 +130,7 @@ export default function AboutPage() {
               { title: "You talk to one person, start to finish", desc: "No account managers, no handoffs. One consultant owns the brief and the relationship." },
               { title: "We know procurement, not just recruitment", desc: "We understand category management, NEVI, source-to-pay. That's why our shortlists are different." },
             ].map(({ title, desc }) => (
-              <div key={title} className="bg-white border border-border rounded-2xl p-8 flex flex-col gap-3">
+              <div key={title} className="bg-white border border-border rounded-none p-8 flex flex-col gap-3">
                 <h3 className="font-semibold text-xl text-text-primary">{title}</h3>
                 <p className="text-base text-text-secondary">{desc}</p>
               </div>

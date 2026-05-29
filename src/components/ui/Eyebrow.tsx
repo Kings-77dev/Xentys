@@ -10,7 +10,7 @@ interface EyebrowProps {
 export function Eyebrow({ label, inv, center, className }: EyebrowProps) {
   return (
     <div className={cn("flex flex-col gap-2 mb-4", center && "items-center", className)}>
-      <div className="w-20 h-1.5 bg-amber rounded-full" aria-hidden="true" />
+      <div className="w-20 h-[2px] bg-amber" aria-hidden="true" />
       <span
         className={cn(
           "font-semibold text-xs tracking-[0.48px] uppercase",

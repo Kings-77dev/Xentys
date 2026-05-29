@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cn } from "@/lib/cn";
 
 const base =
-  "inline-flex items-center gap-2 px-5 py-[10px] rounded-[8px] text-[13px] font-semibold tracking-[0.01em] transition-all duration-[200ms] ease-out whitespace-nowrap cursor-pointer select-none";
+  "inline-flex items-center gap-2 px-5 py-[10px] rounded-[2px] text-[13px] font-semibold tracking-[0.01em] transition-all duration-[200ms] ease-out whitespace-nowrap cursor-pointer select-none";
 
 const variantClasses = {
   primary:
