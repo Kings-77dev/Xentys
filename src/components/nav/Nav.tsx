@@ -11,17 +11,17 @@ const hireDropdown: DropdownContent = {
   col1: {
     heading: "Services",
     links: [
-      { href: "/about#services", icon: "briefcase", title: "Permanent Recruitment", desc: "Direct hire of procurement professionals" },
-      { href: "/about#services", icon: "clock", title: "Interim Inkoop", desc: "Flexible procurement specialists on demand" },
-      { href: "/about#services", icon: "users", title: "Detachering", desc: "Professionals on Xentys payroll, at your site" },
-      { href: "/about#services", icon: "star", title: "Executive Search", desc: "Senior and leadership procurement placement" },
+      { href: "/about#services", icon: "briefcase", title: "Permanent Recruitment", desc: "Full-cycle permanent placements" },
+      { href: "/about#services", icon: "clock",     title: "Interim Inkoop",         desc: "Screened professionals within days" },
+      { href: "/about#services", icon: "users",     title: "Detachering",             desc: "Professionals on Xentys payroll" },
+      { href: "/about#services", icon: "star",      title: "Executive Search",        desc: "Senior & confidential placements" },
     ],
   },
   col2: {
     heading: "Resources",
     links: [
-      { href: "/contact", icon: "dollar", title: "Salary Benchmark", desc: "Market rates for procurement roles" },
-      { href: "/contact", icon: "file", title: "Hiring Guide", desc: "How to attract top procurement talent" },
+      { href: "/contact", icon: "dollar", title: "Salary Benchmark", desc: "Procurement salary data by role & sector" },
+      { href: "/contact", icon: "file",   title: "Hiring Guide",     desc: "How to brief, select and onboard" },
     ],
     cta: { href: "/consultation", label: "Request a Consultation →" },
   },
@@ -31,15 +31,15 @@ const roleDropdown: DropdownContent = {
   col1: {
     heading: "Browse & Apply",
     links: [
-      { href: "/vacancies", icon: "briefcase", title: "Vacancies", desc: "Browse all open procurement roles" },
-      { href: "/open-application", icon: "user", title: "Open Application", desc: "Register and we'll represent you proactively" },
+      { href: "/vacancies",         icon: "briefcase", title: "Vacancies",         desc: "Browse open procurement roles" },
+      { href: "/open-application",  icon: "user",      title: "Open Application",  desc: "Register your profile for future roles" },
     ],
   },
   col2: {
     heading: "Resources",
     links: [
-      { href: "/contact", icon: "dollar", title: "Salary Guide", desc: "Know your market value" },
-      { href: "/contact", icon: "book", title: "Career Guide", desc: "Navigate your next move" },
+      { href: "/contact", icon: "dollar", title: "Salary Guide",       desc: "What procurement professionals earn" },
+      { href: "/contact", icon: "book",   title: "Procurement Guide",  desc: "Terminology, concepts and frameworks" },
     ],
     cta: { href: "/open-application", label: "Register your profile →" },
   },
@@ -52,7 +52,6 @@ export default function Nav() {
   const [lang, setLang] = useState<"EN" | "NL">("EN");
   const navRef = useRef<HTMLElement>(null);
 
-  // Close dropdowns on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (!navRef.current?.contains(e.target as Node)) setOpen(null);
@@ -61,45 +60,67 @@ export default function Nav() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Lock body scroll when mobile open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  const navBg = scrolled || open
-    ? "bg-white shadow-sm border-b border-border"
-    : "bg-transparent";
-
-  const textCol = scrolled || open ? "text-text-secondary" : "text-white/85";
-  const logoCol = scrolled || open ? "text-text-primary" : "text-white";
+  const isLight = scrolled || open !== null;
 
   return (
     <>
-      <nav ref={navRef} className={cn("fixed top-0 left-0 right-0 z-40 transition-all duration-200", navBg)} aria-label="Main navigation">
+      <nav
+        ref={navRef}
+        className={cn(
+          "fixed top-0 left-0 right-0 z-40 transition-all duration-[240ms] ease-out",
+          isLight
+            ? "bg-white/95 backdrop-blur-sm border-b border-[#e1e4e8]"
+            : "bg-transparent"
+        )}
+        aria-label="Main navigation"
+      >
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          <div className="flex items-center gap-8 h-20 transition-all duration-200" style={{ height: scrolled ? "64px" : "80px" }}>
-
+          <div
+            className="flex items-center gap-8"
+            style={{ height: scrolled ? "60px" : "72px", transition: "height 240ms ease-out" }}
+          >
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 flex-shrink-0 mr-auto" aria-label="Xentys home">
-              <div className="w-9 h-9 bg-amber rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                  <path d="M10 2L18 6v8l-8 4L2 14V6l8-4z" fill="#0d2b55" />
-                </svg>
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 flex-shrink-0 mr-auto group"
+              aria-label="Xentys home"
+            >
+              {/* Clean lettermark */}
+              <div
+                className="w-8 h-8 bg-amber rounded-[6px] flex items-center justify-center flex-shrink-0 transition-opacity duration-200 group-hover:opacity-90"
+                aria-hidden="true"
+              >
+                <span className="font-bold text-navy text-[15px] leading-none tracking-tight">X</span>
               </div>
-              <span className={cn("font-semibold text-lg tracking-tight transition-colors", logoCol)}>Xentys</span>
+              <span
+                className={cn(
+                  "font-semibold text-[15px] tracking-[-0.02em] transition-colors duration-200",
+                  isLight ? "text-text-primary" : "text-white"
+                )}
+              >
+                Xentys
+              </span>
             </Link>
 
             {/* Desktop links */}
-            <div className="hidden lg:flex items-center gap-1" role="menubar">
+            <div className="hidden lg:flex items-center" role="menubar">
               {(["hire", "role"] as const).map((key) => (
                 <button
                   key={key}
                   className={cn(
-                    "flex items-center gap-1 px-4 py-2 rounded-lg font-semibold text-sm transition-colors",
-                    textCol,
-                    open === key ? (scrolled ? "bg-off-white text-text-primary" : "bg-white/10 text-white") : "hover:bg-white/10",
-                    scrolled && "hover:bg-off-white hover:text-text-primary"
+                    "flex items-center gap-1.5 px-3.5 py-2 rounded-[6px] text-[13px] font-medium tracking-[0.01em] transition-all duration-[180ms] ease-out",
+                    isLight
+                      ? open === key
+                        ? "text-text-primary bg-[#f6f8fa]"
+                        : "text-text-secondary hover:text-text-primary hover:bg-[#f6f8fa]"
+                      : open === key
+                        ? "text-white bg-white/10"
+                        : "text-white/80 hover:text-white hover:bg-white/8"
                   )}
                   onClick={() => setOpen(open === key ? null : key)}
                   aria-expanded={open === key}
@@ -107,51 +128,71 @@ export default function Nav() {
                   role="menuitem"
                 >
                   {key === "hire" ? "I need to hire" : "I want a role"}
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"
-                    className={cn("transition-transform duration-150", open === key && "rotate-180")}>
+                  <svg
+                    width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" strokeWidth="2" aria-hidden="true"
+                    className={cn("transition-transform duration-[180ms]", open === key && "rotate-180")}
+                  >
                     <path d="m6 9 6 6 6-6" />
                   </svg>
                 </button>
               ))}
-              <Link href="/about" className={cn("px-4 py-2 rounded-lg font-semibold text-sm transition-colors", textCol, scrolled ? "hover:bg-off-white hover:text-text-primary" : "hover:bg-white/10")}>About</Link>
-              <Link href="/contact" className={cn("px-4 py-2 rounded-lg font-semibold text-sm transition-colors", textCol, scrolled ? "hover:bg-off-white hover:text-text-primary" : "hover:bg-white/10")}>Contact</Link>
+              {["About", "Contact"].map((label) => (
+                <Link
+                  key={label}
+                  href={`/${label.toLowerCase()}`}
+                  className={cn(
+                    "px-3.5 py-2 rounded-[6px] text-[13px] font-medium tracking-[0.01em] transition-all duration-[180ms] ease-out",
+                    isLight
+                      ? "text-text-secondary hover:text-text-primary hover:bg-[#f6f8fa]"
+                      : "text-white/80 hover:text-white hover:bg-white/8"
+                  )}
+                  role="menuitem"
+                >
+                  {label}
+                </Link>
+              ))}
             </div>
 
-            {/* Lang toggle */}
-            <div className="hidden lg:flex items-center gap-0.5 ml-2" aria-label="Language">
+            {/* Language toggle */}
+            <div className="hidden lg:flex items-center gap-0.5" aria-label="Language">
               {(["EN", "NL"] as const).map((l, i) => (
-                <>
-                  {i > 0 && <span className={cn("text-xs", scrolled ? "text-border" : "text-white/30")} aria-hidden="true">|</span>}
+                <div key={l} className="flex items-center">
+                  {i > 0 && (
+                    <span
+                      className={cn("text-[11px] mx-1", isLight ? "text-border" : "text-white/20")}
+                      aria-hidden="true"
+                    >|</span>
+                  )}
                   <button
-                    key={l}
                     onClick={() => setLang(l)}
                     aria-pressed={lang === l}
                     className={cn(
-                      "px-2 py-1 rounded text-xs font-semibold tracking-widest transition-colors",
+                      "px-2 py-1 rounded text-[11px] font-semibold tracking-[0.06em] transition-all duration-[180ms]",
                       lang === l
-                        ? (scrolled ? "text-text-primary bg-off-white" : "text-white bg-white/10")
-                        : (scrolled ? "text-text-muted hover:text-text-primary" : "text-white/50 hover:text-white")
+                        ? isLight ? "text-text-primary" : "text-white"
+                        : isLight ? "text-text-muted hover:text-text-secondary" : "text-white/40 hover:text-white/70"
                     )}
                   >{l}</button>
-                </>
+                </div>
               ))}
             </div>
 
             {/* CTA */}
             <LinkButton href="/consultation" variant="primary" className="hidden lg:inline-flex flex-shrink-0">
-              Get in touch →
+              Get in touch
             </LinkButton>
 
             {/* Hamburger */}
             <button
-              className="lg:hidden flex flex-col gap-[5px] p-2 ml-auto"
+              className="lg:hidden flex flex-col gap-[5px] p-2 ml-auto rounded-[6px] transition-colors hover:bg-white/10"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(!mobileOpen)}
             >
-              <span className={cn("block w-6 h-0.5 rounded-full transition-transform duration-200", scrolled || mobileOpen ? "bg-text-primary" : "bg-white", mobileOpen && "translate-y-[7px] rotate-45")} />
-              <span className={cn("block w-6 h-0.5 rounded-full transition-opacity duration-200", scrolled || mobileOpen ? "bg-text-primary" : "bg-white", mobileOpen && "opacity-0")} />
-              <span className={cn("block w-6 h-0.5 rounded-full transition-transform duration-200", scrolled || mobileOpen ? "bg-text-primary" : "bg-white", mobileOpen && "-translate-y-[7px] -rotate-45")} />
+              <span className={cn("block w-5 h-[1.5px] rounded-full transition-all duration-200", isLight || mobileOpen ? "bg-text-primary" : "bg-white", mobileOpen && "translate-y-[6.5px] rotate-45")} />
+              <span className={cn("block w-5 h-[1.5px] rounded-full transition-opacity duration-200", isLight || mobileOpen ? "bg-text-primary" : "bg-white", mobileOpen && "opacity-0")} />
+              <span className={cn("block w-5 h-[1.5px] rounded-full transition-all duration-200", isLight || mobileOpen ? "bg-text-primary" : "bg-white", mobileOpen && "-translate-y-[6.5px] -rotate-45")} />
             </button>
           </div>
         </div>
@@ -161,7 +202,6 @@ export default function Nav() {
         <MegaDropdown open={open === "role"} content={roleDropdown} />
       </nav>
 
-      {/* Mobile nav overlay */}
       <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} lang={lang} setLang={setLang} />
     </>
   );

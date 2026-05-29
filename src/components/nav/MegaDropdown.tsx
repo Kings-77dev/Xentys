@@ -21,29 +21,34 @@ export interface DropdownContent { col1: DropdownCol; col2: DropdownCol; }
 
 export function MegaDropdown({ open, content }: { open: boolean; content: DropdownContent }) {
   return (
-    <div className={cn("absolute top-full left-0 right-0 bg-white border-t-[3px] border-amber shadow-xl transition-all duration-150 origin-top",
-      open ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2"
+    <div className={cn(
+      "absolute top-full left-0 right-0 bg-white border-b border-[#e1e4e8] transition-all duration-[240ms] ease-out origin-top",
+      "shadow-[0_8px_24px_rgba(0,0,0,0.07),0_2px_6px_rgba(0,0,0,0.04)]",
+      open ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-1"
     )}>
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] py-12 grid grid-cols-2 gap-12">
+      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] py-10 grid grid-cols-2 gap-12">
         {[content.col1, content.col2].map((col, i) => (
           <div key={i}>
-            <h3 className="text-xs font-semibold tracking-[0.48px] uppercase text-text-muted mb-4">{col.heading}</h3>
-            <div className="flex flex-col gap-1">
+            <h3 className="text-[10px] font-semibold tracking-[0.1em] uppercase text-text-muted mb-3">{col.heading}</h3>
+            <div className="flex flex-col gap-0.5">
               {col.links.map((link) => (
-                <Link key={link.href + link.title} href={link.href}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-off-white transition-colors group">
-                  <div className="w-9 h-9 bg-amber/10 rounded-lg flex items-center justify-center text-amber-text flex-shrink-0">
+                <Link
+                  key={link.href + link.title}
+                  href={link.href}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-[8px] hover:bg-[#f6f8fa] transition-colors duration-[180ms] group"
+                >
+                  <div className="w-8 h-8 bg-[#f6f8fa] group-hover:bg-[#eef0f2] rounded-[6px] flex items-center justify-center text-text-muted flex-shrink-0 transition-colors duration-[180ms]">
                     {icons[link.icon]}
                   </div>
                   <div>
-                    <strong className="block font-semibold text-sm text-text-primary">{link.title}</strong>
-                    <span className="text-xs text-text-muted">{link.desc}</span>
+                    <strong className="block font-semibold text-[13px] text-text-primary leading-tight">{link.title}</strong>
+                    <span className="text-[11px] text-text-muted">{link.desc}</span>
                   </div>
                 </Link>
               ))}
             </div>
             {col.cta && (
-              <div className="mt-6 pt-6 border-t border-border">
+              <div className="mt-5 pt-5 border-t border-[#e1e4e8]">
                 <LinkButton href={col.cta.href} variant="primary">{col.cta.label}</LinkButton>
               </div>
             )}

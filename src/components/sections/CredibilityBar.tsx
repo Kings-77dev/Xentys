@@ -22,7 +22,7 @@ function Counter({ count, suffix, display }: { count: number | null; suffix: str
       if (!entry.isIntersecting || animated.current) return;
       animated.current = true;
       const start = performance.now();
-      const duration = 1200;
+      const duration = 1400;
       const tick = (now: number) => {
         const progress = Math.min((now - start) / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
@@ -45,22 +45,25 @@ function Counter({ count, suffix, display }: { count: number | null; suffix: str
 
 export function CredibilityBar() {
   return (
-    <section className="bg-white" aria-label="Key statistics">
+    <section className="bg-white border-t border-[#f0f2f4]" aria-label="Key statistics">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-        <div className="flex items-center justify-center py-14">
+        <div className="flex items-stretch justify-center">
           {stats.map((s, i) => (
             <div key={s.label} className="flex items-center">
               {i > 0 && (
-                <div className="w-px bg-[#e0e2e5] mx-8 self-stretch" style={{ height: "139px" }} aria-hidden="true" />
+                <div className="w-px self-stretch bg-[#e1e4e8] mx-10 my-12" aria-hidden="true" />
               )}
-              <div className="flex flex-col items-center gap-1 text-center px-4">
+              <div className="flex flex-col items-center gap-1.5 text-center py-14 px-2">
                 <span
-                  className="font-bold text-[36px] text-amber-text"
-                  style={{ letterSpacing: "-0.18px", lineHeight: "44px" }}
+                  className="font-bold text-amber-text block"
+                  style={{ fontSize: "40px", letterSpacing: "-0.03em", lineHeight: 1.1 }}
                 >
                   <Counter count={s.count} suffix={s.suffix} display={s.display} />
                 </span>
-                <span className="text-[16px] text-text-muted leading-6 max-w-[200px]">
+                <span
+                  className="text-text-muted max-w-[180px]"
+                  style={{ fontSize: "13px", lineHeight: 1.4 }}
+                >
                   {s.label}
                 </span>
               </div>
