@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-inter", // stored as --font-inter so it doesn't conflict with the active font
   display: "swap",
 });
 
