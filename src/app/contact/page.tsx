@@ -154,7 +154,7 @@ export default function ContactPage() {
       {/* ── 03 Visit us ──────────────────────────────────── */}
       <section className="bg-white py-16" aria-labelledby="ct-visit-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="grid lg:grid-cols-2 gap-16 items-stretch">
 
             {/* Image-slot card — caption pinned inside the dashed container */}
             <div className="relative w-full border-2 border-dashed border-[#d5d8dd] bg-[#f0f1f3]" style={{ height: 440 }}>
@@ -185,45 +185,52 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Body */}
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Visit us</p>
-              <h2 className="font-bold text-[28px] text-navy mb-4 tracking-tight" id="ct-visit-h">
-                We're people, not just pixels.
-              </h2>
-              <p className="text-[16px] text-text-secondary leading-relaxed mb-8">
-                Come by for a coffee in our building at{" "}
-                <em className="not-italic font-medium text-text-primary">Geestbrugkade 35, Rijswijk</em>.
-                {" "}We're here to help you personally — check the hours below and make an appointment.
-              </p>
+            {/* Body — flex col fills full height, justify-between pins groups */}
+            <div className="flex flex-col justify-between">
 
-              {/* Office card */}
-              <div className="border border-border p-6 mb-6">
-                <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Our office &amp; hours</p>
-                <address className="not-italic text-[14px] text-text-primary font-semibold mb-4">
-                  xentys B.V.<br />
-                  <span className="font-normal text-text-secondary">Geestbrugkade 35, 2281 CX · Rijswijk, Netherlands</span>
-                </address>
-                <div className="flex flex-col gap-2 mb-4 text-[13px]">
-                  <div className="flex justify-between">
-                    <span className="text-text-secondary">Monday – Friday</span>
-                    <strong className="text-text-primary font-semibold">09:00 – 17:00</strong>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-text-secondary">Saturday – Sunday</span>
-                    <strong className="text-text-primary font-semibold">Closed</strong>
-                  </div>
-                </div>
-                <div className={`flex items-start gap-2 text-[12px] px-3 py-2 ${liveStatus.open ? "bg-[#e8f5ee] text-[#166534]" : "bg-off-white text-text-muted"}`}>
-                  <span className={`w-2 h-2 rounded-full flex-shrink-0 mt-0.5 ${liveStatus.open ? "bg-[#22c55e]" : "bg-[#9ca3af]"}`} aria-hidden="true" />
-                  {liveStatus.label}
-                </div>
+              {/* TOP — intro text floats at top */}
+              <div>
+                <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Visit us</p>
+                <h2 className="font-bold text-[28px] text-navy mb-4 tracking-tight" id="ct-visit-h">
+                  We're people, not just pixels.
+                </h2>
+                <p className="text-[16px] text-text-secondary leading-relaxed">
+                  Come by for a coffee at{" "}
+                  <em className="not-italic font-medium text-text-primary">Geestbrugkade 35, Rijswijk</em>.
+                  {" "}A real conversation is always better than an email.
+                </p>
               </div>
 
-              <a href="https://maps.google.com/?q=Geestbrugkade+35,+Rijswijk" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center h-11 px-5 border border-border text-navy font-semibold text-[14px] rounded-[2px] hover:border-[#c9cdd3] hover:bg-off-white transition-all">
-                Get directions →
-              </a>
+              {/* BOTTOM — office card + button anchored to bottom */}
+              <div>
+                <div className="border border-border p-6 mb-6 mt-8">
+                  <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Our office &amp; hours</p>
+                  <address className="not-italic text-[14px] text-text-primary font-semibold mb-4">
+                    xentys B.V.<br />
+                    <span className="font-normal text-text-secondary">Geestbrugkade 35, 2281 CX · Rijswijk, Netherlands</span>
+                  </address>
+                  <div className="flex flex-col gap-2 mb-4 text-[13px]">
+                    <div className="flex justify-between">
+                      <span className="text-text-secondary">Monday – Friday</span>
+                      <strong className="text-text-primary font-semibold">09:00 – 17:00</strong>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-text-secondary">Saturday – Sunday</span>
+                      <strong className="text-text-primary font-semibold">Closed</strong>
+                    </div>
+                  </div>
+                  <div className={`flex items-start gap-2 text-[12px] px-3 py-2 ${liveStatus.open ? "bg-[#e8f5ee] text-[#166534]" : "bg-off-white text-text-muted"}`}>
+                    <span className={`w-2 h-2 rounded-full flex-shrink-0 mt-0.5 ${liveStatus.open ? "bg-[#22c55e]" : "bg-[#9ca3af]"}`} aria-hidden="true" />
+                    {liveStatus.label}
+                  </div>
+                </div>
+
+                <a href="https://maps.google.com/?q=Geestbrugkade+35,+Rijswijk" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center h-11 px-5 border border-border text-navy font-semibold text-[14px] rounded-[2px] hover:border-[#c9cdd3] hover:bg-off-white transition-all">
+                  Get directions →
+                </a>
+              </div>
+
             </div>
           </div>
         </div>
