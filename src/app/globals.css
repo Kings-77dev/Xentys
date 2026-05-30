@@ -6,7 +6,7 @@
    1. Comment out (or delete) the @import line below
    2. Change --font-sans to:  var(--font-inter), system-ui, sans-serif
    ───────────────────────────────────────────────────────────── */
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap');
+/* @import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap'); */
 
 @import "tailwindcss";
 
@@ -51,7 +51,9 @@
   --shadow-xl: 0 20px 32px -8px rgba(0,0,0,0.08), 0 8px 16px -4px rgba(0,0,0,0.04);
 
   /* Active font — change this one line to revert */
-  --font-sans: 'Satoshi', system-ui, sans-serif;
+  /* --font-sans: 'Satoshi', system-ui, sans-serif; */
+    --font-sans: var(--font-inter), system-ui, sans-serif;
+
   /* Inter fallback: --font-sans: var(--font-inter), system-ui, sans-serif; */
 
   /* Transitions — deliberate, cubic ease */

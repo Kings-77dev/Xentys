@@ -92,15 +92,12 @@ export default function Nav() {
               aria-label="Xentys home"
             >
               <Image
-                src="/images/xentys-logo.svg"
+                src={isLight ? "/images/logo-navy.png" : "/images/logo-white.png"}
                 width={112}
                 height={21}
                 alt="Xentys"
                 priority
-                className={cn(
-                  "transition-all duration-[240ms]",
-                  isLight ? "" : "brightness-0 invert"
-                )}
+                className="transition-all duration-[240ms]"
               />
             </Link>
 

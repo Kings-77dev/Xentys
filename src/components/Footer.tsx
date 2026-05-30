@@ -11,11 +11,11 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <Link href="/" aria-label="Xentys home" className="inline-flex items-center w-fit">
               <Image
-                src="/images/xentys-logo.svg"
+                src="/images/logo-white.png"
                 width={100}
                 height={19}
                 alt="Xentys"
-                className="brightness-0 invert opacity-75"
+                className="opacity-75"
               />
             </Link>
             <p className="text-[13px] text-white/50 max-w-[220px] leading-[1.6]">
