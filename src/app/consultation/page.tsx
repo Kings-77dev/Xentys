@@ -379,14 +379,15 @@ export default function ConsultationPage() {
                   {/* Amber timeline line */}
                   <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-amber to-amber/20" aria-hidden="true" />
                   {[
-                    { day: "Step 1", text: "Recruiter calls at your preferred time." },
-                    { day: "Step 2", text: "30-min brief confirmation call." },
-                    { day: "Step 3", text: <><strong className="text-white">3–5 vetted candidates</strong> presented.</> },
+                    { title: "Getting Acquainted",  text: "Recruiter calls at your preferred time." },
+                    { title: "Deep Dive",           text: "30-min brief confirmation call." },
+                    { title: "The Perfect Match",   text: <><strong className="text-white">3–5 vetted candidates</strong> presented.</> },
+                    { title: "Partnering Together", text: "Offer support + onboarding check-ins." },
                   ].map((s) => (
-                    <li key={s.day} className="pl-7 relative">
+                    <li key={s.title} className="pl-7 relative">
                       <span className="absolute left-0 top-1 w-4 h-4 rounded-full bg-amber border-[3px] border-navy shadow-[0_0_0_2px_#ffa300] block" aria-hidden="true" />
-                      <span className="text-[11px] font-semibold tracking-[0.12em] uppercase text-amber block mb-0.5">{s.day}</span>
-                      <p className="text-[13px] text-white/65 leading-relaxed m-0">{s.text}</p>
+                      <span className="text-[13px] font-semibold text-white block mb-0.5">{s.title}</span>
+                      <p className="text-[12px] text-white/60 leading-relaxed m-0">{s.text}</p>
                     </li>
                   ))}
                 </ol>
