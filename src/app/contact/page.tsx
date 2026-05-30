@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 
 // ── Live office status ───────────────────────────────────────
 function useLiveStatus() {
@@ -12,7 +13,7 @@ function useLiveStatus() {
   useEffect(() => {
     const compute = () => {
       const now  = new Date();
-      const day  = now.getDay();           // 0=Sun … 6=Sat
+      const day  = now.getDay();
       const h    = now.getHours() + now.getMinutes() / 60;
       const open = day >= 1 && day <= 5 && h >= 9 && h < 17;
 
@@ -52,68 +53,49 @@ const faqs = [
   { q: "Do you work outside the Netherlands?", a: "We're based in The Hague and specialise in the Dutch procurement market — every consultant knows this market in detail. For roles elsewhere in the Benelux or Germany, ask us first; we'll tell you honestly whether we're the right partner." },
 ];
 
-const subjects = [
-  { id: "hiring",      label: "I have a hiring need" },
-  { id: "role",        label: "Looking for a role" },
-  { id: "partnership", label: "Partnership" },
-  { id: "other",       label: "Other" },
-];
-
-const subjectLabels: Record<string, string> = {
-  hiring: "hiring need", role: "role search", partnership: "partnership enquiry", other: "message",
-};
+const inputCls = "h-11 w-full px-[13px] border border-[#e0e2e5] rounded-[2px] text-[14px] text-text-primary placeholder:text-[#9a9da3] focus:border-navy focus:shadow-[0_0_0_3px_rgba(13,43,85,0.10)] focus:outline-none transition-all";
 
 export default function ContactPage() {
   const liveStatus  = useLiveStatus();
   const [openFaq,   setOpenFaq]   = useState<number | null>(0);
-  const [subject,   setSubject]   = useState<string | null>(null);
   const [formState, setFormState] = useState<"idle" | "sent">("idle");
   const [firstName, setFirstName] = useState("");
-  const [subjectErr, setSubjectErr] = useState(false);
-  const [shakeChips, setShakeChips] = useState(false);
+  const [subjectVal, setSubjectVal] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!subject) {
-      setSubjectErr(true);
-      setShakeChips(true);
-      setTimeout(() => setShakeChips(false), 300);
-      return;
-    }
     const form = e.currentTarget;
-    const name = (form.elements.namedItem("name") as HTMLInputElement).value.trim();
+    const name    = (form.elements.namedItem("name") as HTMLInputElement).value.trim();
+    const subject = (form.elements.namedItem("subject") as HTMLInputElement).value.trim();
     setFirstName(name.split(/\s+/)[0]);
+    setSubjectVal(subject || "message");
     setFormState("sent");
   };
 
   return (
     <>
-      {/* ── 01 Hero ──────────────────────────────────────── */}
-      <section className="bg-white pt-36 pb-12 border-b border-border" aria-labelledby="ct-heading">
+      {/* ── 01 Hero — matches consultation page pattern exactly ── */}
+      <section className="bg-navy pt-36 pb-16" aria-labelledby="ct-heading">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          {/* Rating */}
-          <div className="flex justify-end mb-8">
-            <div className="flex items-center gap-2 text-[13px]">
-              <strong className="text-text-primary font-semibold">4.9</strong>
-              <span className="text-amber tracking-wide">★★★★★</span>
-              <span className="text-text-muted">47 reviews</span>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-end">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Get in touch</p>
-              <h1 className="font-bold text-navy mb-4" style={{ fontSize: "clamp(36px, 5vw, 56px)", letterSpacing: "-0.028em", lineHeight: 1.06 }} id="ct-heading">
-                Get in touch.
-              </h1>
-              <p className="text-[18px] text-text-secondary leading-relaxed max-w-[500px]">
-                Whether you're looking to hire or find your next role — we're here, and a real person answers.
-              </p>
-            </div>
-            <div className="flex items-center gap-2 px-5 py-3 bg-[#e8f5ee] text-[#166534] text-[13px] font-medium self-start lg:self-end flex-shrink-0">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" width="14" height="14" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-              Response within 1 working day
-            </div>
+          <nav className="flex items-center gap-2 text-[12px] text-white/50 mb-6" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-white/80" aria-current="page">Contact</span>
+          </nav>
+          <Eyebrow label="Get in touch" inv />
+          <h1 className="font-bold text-4xl lg:text-5xl tracking-tight text-white mb-4 max-w-2xl" id="ct-heading">
+            Get in touch.
+          </h1>
+          <p className="text-lg text-white/70 max-w-xl mb-8">
+            Whether you're looking to hire or find your next role — we're here, and a real person answers.
+          </p>
+          <div className="flex flex-wrap gap-5">
+            {["Response within 1 working day", "A real person answers", "Treated with discretion"].map((t) => (
+              <span key={t} className="flex items-center gap-2 text-[13px] text-white/70 font-medium">
+                <span className="w-4 h-4 rounded-full bg-[rgba(35,189,106,0.18)] text-[#5bd08e] text-[11px] font-bold flex items-center justify-center flex-shrink-0">✓</span>
+                {t}
+              </span>
+            ))}
           </div>
         </div>
       </section>
@@ -174,23 +156,26 @@ export default function ContactPage() {
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-            {/* Photo + caption */}
-            <div className="flex flex-col gap-5">
-              {/* Photo placeholder */}
-              <div className="w-full bg-off-white border border-border flex flex-col items-center justify-center gap-3 text-text-muted" style={{ height: 440 }} aria-hidden="true">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3">
+            {/* Image-slot card — caption pinned inside the dashed container */}
+            <div className="relative w-full border-2 border-dashed border-[#d5d8dd] bg-[#f0f1f3]" style={{ height: 440 }}>
+              {/* Drop zone — upper portion */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3" style={{ paddingBottom: 160 }}>
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.2" aria-hidden="true">
                   <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
                 </svg>
-                <span className="text-sm text-center px-8">Drop a team photo of the xentys people</span>
+                <p className="text-[15px] text-text-muted text-center px-8">Drop a team photo of the xentys people</p>
+                <p className="text-[13px] text-text-muted">
+                  or <span className="text-navy underline underline-offset-2 cursor-pointer">browse files</span>
+                </p>
               </div>
 
-              {/* Caption */}
-              <div className="p-5 bg-off-white border border-border">
+              {/* Caption card — pinned to bottom inside the container */}
+              <div className="absolute bottom-0 left-0 right-0 bg-white p-5 border-t border-[#d5d8dd]">
                 <p className="font-semibold text-[15px] text-navy mb-1">Speak to a real person.</p>
                 <p className="text-[13px] text-text-secondary mb-4 leading-relaxed">
                   Adriaan, 15 years in procurement, leads our personal service. He'll find the right path and call you himself.
                 </p>
-                <div className="flex gap-3">
+                <div className="flex gap-4">
                   <a href="tel:+31702400414" className="flex items-center gap-2 text-[13px] font-semibold text-navy hover:text-amber-text transition-colors">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
                     Call Adriaan directly
@@ -229,7 +214,6 @@ export default function ContactPage() {
                     <strong className="text-text-primary font-semibold">Closed</strong>
                   </div>
                 </div>
-                {/* Live status */}
                 <div className={`flex items-start gap-2 text-[12px] px-3 py-2 ${liveStatus.open ? "bg-[#e8f5ee] text-[#166534]" : "bg-off-white text-text-muted"}`}>
                   <span className={`w-2 h-2 rounded-full flex-shrink-0 mt-0.5 ${liveStatus.open ? "bg-[#22c55e]" : "bg-[#9ca3af]"}`} aria-hidden="true" />
                   {liveStatus.label}
@@ -257,52 +241,34 @@ export default function ContactPage() {
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-2">
                     <label htmlFor="name" className="text-[11px] font-semibold text-text-secondary">Full name <span className="text-[#b42318]">*</span></label>
-                    <input id="name" name="name" type="text" required autoComplete="name" placeholder="Your full name"
-                      className="h-11 px-[13px] border border-[#e0e2e5] rounded-[2px] text-[14px] text-text-primary placeholder:text-[#9a9da3] focus:border-navy focus:shadow-[0_0_0_3px_rgba(13,43,85,0.10)] focus:outline-none transition-all" />
+                    <input id="name" name="name" type="text" required autoComplete="name" placeholder="Your full name" className={inputCls} />
                   </div>
                   <div className="flex flex-col gap-2">
                     <label htmlFor="email" className="text-[11px] font-semibold text-text-secondary">Email address <span className="text-[#b42318]">*</span></label>
-                    <input id="email" name="email" type="email" required autoComplete="email" placeholder="your@email.com"
-                      className="h-11 px-[13px] border border-[#e0e2e5] rounded-[2px] text-[14px] text-text-primary placeholder:text-[#9a9da3] focus:border-navy focus:shadow-[0_0_0_3px_rgba(13,43,85,0.10)] focus:outline-none transition-all" />
+                    <input id="email" name="email" type="email" required autoComplete="email" placeholder="your@email.com" className={inputCls} />
                   </div>
                 </div>
 
-                {/* Subject chips */}
+                {/* What is this about — text input */}
                 <div className="flex flex-col gap-2">
-                  <span className="text-[11px] font-semibold text-text-secondary">What is this about? <span className="text-[#b42318]">*</span></span>
-                  <div
-                    className="flex flex-wrap gap-2"
-                    role="radiogroup"
-                    aria-label="What is this about?"
-                    style={{ animation: shakeChips ? "tile-shake 0.22s ease" : "none" }}
-                  >
-                    {subjects.map(({ id, label }) => {
-                      const active = subject === id;
-                      return (
-                        <button
-                          key={id}
-                          type="button"
-                          role="radio"
-                          aria-checked={active}
-                          onClick={() => { setSubject(id); setSubjectErr(false); }}
-                          className={`h-9 px-4 text-[13px] font-medium border transition-all duration-150 cursor-pointer ${
-                            active
-                              ? "border-amber bg-amber/10 text-navy font-semibold"
-                              : `border-[#e0e2e5] text-text-secondary hover:border-[#c9cdd3] ${subjectErr ? "border-[#b42318]" : ""}`
-                          }`}
-                        >
-                          {label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {subjectErr && <span className="text-[12px] text-[#b42318] font-medium">Please choose a subject.</span>}
+                  <label htmlFor="subject" className="text-[11px] font-semibold text-text-secondary">
+                    What is this about? <span className="text-[#b42318]">*</span>
+                  </label>
+                  <input
+                    id="subject"
+                    name="subject"
+                    type="text"
+                    required
+                    placeholder="e.g. hiring need, partnership, general question"
+                    className={inputCls}
+                  />
                 </div>
 
                 {/* Message */}
                 <div className="flex flex-col gap-2">
                   <label htmlFor="message" className="text-[11px] font-semibold text-text-secondary">Message <span className="text-[#b42318]">*</span></label>
-                  <textarea id="message" name="message" required rows={5} placeholder="Tell us what you need — urgency, must-haves, blockers…"
+                  <textarea id="message" name="message" required rows={5}
+                    placeholder="Tell us what you need — urgency, must-haves, blockers…"
                     className="px-[13px] py-3 border border-[#e0e2e5] rounded-[2px] text-[14px] text-text-primary placeholder:text-[#9a9da3] focus:border-navy focus:shadow-[0_0_0_3px_rgba(13,43,85,0.10)] focus:outline-none transition-all resize-y" />
                 </div>
 
@@ -319,7 +285,7 @@ export default function ContactPage() {
               </form>
             ) : (
               <div className="flex flex-col gap-4">
-                <div className="w-12 h-12 bg-[#e8f5ee] rounded-none flex items-center justify-center text-[#11723a]">
+                <div className="w-12 h-12 bg-[#e8f5ee] flex items-center justify-center text-[#11723a]">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M20 6 9 17l-5-5"/>
                   </svg>
@@ -328,7 +294,7 @@ export default function ContactPage() {
                   {firstName ? `Thanks, ${firstName} — message sent.` : "Message sent — thank you."}
                 </h3>
                 <p className="text-[15px] text-text-secondary leading-relaxed">
-                  We've got your {subjectLabels[subject!] ?? "message"} and a specialist will reply within{" "}
+                  We've got your {subjectVal} and a specialist will reply within{" "}
                   <strong className="text-text-primary">1 working day</strong>.
                   {" "}Prefer to talk now? Call <strong className="text-text-primary">070 240 04 14</strong>.
                 </p>
@@ -338,7 +304,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── 05 FAQ ───────────────────────────────────────── */}
+      {/* ── 05 FAQ — individual white cards ──────────────── */}
       <section className="bg-white py-16" id="faq" aria-labelledby="ct-faq-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
           <div className="flex items-start justify-between gap-8 mb-10 flex-wrap">
@@ -353,39 +319,37 @@ export default function ContactPage() {
             </Link>
           </div>
 
-          <ul className="flex flex-col border-t border-border">
+          {/* Individual white cards with full border + gap */}
+          <div className="flex flex-col gap-3">
             {faqs.map((faq, i) => {
               const isOpen = openFaq === i;
               return (
-                <li key={i} className="border-b border-border">
+                <div key={i} className="bg-white border border-border">
                   <button
                     type="button"
                     aria-expanded={isOpen}
                     onClick={() => setOpenFaq(isOpen ? null : i)}
-                    className="w-full flex items-center justify-between gap-4 py-5 text-left group"
+                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
                   >
-                    <div className="flex items-center gap-4">
-                      <span className="text-[11px] font-bold text-amber flex-shrink-0 w-5 text-center">{i + 1}</span>
-                      <span className={`text-[15px] font-semibold transition-colors ${isOpen ? "text-navy" : "text-text-primary group-hover:text-navy"}`}>
-                        {faq.q}
-                      </span>
-                    </div>
+                    <span className={`text-[15px] font-semibold transition-colors ${isOpen ? "text-navy" : "text-text-primary"}`}>
+                      {faq.q}
+                    </span>
                     <span
-                      className={`text-[20px] text-text-muted flex-shrink-0 transition-transform duration-200 ${isOpen ? "rotate-45 text-navy" : ""}`}
+                      className={`text-[20px] flex-shrink-0 transition-colors duration-200 ${isOpen ? "text-amber-text" : "text-amber-text"}`}
                       aria-hidden="true"
                     >
                       +
                     </span>
                   </button>
                   {isOpen && (
-                    <div className="pb-5 pl-9">
-                      <p className="text-[15px] text-text-secondary leading-relaxed">{faq.a}</p>
+                    <div className="px-6 pb-5 border-t border-border">
+                      <p className="text-[14px] text-text-secondary leading-relaxed pt-4">{faq.a}</p>
                     </div>
                   )}
-                </li>
+                </div>
               );
             })}
-          </ul>
+          </div>
         </div>
       </section>
 
@@ -418,18 +382,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
-      {/* Shake keyframe (reused from modals) */}
-      <style>{`
-        @keyframes tile-shake {
-          0%   { transform: translateX(0); }
-          20%  { transform: translateX(-4px); }
-          40%  { transform: translateX(4px); }
-          60%  { transform: translateX(-3px); }
-          80%  { transform: translateX(3px); }
-          100% { transform: translateX(0); }
-        }
-      `}</style>
     </>
   );
 }
