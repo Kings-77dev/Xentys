@@ -53,11 +53,13 @@ function Checkbox({
           {label}
         </span>
       </div>
+      {/* COUNT BADGE — commented out. To restore, remove the wrapping comment tags.
       {count !== undefined && (
         <span className={`text-[11px] px-1.5 py-0.5 ${checked ? "bg-amber/15 text-amber-text font-semibold" : "bg-off-white text-text-muted"}`}>
           {count}
         </span>
       )}
+      */}
     </label>
   );
 }
@@ -254,13 +256,13 @@ export default function VacanciesPage() {
                 {/* Placement type — synced with tabs */}
                 <div className="pb-5 mb-5 border-b border-border">
                   <h3 className="text-[11px] font-semibold tracking-[0.06em] uppercase text-text-muted mb-3">Placement type</h3>
+                  {/* RESTORE COUNT: add  count={typeCount(value)}  to Checkbox below */}
                   <div className="flex flex-col gap-1">
                     {placementTypes.map(({ value, label }) => (
                       <Checkbox
                         key={value}
                         id={`type-${value}`}
                         label={label}
-                        count={typeCount(value)}
                         checked={types.includes(value)}
                         onChange={() => toggleType(value)}
                       />
@@ -271,13 +273,13 @@ export default function VacanciesPage() {
                 {/* Sector */}
                 <div className="pb-5 mb-5 border-b border-border">
                   <h3 className="text-[11px] font-semibold tracking-[0.06em] uppercase text-text-muted mb-3">Sector</h3>
+                  {/* RESTORE COUNT: add  count={sectorCount(value)}  to Checkbox below */}
                   <div className="flex flex-col gap-1">
                     {sectors.map(({ value, label }) => (
                       <Checkbox
                         key={value}
                         id={`sec-${value}`}
                         label={label}
-                        count={sectorCount(value)}
                         checked={sects.includes(value)}
                         onChange={() => toggle(sects, value, setSects)}
                       />
@@ -288,13 +290,13 @@ export default function VacanciesPage() {
                 {/* Location */}
                 <div>
                   <h3 className="text-[11px] font-semibold tracking-[0.06em] uppercase text-text-muted mb-3">Location</h3>
+                  {/* RESTORE COUNT: add  count={locationCount(value)}  to Checkbox below */}
                   <div className="flex flex-col gap-1">
                     {locations.map(({ value, label }) => (
                       <Checkbox
                         key={value}
                         id={`loc-${value}`}
                         label={label}
-                        count={locationCount(value)}
                         checked={locs.includes(value)}
                         onChange={() => toggle(locs, value, setLocs)}
                       />
