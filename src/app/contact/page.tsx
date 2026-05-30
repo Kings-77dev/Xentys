@@ -202,8 +202,9 @@ export default function ContactPage() {
               </div>
 
               {/* BOTTOM — office card + button anchored to bottom */}
-              <div>
-                <div className="border border-border p-6 mb-6 mt-8">
+              {/* mt-6 lg:mt-0 — spacing on mobile only; justify-between handles desktop */}
+              <div className="mt-6 lg:mt-0">
+                <div className="border border-border p-6 mb-6">
                   <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Our office &amp; hours</p>
                   <address className="not-italic text-[14px] text-text-primary font-semibold mb-4">
                     xentys B.V.<br />
