@@ -170,8 +170,8 @@ export default function ContactPage() {
                 </p>
               </div>
 
-              {/* Caption — pinned to bottom inside the dashed container */}
-              <div className="absolute bottom-0 left-0 right-0 bg-white p-5 border-t border-[#d5d8dd]">
+              {/* Caption — inset floating card inside the dashed container */}
+              <div className="absolute bottom-3 left-3 right-3 bg-white p-5 border border-[#d5d8dd] shadow-sm">
                 <p className="font-semibold text-[15px] text-navy mb-1">Speak to a real person.</p>
                 <p className="text-[13px] text-text-secondary mb-4 leading-relaxed">
                   Adriaan, 15 years in procurement, leads our personal service. He'll find the right path and call you himself.
