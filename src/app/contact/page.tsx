@@ -154,11 +154,12 @@ export default function ContactPage() {
       {/* ── 03 Visit us ──────────────────────────────────── */}
       <section className="bg-white py-16" aria-labelledby="ct-visit-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          <div className="grid lg:grid-cols-2 gap-16 items-stretch">
+          {/* Natural heights — no items-stretch, matches reference layout */}
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-            {/* Image-slot card — caption pinned inside the dashed container */}
+            {/* Left: image-slot — exact reference structure */}
             <div className="relative w-full border-2 border-dashed border-[#d5d8dd] bg-[#f0f1f3]" style={{ height: 440 }}>
-              {/* Drop zone — upper portion */}
+              {/* Drop zone */}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3" style={{ paddingBottom: 160 }}>
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.2" aria-hidden="true">
                   <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
@@ -169,7 +170,7 @@ export default function ContactPage() {
                 </p>
               </div>
 
-              {/* Caption card — pinned to bottom inside the container */}
+              {/* Caption — pinned to bottom inside the dashed container */}
               <div className="absolute bottom-0 left-0 right-0 bg-white p-5 border-t border-[#d5d8dd]">
                 <p className="font-semibold text-[15px] text-navy mb-1">Speak to a real person.</p>
                 <p className="text-[13px] text-text-secondary mb-4 leading-relaxed">
@@ -185,53 +186,46 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Body — flex col fills full height, justify-between pins groups */}
-            <div className="flex flex-col justify-between">
+            {/* Right: body — natural flow, exact reference structure */}
+            <div>
+              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Visit us</p>
+              <h2 className="font-bold text-[28px] text-navy mb-4 tracking-tight" id="ct-visit-h">
+                We're people, not just pixels.
+              </h2>
+              <p className="text-[16px] text-text-secondary leading-relaxed mb-8">
+                Come by for a coffee in our building at{" "}
+                <em className="not-italic font-medium text-text-primary">Geestbrugkade 35, Rijswijk</em>.
+                {" "}We're here to help you personally — check the hours below and make an appointment.
+              </p>
 
-              {/* TOP — intro text floats at top */}
-              <div>
-                <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Visit us</p>
-                <h2 className="font-bold text-[28px] text-navy mb-4 tracking-tight" id="ct-visit-h">
-                  We're people, not just pixels.
-                </h2>
-                <p className="text-[16px] text-text-secondary leading-relaxed">
-                  Come by for a coffee at{" "}
-                  <em className="not-italic font-medium text-text-primary">Geestbrugkade 35, Rijswijk</em>.
-                  {" "}A real conversation is always better than an email.
-                </p>
-              </div>
-
-              {/* BOTTOM — office card + button anchored to bottom */}
-              {/* mt-6 lg:mt-0 — spacing on mobile only; justify-between handles desktop */}
-              <div className="mt-6 lg:mt-0">
-                <div className="border border-border p-6 mb-6">
-                  <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Our office &amp; hours</p>
-                  <address className="not-italic text-[14px] text-text-primary font-semibold mb-4">
-                    xentys B.V.<br />
-                    <span className="font-normal text-text-secondary">Geestbrugkade 35, 2281 CX · Rijswijk, Netherlands</span>
-                  </address>
-                  <div className="flex flex-col gap-2 mb-4 text-[13px]">
-                    <div className="flex justify-between">
-                      <span className="text-text-secondary">Monday – Friday</span>
-                      <strong className="text-text-primary font-semibold">09:00 – 17:00</strong>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-text-secondary">Saturday – Sunday</span>
-                      <strong className="text-text-primary font-semibold">Closed</strong>
-                    </div>
+              {/* Office card */}
+              <div className="border border-border p-6 mb-6">
+                <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Our office &amp; hours</p>
+                <address className="not-italic text-[14px] text-text-primary font-semibold mb-4">
+                  xentys B.V.<br />
+                  <span className="font-normal text-text-secondary">Geestbrugkade 35, 2281 CX · Rijswijk, Netherlands</span>
+                </address>
+                <div className="flex flex-col gap-2 mb-4 text-[13px]">
+                  <div className="flex justify-between">
+                    <span className="text-text-secondary">Monday – Friday</span>
+                    <strong className="text-text-primary font-semibold">09:00 – 17:00</strong>
                   </div>
-                  <div className={`flex items-start gap-2 text-[12px] px-3 py-2 ${liveStatus.open ? "bg-[#e8f5ee] text-[#166534]" : "bg-off-white text-text-muted"}`}>
-                    <span className={`w-2 h-2 rounded-full flex-shrink-0 mt-0.5 ${liveStatus.open ? "bg-[#22c55e]" : "bg-[#9ca3af]"}`} aria-hidden="true" />
-                    {liveStatus.label}
+                  <div className="flex justify-between">
+                    <span className="text-text-secondary">Saturday – Sunday</span>
+                    <strong className="text-text-primary font-semibold">Closed</strong>
                   </div>
                 </div>
-
-                <a href="https://maps.google.com/?q=Geestbrugkade+35,+Rijswijk" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center h-11 px-5 border border-border text-navy font-semibold text-[14px] rounded-[2px] hover:border-[#c9cdd3] hover:bg-off-white transition-all">
-                  Get directions →
-                </a>
+                {/* Live status — plain, no background tint */}
+                <div className="flex items-start gap-2 text-[12px] text-text-muted pt-3 border-t border-border">
+                  <span className={`w-2 h-2 rounded-full flex-shrink-0 mt-0.5 ${liveStatus.open ? "bg-[#22c55e]" : "bg-[#9ca3af]"}`} aria-hidden="true" />
+                  {liveStatus.label}
+                </div>
               </div>
 
+              <a href="https://maps.google.com/?q=Geestbrugkade+35,+Rijswijk" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center h-11 px-5 border border-border text-navy font-semibold text-[14px] rounded-[2px] hover:border-[#c9cdd3] hover:bg-off-white transition-all">
+                Get directions →
+              </a>
             </div>
           </div>
         </div>
