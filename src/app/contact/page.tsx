@@ -232,75 +232,72 @@ export default function ContactPage() {
       {/* ── 04 General enquiry form ──────────────────────── */}
       <section className="bg-off-white py-16" aria-labelledby="ct-enq-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          <div className="max-w-[700px]">
+          <div className="mb-8">
             <h2 className="font-bold text-[28px] text-navy mb-2 tracking-tight" id="ct-enq-h">General enquiry</h2>
-            <p className="text-[15px] text-text-secondary mb-8">For press, partnerships, or anything else.</p>
+            <p className="text-[15px] text-text-secondary">For press, partnerships, or anything else.</p>
+          </div>
 
-            {formState === "idle" ? (
-              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
-                <div className="grid sm:grid-cols-2 gap-5">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className="text-[11px] font-semibold text-text-secondary">Full name <span className="text-[#b42318]">*</span></label>
-                    <input id="name" name="name" type="text" required autoComplete="name" placeholder="Your full name" className={inputCls} />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="email" className="text-[11px] font-semibold text-text-secondary">Email address <span className="text-[#b42318]">*</span></label>
-                    <input id="email" name="email" type="email" required autoComplete="email" placeholder="your@email.com" className={inputCls} />
-                  </div>
+          {formState === "idle" ? (
+            <form onSubmit={handleSubmit} noValidate>
+              {/* Full-width 2-col grid — matches reference ct-form__grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4 mb-4">
+                {/* Row 1: name + email */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="name" className="text-[11px] font-semibold text-text-secondary">Full name <span className="text-[#b42318]">*</span></label>
+                  <input id="name" name="name" type="text" required autoComplete="name" placeholder="Your full name" className={inputCls} />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="email" className="text-[11px] font-semibold text-text-secondary">Email address <span className="text-[#b42318]">*</span></label>
+                  <input id="email" name="email" type="email" required autoComplete="email" placeholder="your@email.com" className={inputCls} />
                 </div>
 
-                {/* What is this about — text input */}
-                <div className="flex flex-col gap-2">
+                {/* Row 2: subject — full width */}
+                <div className="flex flex-col gap-2 sm:col-span-2">
                   <label htmlFor="subject" className="text-[11px] font-semibold text-text-secondary">
                     What is this about? <span className="text-[#b42318]">*</span>
                   </label>
-                  <input
-                    id="subject"
-                    name="subject"
-                    type="text"
-                    required
+                  <input id="subject" name="subject" type="text" required
                     placeholder="e.g. hiring need, partnership, general question"
-                    className={inputCls}
-                  />
+                    className={inputCls} />
                 </div>
 
-                {/* Message */}
-                <div className="flex flex-col gap-2">
+                {/* Row 3: message — full width */}
+                <div className="flex flex-col gap-2 sm:col-span-2">
                   <label htmlFor="message" className="text-[11px] font-semibold text-text-secondary">Message <span className="text-[#b42318]">*</span></label>
                   <textarea id="message" name="message" required rows={5}
                     placeholder="Tell us what you need — urgency, must-haves, blockers…"
-                    className="px-[13px] py-3 border border-[#e0e2e5] rounded-[2px] text-[14px] text-text-primary placeholder:text-[#9a9da3] focus:border-navy focus:shadow-[0_0_0_3px_rgba(13,43,85,0.10)] focus:outline-none transition-all resize-y" />
+                    className="w-full px-[13px] py-3 border border-[#e0e2e5] rounded-[2px] text-[14px] text-text-primary placeholder:text-[#9a9da3] focus:border-navy focus:shadow-[0_0_0_3px_rgba(13,43,85,0.10)] focus:outline-none transition-all resize-y" />
                 </div>
-
-                <div className="flex items-center justify-between gap-4 flex-wrap">
-                  <button type="submit"
-                    className="h-11 px-6 bg-navy text-white font-semibold text-[14px] rounded-[2px] hover:bg-[#0a2347] transition-colors">
-                    Send message →
-                  </button>
-                  <span className="text-[13px] text-text-muted">
-                    Or call us:{" "}
-                    <a href="tel:+31702400414" className="text-navy font-semibold hover:text-amber-text transition-colors">070 240 04 14</a>
-                  </span>
-                </div>
-              </form>
-            ) : (
-              <div className="flex flex-col gap-4">
-                <div className="w-12 h-12 bg-[#e8f5ee] flex items-center justify-center text-[#11723a]">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M20 6 9 17l-5-5"/>
-                  </svg>
-                </div>
-                <h3 className="font-bold text-[22px] text-navy">
-                  {firstName ? `Thanks, ${firstName} — message sent.` : "Message sent — thank you."}
-                </h3>
-                <p className="text-[15px] text-text-secondary leading-relaxed">
-                  We've got your {subjectVal} and a specialist will reply within{" "}
-                  <strong className="text-text-primary">1 working day</strong>.
-                  {" "}Prefer to talk now? Call <strong className="text-text-primary">070 240 04 14</strong>.
-                </p>
               </div>
-            )}
-          </div>
+
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <button type="submit"
+                  className="h-11 px-6 bg-navy text-white font-semibold text-[14px] rounded-[2px] hover:bg-[#0a2347] transition-colors">
+                  Send message →
+                </button>
+                <span className="text-[13px] text-text-muted">
+                  Or call us:{" "}
+                  <a href="tel:+31702400414" className="text-navy font-semibold hover:text-amber-text transition-colors">070 240 04 14</a>
+                </span>
+              </div>
+            </form>
+          ) : (
+            <div className="flex flex-col gap-4">
+              <div className="w-12 h-12 bg-[#e8f5ee] flex items-center justify-center text-[#11723a]">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5"/>
+                </svg>
+              </div>
+              <h3 className="font-bold text-[22px] text-navy">
+                {firstName ? `Thanks, ${firstName} — message sent.` : "Message sent — thank you."}
+              </h3>
+              <p className="text-[15px] text-text-secondary leading-relaxed">
+                We've got your {subjectVal} and a specialist will reply within{" "}
+                <strong className="text-text-primary">1 working day</strong>.
+                {" "}Prefer to talk now? Call <strong className="text-text-primary">070 240 04 14</strong>.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
