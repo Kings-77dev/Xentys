@@ -132,10 +132,10 @@ export function ConsultationModal({ open, onClose }: Props) {
   const { firstName, roleText, typeLabel } = successData;
 
   return (
-    <Modal open={open} onClose={handleClose} title="Request a Consultation" className="p-0 max-w-[700px]">
+    <Modal open={open} onClose={handleClose} title="Request a Consultation" className="p-0 overflow-hidden" hideCloseButton>
       <div className="flex flex-col max-h-[92vh] overflow-hidden">
 
-        {/* ── Top bar ───────────────────────────────────── */}
+        {/* ── Top bar — matches reference HTML exactly ───── */}
         <div
           className="flex items-center justify-between flex-shrink-0"
           style={{ padding: "13px 22px", background: "#f8f8f7", borderBottom: "1px solid #e0e2e5" }}
@@ -148,6 +148,19 @@ export function ConsultationModal({ open, onClose }: Props) {
             />
             Response within 1 working day
           </span>
+          {/* Close button inside top bar, per reference */}
+          <button
+            type="button"
+            onClick={handleClose}
+            aria-label="Close"
+            style={{ width: 32, height: 32, border: 0, background: "transparent", borderRadius: 0, color: "#6b6f75", display: "inline-flex", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0, transition: "background 0.15s ease, color 0.15s ease" }}
+            onMouseEnter={(e) => { const t = e.currentTarget as HTMLElement; t.style.background="#f0f1f3"; t.style.color="#0d2b55"; }}
+            onMouseLeave={(e) => { const t = e.currentTarget as HTMLElement; t.style.background="transparent"; t.style.color="#6b6f75"; }}
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
         </div>
 
         {/* ── Scrollable body ───────────────────────────── */}
