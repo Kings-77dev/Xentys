@@ -15,7 +15,7 @@ export function VacancyCard({ vacancy }: VacancyCardProps) {
         Drop your standalone X mark file at: public/images/xentys-mark.svg
       */}
       <img
-        src="/images/xentys-mark.svg"
+        src="/images/logo-x-navy.png"
         alt=""
         aria-hidden="true"
         className="absolute pointer-events-none select-none"
