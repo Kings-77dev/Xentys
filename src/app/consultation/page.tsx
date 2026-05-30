@@ -379,9 +379,9 @@ export default function ConsultationPage() {
                   {/* Amber timeline line */}
                   <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-amber to-amber/20" aria-hidden="true" />
                   {[
-                    { day: "Day 1",   text: "Recruiter calls at your preferred time." },
-                    { day: "~Day 2",  text: "30-min brief confirmation call." },
-                    { day: "~Day 10", text: <><strong className="text-white">3–5 vetted candidates</strong> presented.</> },
+                    { day: "Step 1", text: "Recruiter calls at your preferred time." },
+                    { day: "Step 2", text: "30-min brief confirmation call." },
+                    { day: "Step 3", text: <><strong className="text-white">3–5 vetted candidates</strong> presented.</> },
                   ].map((s) => (
                     <li key={s.day} className="pl-7 relative">
                       <span className="absolute left-0 top-1 w-4 h-4 rounded-full bg-amber border-[3px] border-navy shadow-[0_0_0_2px_#ffa300] block" aria-hidden="true" />
