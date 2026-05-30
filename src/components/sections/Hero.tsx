@@ -86,7 +86,7 @@ export function Hero() {
             className="flex flex-col justify-center px-6 py-4 rounded-[2px] bg-amber min-w-[248px] h-[76px] transition-all duration-[200ms] ease-out hover:bg-[#e8970a] hover:shadow-[0_8px_20px_rgba(255,163,0,0.25)] active:bg-[#d4850a] text-left"
           >
             <span className="font-semibold text-navy text-[15px] leading-tight">
-              I'm looking for a buyer
+              I&apos;m looking for a buyer
             </span>
             <span className="text-navy/70 text-[13px] mt-0.5">
               Request a Consultation →

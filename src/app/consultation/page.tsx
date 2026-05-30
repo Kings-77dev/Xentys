@@ -40,7 +40,7 @@ const selectCls = `${inputCls} appearance-none cursor-pointer bg-[url("data:imag
 export default function ConsultationPage() {
   const [state, setState]       = useState<FormState>("idle");
   const [placement, setPlacement] = useState<PlacementType>(null);
-  const [fileName, setFileName] = useState("No file chosen · PDF / DOCX, max 5 MB");
+  const [fileName, setFileName] = useState("No file chosen · PDF / DOCX, max 2 GB");
   const [successName, setSuccessName] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 

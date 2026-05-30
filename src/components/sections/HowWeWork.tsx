@@ -158,7 +158,7 @@ export function HowWeWork() {
         <div className="flex justify-center" style={{ marginTop: "32px" }}>
           <Link
             href="/consultation"
-            className="inline-flex items-center justify-center h-11 px-7 bg-amber rounded-[2px] text-[13px] font-semibold text-[#071935] hover:opacity-90 transition-opacity"
+            className="inline-flex items-center justify-center min-w-[248px] h-[76px] px-7 bg-amber rounded-[2px] text-[13px] font-semibold text-[#071935] hover:opacity-90 transition-opacity"
           >
             Request a Consultation →
           </Link>
