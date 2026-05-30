@@ -38,13 +38,13 @@ export function MobileNav({ open, onClose, lang, setLang }: MobileNavProps) {
       open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
     )}>
       <div className="px-6 pt-24 pb-8 flex flex-col gap-2">
-        <Accordion label="I need to hire">
+        <Accordion label="For Employers">
           {["Permanent Recruitment", "Interim Inkoop", "Detachering", "Executive Search"].map((s) => (
             <Link key={s} href="/about#services" onClick={onClose}
               className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">{s}</Link>
           ))}
         </Accordion>
-        <Accordion label="I want a role">
+        <Accordion label="For Candidates">
           <Link href="/vacancies" onClick={onClose} className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Browse Vacancies</Link>
           <Link href="/open-application" onClick={onClose} className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Open Application</Link>
         </Accordion>

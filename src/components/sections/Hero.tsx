@@ -1,5 +1,8 @@
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ConsultationModal } from "./ConsultationModal";
 
 const trustItems = [
   "15+ years specialist focus",
@@ -8,7 +11,9 @@ const trustItems = [
 ];
 
 export function Hero() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
+    <>
     <section className="relative overflow-hidden" aria-labelledby="hero-heading">
       {/* Photo background */}
       <div className="absolute inset-0 z-0">
@@ -75,9 +80,10 @@ export function Hero() {
 
         {/* Door CTAs — 8px radius, no pill */}
         <div className="flex flex-wrap gap-3 mb-14">
-          <Link
-            href="/consultation"
-            className="flex flex-col justify-center px-6 py-4 rounded-[2px] bg-amber min-w-[248px] h-[76px] transition-all duration-[200ms] ease-out hover:bg-[#e8970a] hover:shadow-[0_8px_20px_rgba(255,163,0,0.25)] active:bg-[#d4850a]"
+          <button
+            type="button"
+            onClick={() => setModalOpen(true)}
+            className="flex flex-col justify-center px-6 py-4 rounded-[2px] bg-amber min-w-[248px] h-[76px] transition-all duration-[200ms] ease-out hover:bg-[#e8970a] hover:shadow-[0_8px_20px_rgba(255,163,0,0.25)] active:bg-[#d4850a] text-left"
           >
             <span className="font-semibold text-navy text-[15px] leading-tight">
               I'm looking for a buyer
@@ -85,7 +91,7 @@ export function Hero() {
             <span className="text-navy/70 text-[13px] mt-0.5">
               Request a Consultation →
             </span>
-          </Link>
+          </button>
 
           <Link
             href="/vacancies"
@@ -118,5 +124,8 @@ export function Hero() {
         </div>
       </div>
     </section>
+
+    <ConsultationModal open={modalOpen} onClose={() => setModalOpen(false)} />
+    </>
   );
 }

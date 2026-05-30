@@ -121,7 +121,7 @@ export default function Nav() {
                   aria-haspopup="true"
                   role="menuitem"
                 >
-                  {key === "hire" ? "I need to hire" : "I want a role"}
+                  {key === "hire" ? "For Employers" : "For Candidates"}
                   <svg
                     width="12" height="12" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" strokeWidth="2" aria-hidden="true"
