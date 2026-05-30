@@ -1,143 +1,372 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
+import Link from "next/link";
 import { VacancyCard } from "@/components/cards/VacancyCard";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { LinkButton } from "@/components/ui/Button";
-import { vacancies, type PlacementType, type Sector, type Location } from "@/data/vacancies";
+import { JobAlertStrip } from "@/components/sections/JobAlertStrip";
+import { vacancies, type PlacementType } from "@/data/vacancies";
+
+const PAGE_SIZE = 6;
+
+type SortKey = "recent" | "salary-high" | "salary-low";
 
 const placementTypes: { value: PlacementType; label: string }[] = [
-  { value: "permanent", label: "Permanent" },
-  { value: "interim", label: "Interim" },
+  { value: "permanent",  label: "Permanent" },
+  { value: "interim",    label: "Interim" },
   { value: "secondment", label: "Secondment" },
 ];
 const sectors = [
-  { value: "industrie", label: "Industry" },
-  { value: "bouw", label: "Construction" },
-  { value: "offshore", label: "Offshore" },
-  { value: "energie", label: "Energy" },
-  { value: "scheepsbouw", label: "Shipbuilding" },
+  { value: "industrie",  label: "Industry" },
+  { value: "bouw",       label: "Construction" },
+  { value: "offshore",   label: "Offshore" },
+  { value: "energie",    label: "Energy" },
+  { value: "scheepsbouw",label: "Shipbuilding" },
 ];
 const locations = [
-  { value: "rotterdam", label: "Rotterdam" },
-  { value: "amsterdam", label: "Amsterdam" },
-  { value: "den haag", label: "Den Haag" },
-  { value: "amersfoort", label: "Amersfoort" },
-  { value: "ijmuiden", label: "IJmuiden" },
+  { value: "rotterdam",      label: "Rotterdam" },
+  { value: "amsterdam",      label: "Amsterdam" },
+  { value: "den haag",       label: "Den Haag" },
+  { value: "amersfoort",     label: "Amersfoort" },
+  { value: "ijmuiden",       label: "IJmuiden" },
 ];
 
-function Checkbox({ id, label, checked, onChange }: { id: string; label: string; checked: boolean; onChange: () => void }) {
+// Pre-compute counts from full dataset
+const typeCount = (type: PlacementType) => vacancies.filter(v => v.type === type).length;
+const sectorCount = (s: string) => vacancies.filter(v => v.sector === s).length;
+const locationCount = (l: string) => vacancies.filter(v => v.locationKey === l).length;
+
+function Checkbox({
+  id, label, count, checked, onChange,
+}: { id: string; label: string; count?: number; checked: boolean; onChange: () => void }) {
   return (
-    <label htmlFor={id} className="flex items-center gap-2 cursor-pointer group">
-      <div className={`w-4.5 h-4.5 rounded border-[1.5px] flex items-center justify-center flex-shrink-0 transition-colors ${checked ? "bg-amber border-amber" : "border-border"}`}>
-        {checked && <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#0d2b55" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
-        <input id={id} type="checkbox" className="sr-only" checked={checked} onChange={onChange} />
+    <label htmlFor={id} className="flex items-center justify-between cursor-pointer group py-1">
+      <div className="flex items-center gap-2">
+        <div className={`w-[16px] h-[16px] border-[1.5px] flex items-center justify-center flex-shrink-0 transition-colors ${checked ? "bg-amber border-amber" : "border-border group-hover:border-[#c9cdd3]"}`}>
+          {checked && (
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2 5l2.5 2.5L8 3" stroke="#0d2b55" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          )}
+          <input id={id} type="checkbox" className="sr-only" checked={checked} onChange={onChange} />
+        </div>
+        <span className={`text-[13px] transition-colors ${checked ? "text-text-primary font-medium" : "text-text-secondary group-hover:text-text-primary"}`}>
+          {label}
+        </span>
       </div>
-      <span className="text-sm text-text-secondary group-hover:text-text-primary transition-colors">{label}</span>
+      {count !== undefined && (
+        <span className={`text-[11px] px-1.5 py-0.5 ${checked ? "bg-amber/15 text-amber-text font-semibold" : "bg-off-white text-text-muted"}`}>
+          {count}
+        </span>
+      )}
     </label>
   );
 }
 
 export default function VacanciesPage() {
-  const [types, setTypes] = useState<PlacementType[]>([]);
-  const [sects, setSects] = useState<string[]>([]);
-  const [locs, setLocs] = useState<string[]>([]);
+  const [search,  setSearch]  = useState("");
+  const [types,   setTypes]   = useState<PlacementType[]>([]);
+  const [sects,   setSects]   = useState<string[]>([]);
+  const [locs,    setLocs]    = useState<string[]>([]);
+  const [sort,    setSort]    = useState<SortKey>("recent");
+  const [shown,   setShown]   = useState(PAGE_SIZE);
+  const [sortOpen, setSortOpen] = useState(false);
 
-  const toggle = <T extends string>(arr: T[], val: T, set: (v: T[]) => void) =>
-    set(arr.includes(val) ? arr.filter((x) => x !== val) : [...arr, val]);
+  // ── Bidirectional: toggle a single type (used by both tabs and checkboxes)
+  const toggleType = useCallback((type: PlacementType) => {
+    setTypes(prev =>
+      prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
+    );
+    setShown(PAGE_SIZE);
+  }, []);
 
-  const filtered = useMemo(() => vacancies.filter((v) =>
-    (!types.length || types.includes(v.type)) &&
-    (!sects.length || sects.includes(v.sector)) &&
-    (!locs.length  || locs.includes(v.locationKey))
-  ), [types, sects, locs]);
+  // ── Tab click: select ONE type exclusively (clears others)
+  const selectTab = useCallback((type: PlacementType | null) => {
+    setTypes(type ? [type] : []);
+    setShown(PAGE_SIZE);
+  }, []);
 
-  const clearAll = () => { setTypes([]); setSects([]); setLocs([]); };
-  const hasFilters = types.length || sects.length || locs.length;
+  const toggle = useCallback(<T extends string>(arr: T[], val: T, set: (v: T[]) => void) => {
+    set(arr.includes(val) ? arr.filter(x => x !== val) : [...arr, val]);
+    setShown(PAGE_SIZE);
+  }, []);
+
+  const clearAll = () => { setTypes([]); setSects([]); setLocs([]); setSearch(""); setShown(PAGE_SIZE); };
+  const hasFilters = types.length || sects.length || locs.length || search;
+
+  // ── Filter + sort
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase().trim();
+    let result = vacancies.filter(v =>
+      (!q || v.title.toLowerCase().includes(q) || v.sector.toLowerCase().includes(q) || v.location.toLowerCase().includes(q)) &&
+      (!types.length  || types.includes(v.type)) &&
+      (!sects.length  || sects.includes(v.sector)) &&
+      (!locs.length   || locs.includes(v.locationKey))
+    );
+    if (sort === "salary-high") result = [...result].reverse();
+    return result;
+  }, [search, types, sects, locs, sort]);
+
+  const visible  = filtered.slice(0, shown);
+  const hasMore  = shown < filtered.length;
+  const activeTab: PlacementType | null = types.length === 1 ? types[0] : null;
+
+  const sortLabels: Record<SortKey, string> = {
+    recent:      "Most recent",
+    "salary-high": "Salary: High to Low",
+    "salary-low":  "Salary: Low to High",
+  };
 
   return (
     <>
-      <section className="bg-navy pt-36 pb-16" aria-labelledby="vac-heading">
+      {/* ── Hero with search ────────────────────────────── */}
+      <section className="bg-navy pt-36 pb-10" aria-labelledby="vac-heading">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
           <Eyebrow label="Open Roles" inv />
-          <h1 className="font-bold text-4xl lg:text-5xl tracking-tight text-white mb-3" id="vac-heading">Procurement vacancies</h1>
-          <p className="text-lg text-white/70">Permanent, interim, and secondment roles across industrial, construction, and offshore sectors.</p>
+          <h1 className="font-bold text-4xl lg:text-5xl tracking-tight text-white mb-3" id="vac-heading">
+            Procurement vacancies
+          </h1>
+          <p className="text-lg text-white/70 mb-8">
+            Permanent, interim, and secondment roles across industrial, construction, and offshore sectors.
+          </p>
+
+          {/* Search bar */}
+          <div className="flex gap-3">
+            <input
+              type="search"
+              value={search}
+              onChange={e => { setSearch(e.target.value); setShown(PAGE_SIZE); }}
+              placeholder="Search roles, skills, sectors..."
+              className="flex-1 h-[52px] px-5 rounded-[2px] border-2 border-transparent bg-white text-[15px] text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber transition-colors"
+            />
+            <button
+              type="button"
+              onClick={() => setShown(PAGE_SIZE)}
+              className="h-[52px] px-7 bg-amber text-navy font-semibold text-[15px] rounded-[2px] hover:bg-[#e89400] transition-colors flex-shrink-0"
+            >
+              Search
+            </button>
+          </div>
         </div>
       </section>
 
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] py-12">
-        <div className="grid lg:grid-cols-[280px_1fr] gap-12 items-start">
+      {/* ── Tab bar ─────────────────────────────────────── */}
+      <div className="bg-white border-b border-border sticky top-[60px] z-20">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+          <div className="flex items-center justify-between gap-6 py-0">
+            {/* Type tabs */}
+            <div className="flex items-center gap-0 overflow-x-auto" role="tablist" aria-label="Filter by placement type">
+              {/* All roles */}
+              <button
+                type="button"
+                role="tab"
+                aria-selected={!activeTab}
+                onClick={() => selectTab(null)}
+                className={`flex items-center gap-2 px-4 h-[48px] text-[13px] font-semibold border-b-2 whitespace-nowrap transition-colors ${
+                  !activeTab
+                    ? "border-navy text-navy"
+                    : "border-transparent text-text-muted hover:text-text-primary"
+                }`}
+              >
+                All roles
+                <span className={`text-[11px] px-1.5 py-0.5 ${!activeTab ? "bg-navy/8 text-navy" : "bg-off-white text-text-muted"}`}>
+                  {filtered.length}
+                </span>
+              </button>
 
-          {/* Filters */}
-          <aside aria-label="Filter vacancies">
-            <div className="bg-white border border-border rounded-none p-8 sticky top-20">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="font-semibold text-lg text-text-primary">Filters</h2>
-                {hasFilters ? (
-                  <button onClick={clearAll} className="text-sm text-amber-text underline underline-offset-2">Clear all</button>
-                ) : null}
-              </div>
+              {placementTypes.map(({ value, label }) => {
+                const isActive = activeTab === value;
+                const count = vacancies.filter(v => v.type === value).length;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => selectTab(isActive ? null : value)}
+                    className={`flex items-center gap-2 px-4 h-[48px] text-[13px] font-semibold border-b-2 whitespace-nowrap transition-colors ${
+                      isActive
+                        ? "border-amber text-navy"
+                        : "border-transparent text-text-muted hover:text-text-primary"
+                    }`}
+                  >
+                    {label}
+                    <span className={`text-[11px] px-1.5 py-0.5 ${isActive ? "bg-amber/15 text-amber-text font-semibold" : "bg-off-white text-text-muted"}`}>
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
 
-              <div className="space-y-6">
-                {[
-                  { title: "Placement type", items: placementTypes, arr: types, set: (v: PlacementType) => toggle(types, v, setTypes) },
-                ].map(({ title, items, arr, set }) => (
-                  <div key={title} className="pb-6 border-b border-border">
-                    <h3 className="text-sm font-semibold text-text-secondary mb-3">{title}</h3>
-                    <div className="flex flex-col gap-2">
-                      {items.map((item) => (
-                        <Checkbox key={item.value} id={`type-${item.value}`} label={item.label}
-                          checked={arr.includes(item.value as PlacementType)}
-                          onChange={() => set(item.value as PlacementType)} />
-                      ))}
-                    </div>
-                  </div>
-                ))}
+            {/* Sort + count */}
+            <div className="flex items-center gap-4 flex-shrink-0">
+              <span className="text-[12px] text-text-muted hidden sm:block">
+                <strong className="text-text-primary">{filtered.length}</strong> {filtered.length === 1 ? "vacancy" : "vacancies"}
+              </span>
 
-                <div className="pb-6 border-b border-border">
-                  <h3 className="text-sm font-semibold text-text-secondary mb-3">Sector</h3>
-                  <div className="flex flex-col gap-2">
-                    {sectors.map((s) => (
-                      <Checkbox key={s.value} id={`sec-${s.value}`} label={s.label}
-                        checked={sects.includes(s.value)}
-                        onChange={() => toggle(sects, s.value, setSects)} />
+              {/* Sort dropdown */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setSortOpen(o => !o)}
+                  className="flex items-center gap-2 text-[13px] text-text-secondary hover:text-text-primary border border-border px-3 h-[34px] transition-colors"
+                >
+                  Sort: {sortLabels[sort]}
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                {sortOpen && (
+                  <div className="absolute right-0 top-full mt-1 bg-white border border-border z-10 shadow-md w-[180px]">
+                    {(Object.entries(sortLabels) as [SortKey, string][]).map(([key, label]) => (
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() => { setSort(key); setSortOpen(false); }}
+                        className={`w-full text-left px-4 py-2.5 text-[13px] hover:bg-off-white transition-colors ${sort === key ? "text-navy font-semibold" : "text-text-secondary"}`}
+                      >
+                        {label}
+                      </button>
                     ))}
                   </div>
-                </div>
-
-                <div>
-                  <h3 className="text-sm font-semibold text-text-secondary mb-3">Location</h3>
-                  <div className="flex flex-col gap-2">
-                    {locations.map((l) => (
-                      <Checkbox key={l.value} id={`loc-${l.value}`} label={l.label}
-                        checked={locs.includes(l.value)}
-                        onChange={() => toggle(locs, l.value, setLocs)} />
-                    ))}
-                  </div>
-                </div>
+                )}
               </div>
             </div>
-          </aside>
-
-          {/* Results */}
-          <div>
-            <p className="text-base text-text-secondary mb-6">
-              <strong className="text-text-primary">{filtered.length}</strong> {filtered.length === 1 ? "vacancy" : "vacancies"} found
-            </p>
-
-            {filtered.length > 0 ? (
-              <div className="grid sm:grid-cols-2 gap-6">
-                {filtered.map((v) => <VacancyCard key={v.slug} vacancy={v} />)}
-              </div>
-            ) : (
-              <div className="text-center py-16 px-6 bg-off-white rounded-none border border-border">
-                <h2 className="font-semibold text-xl text-text-primary mb-3">No matches right now</h2>
-                <p className="text-base text-text-secondary max-w-md mx-auto mb-6">We have new roles daily. Register your profile and we'll reach out when something fits.</p>
-                <LinkButton href="/open-application" variant="primary">Register your profile →</LinkButton>
-              </div>
-            )}
           </div>
         </div>
       </div>
+
+      {/* ── Main body ───────────────────────────────────── */}
+      <div className="bg-off-white py-10">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+          <div className="grid lg:grid-cols-[260px_1fr] gap-8 items-start">
+
+            {/* ── Sidebar ──────────────────────────────── */}
+            <aside aria-label="Deep filter vacancies">
+              <div className="bg-white border border-border p-6 sticky top-[108px]">
+                <div className="flex items-center justify-between mb-5">
+                  <h2 className="font-semibold text-[14px] text-text-primary">Filters</h2>
+                  {hasFilters && (
+                    <button onClick={clearAll} className="text-[12px] text-amber-text hover:text-navy transition-colors">
+                      Clear all
+                    </button>
+                  )}
+                </div>
+
+                {/* Placement type — synced with tabs */}
+                <div className="pb-5 mb-5 border-b border-border">
+                  <h3 className="text-[11px] font-semibold tracking-[0.06em] uppercase text-text-muted mb-3">Placement type</h3>
+                  <div className="flex flex-col gap-1">
+                    {placementTypes.map(({ value, label }) => (
+                      <Checkbox
+                        key={value}
+                        id={`type-${value}`}
+                        label={label}
+                        count={typeCount(value)}
+                        checked={types.includes(value)}
+                        onChange={() => toggleType(value)}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Sector */}
+                <div className="pb-5 mb-5 border-b border-border">
+                  <h3 className="text-[11px] font-semibold tracking-[0.06em] uppercase text-text-muted mb-3">Sector</h3>
+                  <div className="flex flex-col gap-1">
+                    {sectors.map(({ value, label }) => (
+                      <Checkbox
+                        key={value}
+                        id={`sec-${value}`}
+                        label={label}
+                        count={sectorCount(value)}
+                        checked={sects.includes(value)}
+                        onChange={() => toggle(sects, value, setSects)}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Location */}
+                <div>
+                  <h3 className="text-[11px] font-semibold tracking-[0.06em] uppercase text-text-muted mb-3">Location</h3>
+                  <div className="flex flex-col gap-1">
+                    {locations.map(({ value, label }) => (
+                      <Checkbox
+                        key={value}
+                        id={`loc-${value}`}
+                        label={label}
+                        count={locationCount(value)}
+                        checked={locs.includes(value)}
+                        onChange={() => toggle(locs, value, setLocs)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </aside>
+
+            {/* ── Cards + load more ────────────────────── */}
+            <div>
+              {visible.length > 0 ? (
+                <>
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    {visible.map(v => <VacancyCard key={v.slug} vacancy={v} />)}
+                  </div>
+
+                  {/* Load more */}
+                  {hasMore && (
+                    <div className="flex flex-col items-center gap-2 mt-10">
+                      <button
+                        type="button"
+                        onClick={() => setShown(s => s + PAGE_SIZE)}
+                        className="h-12 px-8 border-2 border-navy text-navy font-semibold text-[14px] rounded-[2px] hover:bg-navy hover:text-white transition-all duration-[200ms]"
+                      >
+                        Load more vacancies
+                      </button>
+                      <span className="text-[12px] text-text-muted">
+                        Showing {visible.length} of {filtered.length}
+                      </span>
+                    </div>
+                  )}
+                </>
+              ) : (
+                /* Empty state */
+                <div className="text-center py-16 px-6 bg-white border border-border">
+                  <h2 className="font-semibold text-xl text-text-primary mb-3">No matches right now</h2>
+                  <p className="text-base text-text-secondary max-w-md mx-auto mb-6">
+                    We add new roles daily. Register your profile and we'll reach out when something fits.
+                  </p>
+                  <Link
+                    href="/open-application"
+                    className="inline-flex h-11 px-6 bg-amber text-navy font-semibold text-[14px] rounded-[2px] items-center hover:bg-[#e89400] transition-colors"
+                  >
+                    Register your profile →
+                  </Link>
+                </div>
+              )}
+
+              {/* ── Open Application CTA ─────────────────── */}
+              <div className="mt-12 bg-navy p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                <div>
+                  <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber mb-2">Not seeing the right role?</p>
+                  <h2 className="font-bold text-[22px] text-white mb-1">Open Application</h2>
+                  <p className="text-[14px] text-white/65 max-w-[440px]">
+                    Register your profile and we'll represent you proactively — to clients before a vacancy even goes live.
+                  </p>
+                </div>
+                <Link
+                  href="/open-application"
+                  className="flex-shrink-0 inline-flex h-12 px-7 bg-amber text-navy font-semibold text-[14px] rounded-[2px] items-center hover:bg-[#e89400] transition-colors whitespace-nowrap"
+                >
+                  Register your profile →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Newsletter ──────────────────────────────────── */}
+      <JobAlertStrip />
     </>
   );
 }
