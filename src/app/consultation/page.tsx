@@ -1,29 +1,78 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { LinkButton } from "@/components/ui/Button";
 
+type PlacementType = "permanent" | "interim" | "secondment" | null;
 type FormState = "idle" | "confirmed";
 
+const tiles = [
+  { id: "permanent"  as const, label: "Permanent hire",  sub: "Fixed-fee, 3-month replacement guarantee.",               tagLabel: "Permanent",  tagClass: "bg-[#f0fdf4] text-[#166534]" },
+  { id: "interim"    as const, label: "Interim cover",   sub: "Screened interim on ZZP or payroll, deployed in 5–10 days.", tagLabel: "Interim",    tagClass: "bg-[#fffbeb] text-[#92400e]" },
+  { id: "secondment" as const, label: "Secondment",      sub: "Procurement professional on xentys payroll, embedded.",  tagLabel: "Secondment", tagClass: "bg-[#eff6ff] text-[#1e40af]" },
+];
+
+function SectionHead({ num, title }: { num: number; title: string }) {
+  return (
+    <h2 className="flex items-center gap-3 font-semibold text-[18px] text-navy mb-5 mt-8 pt-7 border-t border-border first:mt-0 first:pt-0 first:border-t-0">
+      <span className="w-6 h-6 rounded-full bg-amber text-navy text-[12px] font-bold flex items-center justify-center flex-shrink-0">
+        {num}
+      </span>
+      {title}
+    </h2>
+  );
+}
+
+function Field({ id, label, required, children }: { id?: string; label: string; required?: boolean; children: React.ReactNode }) {
+  return (
+    <div className="flex flex-col gap-2">
+      <label htmlFor={id} className="text-[11px] font-semibold text-text-secondary">
+        {label}{required && <span className="text-[#b42318] ml-0.5">*</span>}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+const inputCls = "h-11 w-full px-[13px] border border-[#e0e2e5] rounded-[2px] text-[14px] text-text-primary placeholder:text-[#9a9da3] focus:border-navy focus:shadow-[0_0_0_3px_rgba(13,43,85,0.10)] focus:outline-none transition-all";
+const selectCls = `${inputCls} appearance-none cursor-pointer bg-[url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6f75' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")] bg-no-repeat bg-[right_12px_center]`;
+
 export default function ConsultationPage() {
-  const [state, setState] = useState<FormState>("idle");
+  const [state, setState]       = useState<FormState>("idle");
+  const [placement, setPlacement] = useState<PlacementType>(null);
+  const [fileName, setFileName] = useState("No file chosen · PDF / DOCX, max 5 MB");
+  const [successName, setSuccessName] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const name = (form.elements.namedItem("name") as HTMLInputElement)?.value.trim();
+    setSuccessName(name.split(/\s+/)[0]);
+    setState("confirmed");
+  };
 
   return (
     <>
+      {/* ── Hero ───────────────────────────────────────── */}
       <section className="bg-navy pt-36 pb-16" aria-labelledby="consult-heading">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber/15 rounded-none text-amber text-xs font-semibold tracking-widest uppercase mb-6">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.4a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            For hiring managers
-          </div>
+          <nav className="flex items-center gap-2 text-[12px] text-white/50 mb-6" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-white/80" aria-current="page">Request a Consultation</span>
+          </nav>
+          <Eyebrow label="Full brief · ~5 minutes" inv />
           <h1 className="font-bold text-4xl lg:text-5xl tracking-tight text-white mb-4 max-w-2xl" id="consult-heading">
-            Tell us what you need. We'll take it from there.
+            Request a Consultation
           </h1>
-          <p className="text-lg text-white/70 max-w-xl mb-10">Submit your brief below. A consultant will call you within one working day — no obligation, no pushy follow-up.</p>
-          <div className="flex flex-wrap gap-6 text-sm text-white/70">
-            {["Fixed fee, agreed upfront", "One named recruiter throughout", "1 working day response"].map((t) => (
-              <span key={t} className="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffa300" strokeWidth="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <p className="text-lg text-white/70 max-w-xl mb-8">
+            Share the role brief in detail and a sector specialist will call you within 1 working day to confirm fit, walk through the process, and start the search.
+          </p>
+          <div className="flex flex-wrap gap-5">
+            {["Response within 1 working day", "Treated with discretion", "No spam, no automated emails"].map((t) => (
+              <span key={t} className="flex items-center gap-2 text-[13px] text-white/70 font-medium">
+                <span className="w-4 h-4 rounded-full bg-[rgba(35,189,106,0.18)] text-[#5bd08e] text-[11px] font-bold flex items-center justify-center flex-shrink-0">✓</span>
                 {t}
               </span>
             ))}
@@ -31,114 +80,325 @@ export default function ConsultationPage() {
         </div>
       </section>
 
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] py-16">
-        <div className="grid lg:grid-cols-[1fr_380px] gap-16 items-start">
+      {/* ── Body ───────────────────────────────────────── */}
+      <div className="bg-off-white py-16">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+          <div className="grid lg:grid-cols-[1fr_360px] gap-12 items-start">
 
-          {/* Form */}
-          <div>
-            {state === "idle" ? (
-              <div className="bg-white border border-border rounded-none p-12">
-                <h2 className="font-semibold text-2xl text-text-primary mb-2">Your brief</h2>
-                <p className="text-base text-text-secondary mb-8">Takes about 2 minutes. The more context you give, the better our first conversation will be.</p>
-                <form className="flex flex-col gap-6" onSubmit={(e) => { e.preventDefault(); setState("confirmed"); }}>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {[{ id: "c-name", label: "Your name", ph: "Thomas van der Berg", auto: "name" }, { id: "c-co", label: "Company", ph: "Acme Industrial BV", auto: "organization" }].map((f) => (
-                      <div key={f.id} className="flex flex-col gap-2">
-                        <label htmlFor={f.id} className="text-sm font-semibold text-text-primary">{f.label} <span className="text-red-500">*</span></label>
-                        <input id={f.id} required autoComplete={f.auto} placeholder={f.ph} className="h-12 px-4 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {[{ id: "c-title", label: "Your job title", ph: "Procurement Director", auto: "organization-title" }, { id: "c-email", label: "Work email", ph: "thomas@acme.nl", auto: "email", type: "email" }].map((f) => (
-                      <div key={f.id} className="flex flex-col gap-2">
-                        <label htmlFor={f.id} className="text-sm font-semibold text-text-primary">{f.label} <span className="text-red-500">*</span></label>
-                        <input id={f.id} type={f.type ?? "text"} required autoComplete={f.auto} placeholder={f.ph} className="h-12 px-4 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="c-phone" className="text-sm font-semibold text-text-primary">Phone <span className="text-red-500">*</span></label>
-                    <input id="c-phone" type="tel" required autoComplete="tel" placeholder="+31 6 …" className="h-12 px-4 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="c-role" className="text-sm font-semibold text-text-primary">Role to fill <span className="text-red-500">*</span></label>
-                    <input id="c-role" required placeholder="e.g. Senior Buyer, Category Manager, CPO" className="h-12 px-4 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors" />
-                  </div>
-                  <fieldset>
-                    <legend className="text-sm font-semibold text-text-primary mb-3">Placement type <span className="text-red-500">*</span></legend>
-                    <div className="flex flex-wrap gap-4">
-                      {["Permanent", "Interim", "Secondment", "Executive Search"].map((t) => (
-                        <label key={t} className="flex items-center gap-2 cursor-pointer">
-                          <input type="radio" name="placement" value={t.toLowerCase()} required className="accent-amber" />
-                          <span className="text-sm text-text-secondary">{t}</span>
-                        </label>
-                      ))}
+            {/* ── Main form ────────────────────────────── */}
+            <div className="bg-white border border-border rounded-none p-10">
+
+              {state === "idle" ? (
+                <>
+                  {/* Step 1 — Type tiles */}
+                  <div className="mb-7">
+                    <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-amber-text mb-3">
+                      Step 1 · Choose the type of hire
+                    </p>
+                    <div className="grid grid-cols-3 gap-3">
+                      {tiles.map((t) => {
+                        const active = placement === t.id;
+                        return (
+                          <button
+                            key={t.id}
+                            type="button"
+                            onClick={() => setPlacement(t.id)}
+                            className="text-left p-[18px] border transition-all duration-150 cursor-pointer bg-white"
+                            style={{
+                              borderColor: active ? "#ffa300" : "#e0e2e5",
+                              borderWidth: active ? 2 : 1,
+                              boxShadow: active ? "0 0 0 3px rgba(255,163,0,0.14)" : "none",
+                              minHeight: 140,
+                            }}
+                            aria-pressed={active}
+                          >
+                            {/* Check mark */}
+                            <span
+                              className="w-5 h-5 rounded-full border-2 flex items-center justify-center mb-3 transition-all duration-150"
+                              style={{ borderColor: active ? "#ffa300" : "#c7cace", background: active ? "#ffa300" : "#fff" }}
+                              aria-hidden="true"
+                            >
+                              {active && <span className="w-2.5 h-2.5 rounded-full bg-white block" />}
+                            </span>
+                            <span className={`text-[11px] font-semibold px-2 py-0.5 mb-2 inline-block ${t.tagClass}`}>
+                              {t.tagLabel}
+                            </span>
+                            <h3 className="font-bold text-[16px] text-navy mb-1">{t.label}</h3>
+                            <p className="text-[12.5px] text-text-secondary leading-snug">{t.sub}</p>
+                          </button>
+                        );
+                      })}
                     </div>
-                  </fieldset>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="c-timeline" className="text-sm font-semibold text-text-primary">Timeline <span className="text-red-500">*</span></label>
-                    <select id="c-timeline" required className="h-12 px-4 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors appearance-none bg-white"
-                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: "no-repeat", backgroundPosition: "right 16px center" }}>
-                      <option value="">When do you need this person?</option>
-                      <option>As soon as possible</option>
-                      <option>Within 1 month</option>
-                      <option>Within 3 months</option>
-                      <option>Planning ahead</option>
-                    </select>
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="c-notes" className="text-sm font-semibold text-text-primary">Additional context <span className="font-normal text-text-muted">(optional)</span></label>
-                    <textarea id="c-notes" rows={4} className="px-4 py-3 rounded-[2px] border-[1.5px] border-border focus:border-amber focus:outline-none text-sm transition-colors resize-y" placeholder="Sector, team size, seniority, any context that'll help us prepare for the call…" />
-                  </div>
-                  <button type="submit" className="w-full h-12 bg-amber text-navy font-semibold rounded-[2px] hover:bg-[#e8970a] transition-all duration-[200ms]">Submit brief →</button>
-                  <p className="text-xs text-text-muted text-center">Your details are handled in accordance with our <a href="#" className="underline underline-offset-2 text-amber-text">privacy policy</a>.</p>
-                </form>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-4 p-12 bg-off-white rounded-none border border-border">
-                <div className="w-14 h-14 bg-amber/10 rounded-none flex items-center justify-center text-amber-text">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                </div>
-                <h2 className="font-semibold text-2xl text-text-primary">We'll call you within 1 working day</h2>
-                <p className="text-base text-text-secondary">One of our consultants will send you a confirmation email with their direct contact details. No waiting rooms, no support tickets.</p>
-                <LinkButton href="/about" variant="ghost" className="self-start">Meet the team →</LinkButton>
-              </div>
-            )}
-          </div>
 
-          {/* Sidebar */}
-          <aside className="flex flex-col gap-6 sticky top-20" aria-label="What happens next">
-            <div className="bg-navy rounded-none p-8">
-              <h2 className="font-semibold text-lg text-white mb-6">What happens next</h2>
-              {[
-                { n: "1", t: "We call you within 1 working day", d: "No automated emails. A real consultant calls you directly." },
-                { n: "2", t: "We discuss your brief in detail", d: "20–30 minutes to understand the role, team, and what good looks like." },
-                { n: "3", t: "We begin search with your approval", d: "We only proceed when you're comfortable. No surprises, no hidden commitments." },
-              ].map(({ n, t, d }) => (
-                <div key={n} className="flex gap-4 items-start mb-5 last:mb-0">
-                  <div className="w-7 h-7 rounded-full bg-amber flex items-center justify-center text-navy font-semibold text-xs flex-shrink-0">{n}</div>
-                  <div><strong className="block font-semibold text-sm text-white mb-1">{t}</strong><span className="text-sm text-white/65">{d}</span></div>
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-0" noValidate>
+
+                    {/* Step 2 — The role */}
+                    <SectionHead num={2} title="The role" />
+                    <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+                      <div className="col-span-2">
+                        <Field id="role" label="Role title" required>
+                          <input id="role" name="role" required placeholder="e.g. Strategic Buyer, Category Manager" className={inputCls} />
+                        </Field>
+                      </div>
+                      <Field id="sector" label="Sector" required>
+                        <select id="sector" name="sector" required className={selectCls}>
+                          <option value="">Choose a sector…</option>
+                          <option>Industry &amp; Manufacturing</option>
+                          <option>Construction &amp; Infrastructure</option>
+                          <option>Offshore &amp; Energy</option>
+                          <option>Other</option>
+                        </select>
+                      </Field>
+                      <Field id="seniority" label="Seniority">
+                        <select id="seniority" name="seniority" className={selectCls}>
+                          <option value="">Choose…</option>
+                          <option>Medior (3–6 years)</option>
+                          <option>Senior (6–10 years)</option>
+                          <option>Lead / Manager (10+ years)</option>
+                          <option>Executive / CPO</option>
+                        </select>
+                      </Field>
+                      <Field id="location" label="Location / city">
+                        <input id="location" name="location" placeholder="e.g. Rotterdam, hybrid" className={inputCls} />
+                      </Field>
+                      <Field id="start" label="Start date / urgency">
+                        <select id="start" name="start" className={selectCls}>
+                          <option value="">Choose…</option>
+                          <option>ASAP</option>
+                          <option>Within 1 month</option>
+                          <option>1–3 months</option>
+                          <option>Flexible</option>
+                        </select>
+                      </Field>
+
+                      {/* Conditional: permanent */}
+                      {placement === "permanent" && (
+                        <>
+                          <Field id="salary" label="Annual salary range">
+                            <input id="salary" name="salary" placeholder="e.g. €65,000 – €80,000" className={inputCls} />
+                          </Field>
+                          <Field id="hours" label="Hours per week">
+                            <select id="hours" name="hours" className={selectCls}>
+                              <option value="">Choose…</option>
+                              <option>32 h</option><option>36 h</option><option>40 h</option>
+                            </select>
+                          </Field>
+                        </>
+                      )}
+
+                      {/* Conditional: interim / secondment */}
+                      {(placement === "interim" || placement === "secondment") && (
+                        <>
+                          <Field id="rate" label="Day-rate budget">
+                            <input id="rate" name="rate" placeholder="e.g. €85 – €110 / day" className={inputCls} />
+                          </Field>
+                          <Field id="duration" label="Duration (months)">
+                            <select id="duration" name="duration" className={selectCls}>
+                              <option value="">Choose…</option>
+                              <option>1–3 months</option><option>3–6 months</option>
+                              <option>6–12 months</option><option>12+ months</option>
+                            </select>
+                          </Field>
+                        </>
+                      )}
+
+                      <div className="col-span-2">
+                        <Field id="context" label="Role context, must-haves, dealbreakers">
+                          <textarea id="context" name="context" rows={4}
+                            placeholder="Team dynamics, why hiring (replacement / growth / project), critical experience, dealbreakers…"
+                            className={`${inputCls} h-auto py-3 resize-y`}
+                          />
+                        </Field>
+                      </div>
+                      <div className="col-span-2">
+                        <Field label="Attach an existing JD (optional)">
+                          <div
+                            onClick={() => fileRef.current?.click()}
+                            className="h-11 border border-[#e0e2e5] flex items-center px-[13px] gap-3 cursor-pointer hover:border-[#c7cace] transition-colors"
+                          >
+                            <input ref={fileRef} type="file" name="jd" accept=".pdf,.doc,.docx" className="sr-only"
+                              onChange={(e) => setFileName(e.target.files?.[0]?.name ?? "No file chosen · PDF / DOCX, max 5 MB")} />
+                            <span className="text-[13px] text-text-muted">📎 Choose file</span>
+                            <span className="text-[13px] text-text-muted">{fileName}</span>
+                          </div>
+                        </Field>
+                      </div>
+                    </div>
+
+                    {/* Step 3 — About you */}
+                    <SectionHead num={3} title="About you" />
+                    <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+                      <Field id="name" label="Full name" required>
+                        <input id="name" name="name" required autoComplete="name" className={inputCls} />
+                      </Field>
+                      <Field id="company" label="Company" required>
+                        <input id="company" name="company" required autoComplete="organization" className={inputCls} />
+                      </Field>
+                      <Field id="email" label="Work email" required>
+                        <input id="email" name="email" type="email" required autoComplete="email" className={inputCls} />
+                      </Field>
+                      <Field id="phone" label="Phone" required>
+                        <input id="phone" name="phone" type="tel" required autoComplete="tel" placeholder="+31 …" className={inputCls} />
+                      </Field>
+                      <div className="col-span-2">
+                        <Field id="jobtitle" label="Your role at the company">
+                          <input id="jobtitle" name="jobtitle" placeholder="e.g. CPO, HR Manager" className={inputCls} />
+                        </Field>
+                      </div>
+
+                      {/* Radio groups */}
+                      <div className="flex flex-col gap-2">
+                        <span className="text-[11px] font-semibold text-text-secondary">Best time to call</span>
+                        <div className="flex gap-2 flex-wrap">
+                          {["Morning", "Afternoon", "Either"].map((v, i) => (
+                            <label key={v} className="flex items-center gap-2 text-[13.5px] text-text-secondary cursor-pointer px-[14px] py-[9px] border border-[#d5d8dd] rounded-[2px] hover:border-[#c7cace] transition-colors">
+                              <input type="radio" name="besttime" value={v.toLowerCase()} defaultChecked={i === 2} className="accent-amber" />
+                              {v}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <span className="text-[11px] font-semibold text-text-secondary">Preferred contact</span>
+                        <div className="flex gap-2 flex-wrap">
+                          {["Phone", "Email"].map((v, i) => (
+                            <label key={v} className="flex items-center gap-2 text-[13.5px] text-text-secondary cursor-pointer px-[14px] py-[9px] border border-[#d5d8dd] rounded-[2px] hover:border-[#c7cace] transition-colors">
+                              <input type="radio" name="prefer" value={v.toLowerCase()} defaultChecked={i === 0} className="accent-amber" />
+                              {v}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Consent */}
+                    <div className="mt-6 bg-off-white border border-border p-4">
+                      <label className="flex gap-3 items-start cursor-pointer">
+                        <input type="checkbox" required className="mt-0.5 w-4 h-4 accent-amber flex-shrink-0" />
+                        <span className="text-[13px] text-text-secondary leading-relaxed">
+                          I understand my details are shared{" "}
+                          <strong className="text-text-primary font-semibold">only with the relevant xentys recruiter</strong>,
+                          treated with discretion, and that I can be contacted about this brief.{" "}
+                          <Link href="#" className="text-navy font-semibold underline underline-offset-2">Privacy statement →</Link>
+                        </span>
+                      </label>
+                    </div>
+
+                    {/* Submit row */}
+                    <div className="flex items-center justify-between gap-4 mt-7 pt-6 border-t border-border flex-wrap">
+                      <p className="text-[12.5px] text-text-muted">
+                        Prefer to call?{" "}
+                        <a href="tel:+31702400414" className="text-navy font-bold border-b border-dotted border-navy">
+                          Dial <strong>070 240 04 14</strong>
+                        </a>
+                      </p>
+                      <button type="submit"
+                        className="h-11 px-6 bg-amber text-navy font-semibold text-[14px] rounded-[2px] hover:bg-[#e89400] transition-colors whitespace-nowrap">
+                        Submit brief →
+                      </button>
+                    </div>
+                  </form>
+                </>
+              ) : (
+                /* ── Success ─────────────────────────────── */
+                <div className="py-8">
+                  <div className="mb-6 text-[#11723a]">
+                    <svg viewBox="0 0 48 48" width="64" height="64" aria-hidden="true">
+                      <circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" strokeWidth="2"/>
+                      <path d="M14 24l7 7 14-14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <h2 className="font-bold text-[32px] text-navy mb-3 tracking-tight">
+                    {successName ? `${successName}, we've got your brief.` : "Thanks — we've got your brief."}
+                  </h2>
+                  <p className="text-[16px] text-text-secondary mb-6">Here's what happens next:</p>
+                  <ol className="flex flex-col gap-4 mb-6">
+                    {[
+                      { day: "Within 1 working day", text: "Your dedicated recruiter reviews your brief and calls you at the preferred time." },
+                      { day: "Within 2 working days", text: "You'll have a 30-minute call with Adriaan Brok to confirm fit and dealbreakers." },
+                      { day: "Within 10 working days", text: "You receive a written shortlist of 3–5 pre-screened candidates." },
+                    ].map((s) => (
+                      <li key={s.day} className="pl-5 relative">
+                        <span className="absolute left-0 top-1 w-2 h-2 rounded-full bg-amber block" aria-hidden="true" />
+                        <span className="text-[11px] font-semibold tracking-[0.12em] uppercase text-amber-text block mb-1">{s.day}</span>
+                        <p className="text-[13px] text-text-secondary leading-relaxed" dangerouslySetInnerHTML={{ __html: s.text.replace("Adriaan Brok", "<strong>Adriaan Brok</strong>").replace("3–5 pre-screened candidates", "<strong>3–5 pre-screened candidates</strong>") }} />
+                      </li>
+                    ))}
+                  </ol>
+                  <p className="text-[12.5px] text-text-muted mb-8">Your details are shared only with the relevant recruiter and treated with full discretion.</p>
+                  <div className="flex gap-3 flex-wrap">
+                    <Link href="/" className="h-10 px-5 border border-border text-navy font-semibold text-[14px] rounded-[2px] flex items-center hover:border-[#c7cace] transition-colors">← Back to home</Link>
+                    <Link href="/about" className="h-10 px-5 bg-amber text-navy font-semibold text-[14px] rounded-[2px] flex items-center hover:bg-[#e89400] transition-colors">Read how we work →</Link>
+                  </div>
                 </div>
-              ))}
-              <div className="flex items-center gap-3 mt-6 pt-6 border-t border-white/10">
-                <div className="flex">
-                  {["MS", "AU", "AB"].map((i, idx) => (
-                    <div key={i} className="w-8 h-8 rounded-full bg-white/15 border-2 border-navy flex items-center justify-center text-white font-semibold text-xs" style={{ marginLeft: idx > 0 ? "-8px" : "0" }}>{i}</div>
-                  ))}
+              )}
+            </div>
+
+            {/* ── Sidebar ─────────────────────────────── */}
+            <aside className="flex flex-col gap-5 sticky top-24 self-start">
+
+              {/* Recruiter card */}
+              <div className="bg-white border border-border p-6">
+                <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-amber-text mb-4">You'll work with</p>
+                <div className="flex gap-4 items-start">
+                  {/* Portrait rectangle placeholder (3:4) */}
+                  <div
+                    className="flex-shrink-0 flex items-center justify-center text-white font-bold text-[18px]"
+                    style={{
+                      width: 80, height: 107,
+                      background: "linear-gradient(180deg, #c7cace, #8a8e94)",
+                      borderRadius: 0,
+                    }}
+                    aria-hidden="true"
+                  >
+                    AB
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-bold text-[16px] text-navy mb-0.5">Adriaan Brok</p>
+                    <p className="text-[12.5px] text-text-secondary leading-snug">Senior Procurement Recruiter<br />15y · Industry &amp; Construction · 60+ placements</p>
+                  </div>
                 </div>
-                <p className="text-sm text-white/70">Our consultants · <LinkButton href="/about" variant="link" className="text-amber text-sm p-0 font-normal no-underline">Meet the team →</LinkButton></p>
+                <blockquote className="text-[13px] text-text-secondary leading-relaxed italic mt-4 pt-4 border-t border-border">
+                  "I've placed 60+ procurement professionals at manufacturing and construction organisations across the Netherlands. I know this market."
+                </blockquote>
+                <div className="flex gap-2 mt-4">
+                  <a href="tel:+31702400414" className="flex-1 text-[12.5px] font-semibold text-center py-2 px-3 bg-off-white text-navy hover:bg-[#e5e7ea] transition-colors">
+                    📞 Call directly
+                  </a>
+                  <a href="https://linkedin.com" rel="noopener noreferrer" className="flex-1 text-[12.5px] font-semibold text-center py-2 px-3 bg-off-white text-navy hover:bg-[#e5e7ea] transition-colors">
+                    LinkedIn →
+                  </a>
+                </div>
               </div>
-            </div>
-            <div className="bg-off-white rounded-none p-6 border border-border border-l-4 border-l-amber">
-              <h3 className="font-semibold text-base text-text-primary mb-2">Fixed fee. No surprises.</h3>
-              <p className="text-sm text-text-secondary">Fee agreed upfront before any search begins. No percentage-of-salary surprises, no hidden costs.</p>
-            </div>
-            <div className="bg-off-white rounded-none p-6 border border-border">
-              <h3 className="font-semibold text-base text-text-primary mb-2">3-month replacement guarantee</h3>
-              <p className="text-sm text-text-secondary">If a permanent placement doesn't work out within 3 months, we search again at no additional fee.</p>
-            </div>
-          </aside>
+
+              {/* What happens next */}
+              <div className="bg-white border border-border p-6">
+                <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-amber-text mb-4">What happens next</p>
+                <ol className="flex flex-col gap-4 relative m-0 p-0 list-none" style={{ paddingLeft: 0 }}>
+                  {/* Amber timeline line */}
+                  <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-amber to-amber/20" aria-hidden="true" />
+                  {[
+                    { day: "Day 1",   text: "Recruiter calls at your preferred time." },
+                    { day: "~Day 2",  text: "30-min brief confirmation call." },
+                    { day: "~Day 10", text: <><strong className="text-navy">3–5 vetted candidates</strong> presented.</> },
+                  ].map((s) => (
+                    <li key={s.day} className="pl-7 relative">
+                      <span className="absolute left-0 top-1 w-4 h-4 rounded-full bg-amber border-[3px] border-white shadow-[0_0_0_2px_#ffa300] block" aria-hidden="true" />
+                      <span className="text-[11px] font-semibold tracking-[0.12em] uppercase text-amber-text block mb-0.5">{s.day}</span>
+                      <p className="text-[13px] text-text-secondary leading-relaxed m-0">{s.text}</p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Discretion note */}
+              <p className="text-[11.5px] text-text-muted leading-relaxed px-4 py-3 bg-off-white border border-border">
+                We treat every enquiry with discretion. Your details are shared only with the relevant recruiter and never with employers or third parties without your consent.
+              </p>
+
+            </aside>
+          </div>
         </div>
       </div>
     </>
