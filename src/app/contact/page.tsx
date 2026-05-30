@@ -230,12 +230,15 @@ export default function ContactPage() {
       </section>
 
       {/* ── 04 General enquiry form ──────────────────────── */}
-      <section className="bg-off-white py-16" aria-labelledby="ct-enq-h">
+      <section className="bg-white py-16" aria-labelledby="ct-enq-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
           <div className="mb-8">
             <h2 className="font-bold text-[28px] text-navy mb-2 tracking-tight" id="ct-enq-h">General enquiry</h2>
             <p className="text-[15px] text-text-secondary">For press, partnerships, or anything else.</p>
           </div>
+
+          {/* Off-white card container — gives the form visual boundaries */}
+          <div className="bg-off-white border border-border p-8">
 
           {formState === "idle" ? (
             <form onSubmit={handleSubmit} noValidate>
@@ -298,6 +301,8 @@ export default function ContactPage() {
               </p>
             </div>
           )}
+
+          </div>{/* end off-white card */}
         </div>
       </section>
 
