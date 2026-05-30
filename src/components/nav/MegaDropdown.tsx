@@ -16,7 +16,7 @@ const icons: Record<string, ReactElement> = {
 };
 
 export interface DropdownLink { href: string; icon: string; title: string; desc: string; }
-export interface DropdownCol  { heading: string; links: DropdownLink[]; cta?: { href: string; label: string }; }
+export interface DropdownCol  { heading: string; links: DropdownLink[]; cta?: { href?: string; label: string; onClick?: () => void }; }
 export interface DropdownContent { col1: DropdownCol; col2: DropdownCol; }
 
 export function MegaDropdown({ open, content }: { open: boolean; content: DropdownContent }) {
@@ -49,7 +49,17 @@ export function MegaDropdown({ open, content }: { open: boolean; content: Dropdo
             </div>
             {col.cta && (
               <div className="mt-5 pt-5 border-t border-[#e1e4e8]">
-                <LinkButton href={col.cta.href} variant="primary">{col.cta.label}</LinkButton>
+                {col.cta.onClick ? (
+                  <button
+                    type="button"
+                    onClick={col.cta.onClick}
+                    className="inline-flex items-center gap-2 px-5 py-[10px] rounded-[2px] text-[13px] font-semibold tracking-[0.01em] bg-amber text-navy hover:bg-[#e8970a] transition-all duration-[200ms] ease-out whitespace-nowrap cursor-pointer"
+                  >
+                    {col.cta.label}
+                  </button>
+                ) : (
+                  <LinkButton href={col.cta.href!} variant="primary">{col.cta.label}</LinkButton>
+                )}
               </div>
             )}
           </div>

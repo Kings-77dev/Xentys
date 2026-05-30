@@ -46,7 +46,7 @@ export function MobileNav({ open, onClose, lang, setLang }: MobileNavProps) {
         </Accordion>
         <Accordion label="For Candidates">
           <Link href="/vacancies" onClick={onClose} className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Browse Vacancies</Link>
-          <Link href="/open-application" onClick={onClose} className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Open Application</Link>
+          <Link href="#" onClick={onClose} className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Subscribe for Newsletter</Link>
         </Accordion>
         <Link href="/about" onClick={onClose} className="py-4 font-semibold text-lg text-white border-b border-white/10">About</Link>
         <Link href="/contact" onClick={onClose} className="py-4 font-semibold text-lg text-white border-b border-white/10">Contact</Link>

@@ -7,6 +7,7 @@ import { cn } from "@/lib/cn";
 import { MegaDropdown, type DropdownContent } from "./MegaDropdown";
 import { MobileNav } from "./MobileNav";
 import { LinkButton } from "@/components/ui/Button";
+import { CandidateModal } from "@/components/sections/CandidateModal";
 
 const hireDropdown: DropdownContent = {
   col1: {
@@ -28,30 +29,35 @@ const hireDropdown: DropdownContent = {
   },
 };
 
-const roleDropdown: DropdownContent = {
-  col1: {
-    heading: "Browse & Apply",
-    links: [
-      { href: "/vacancies",         icon: "briefcase", title: "Vacancies",         desc: "Browse open procurement roles" },
-      { href: "/open-application",  icon: "user",      title: "Open Application",  desc: "Register your profile for future roles" },
-    ],
-  },
-  col2: {
-    heading: "Resources",
-    links: [
-      { href: "/contact", icon: "dollar", title: "Salary Guide",       desc: "What procurement professionals earn" },
-      { href: "/contact", icon: "book",   title: "Procurement Guide",  desc: "Terminology, concepts and frameworks" },
-    ],
-    cta: { href: "/open-application", label: "Register your profile →" },
-  },
-};
+// roleDropdown is built dynamically in the component (needs setCandidateModalOpen)
+// See Nav component body below
 
 export default function Nav() {
   const scrolled = useScrolled(80);
   const [open, setOpen] = useState<"hire" | "role" | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lang, setLang] = useState<"EN" | "NL">("EN");
+  const [candidateModalOpen, setCandidateModalOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+
+  // Built here so the CTA onClick can reference setCandidateModalOpen
+  const roleDropdown: DropdownContent = {
+    col1: {
+      heading: "Career Hub",
+      links: [
+        { href: "/vacancies",  icon: "briefcase", title: "Vacancies",               desc: "Browse open procurement roles" },
+        { href: "#",           icon: "user",      title: "Subscribe for Newsletter", desc: "Stay informed on roles & market updates" },
+      ],
+    },
+    col2: {
+      heading: "Resources",
+      links: [
+        { href: "/contact", icon: "dollar", title: "Salary Guide",      desc: "What procurement professionals earn" },
+        { href: "/contact", icon: "book",   title: "Procurement Guide", desc: "Terminology, concepts and frameworks" },
+      ],
+      cta: { label: "Apply to Xentys →", onClick: () => { setCandidateModalOpen(true); setOpen(null); } },
+    },
+  };
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -197,6 +203,7 @@ export default function Nav() {
       </nav>
 
       <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} lang={lang} setLang={setLang} />
+      <CandidateModal open={candidateModalOpen} onClose={() => setCandidateModalOpen(false)} />
     </>
   );
 }
