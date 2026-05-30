@@ -372,21 +372,21 @@ export default function ConsultationPage() {
                 </div>
               </div>
 
-              {/* What happens next */}
-              <div className="bg-white border border-border p-6">
-                <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-amber-text mb-4">What happens next</p>
+              {/* What happens next — navy bg */}
+              <div className="bg-navy p-6">
+                <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-amber mb-4">What happens next</p>
                 <ol className="flex flex-col gap-4 relative m-0 p-0 list-none" style={{ paddingLeft: 0 }}>
                   {/* Amber timeline line */}
                   <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-amber to-amber/20" aria-hidden="true" />
                   {[
                     { day: "Day 1",   text: "Recruiter calls at your preferred time." },
                     { day: "~Day 2",  text: "30-min brief confirmation call." },
-                    { day: "~Day 10", text: <><strong className="text-navy">3–5 vetted candidates</strong> presented.</> },
+                    { day: "~Day 10", text: <><strong className="text-white">3–5 vetted candidates</strong> presented.</> },
                   ].map((s) => (
                     <li key={s.day} className="pl-7 relative">
-                      <span className="absolute left-0 top-1 w-4 h-4 rounded-full bg-amber border-[3px] border-white shadow-[0_0_0_2px_#ffa300] block" aria-hidden="true" />
-                      <span className="text-[11px] font-semibold tracking-[0.12em] uppercase text-amber-text block mb-0.5">{s.day}</span>
-                      <p className="text-[13px] text-text-secondary leading-relaxed m-0">{s.text}</p>
+                      <span className="absolute left-0 top-1 w-4 h-4 rounded-full bg-amber border-[3px] border-navy shadow-[0_0_0_2px_#ffa300] block" aria-hidden="true" />
+                      <span className="text-[11px] font-semibold tracking-[0.12em] uppercase text-amber block mb-0.5">{s.day}</span>
+                      <p className="text-[13px] text-white/65 leading-relaxed m-0">{s.text}</p>
                     </li>
                   ))}
                 </ol>
