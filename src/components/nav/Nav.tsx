@@ -55,7 +55,7 @@ export default function Nav() {
         { href: "/contact", icon: "dollar", title: "Salary Guide",      desc: "What procurement professionals earn" },
         { href: "/contact", icon: "book",   title: "Procurement Guide", desc: "Terminology, concepts and frameworks" },
       ],
-      cta: { label: "Apply to Xentys →", onClick: () => { setCandidateModalOpen(true); setOpen(null); } },
+      cta: { label: "Open Application →", onClick: () => { setCandidateModalOpen(true); setOpen(null); } },
     },
   };
 
