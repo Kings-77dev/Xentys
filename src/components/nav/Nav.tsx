@@ -8,46 +8,9 @@ import { MegaDropdown, type DropdownContent } from "./MegaDropdown";
 import { MobileNav } from "./MobileNav";
 import { LinkButton } from "@/components/ui/Button";
 import { CandidateModal } from "@/components/sections/CandidateModal";
+import { ConsultationModal } from "@/components/sections/ConsultationModal";
 
-const hireDropdown: DropdownContent = {
-  col1: {
-    heading: "Services",
-    links: [
-      { href: "/about#services", icon: "briefcase", title: "Permanent Recruitment", desc: "Full-cycle permanent placements" },
-      { href: "/about#services", icon: "clock",     title: "Interim Inkoop",         desc: "Screened professionals within days" },
-      { href: "/about#services", icon: "users",     title: "Detachering",             desc: "Professionals on Xentys payroll" },
-      { href: "/about#services", icon: "star",      title: "Executive Search",        desc: "Senior & confidential placements" },
-    ],
-  },
-  col2: {
-    heading: "Resources",
-    links: [
-      { href: "/contact", icon: "dollar", title: "Salary Benchmark", desc: "Procurement salary data by role & sector" },
-      { href: "/contact", icon: "file",   title: "Hiring Guide",     desc: "How to brief, select and onboard" },
-      { href: "/contact", icon: "star",   title: "Customer Cases",   desc: "Real placement stories from clients" },
-    ],
-    cta: { href: "/consultation", label: "Request a Consultation →" },
-  },
-};
-
-const insightsDropdown: DropdownContent = {
-  col1: {
-    heading: "Read",
-    links: [
-      { href: "/contact", icon: "file",  title: "Case Studies",      desc: "Real placement stories from clients and candidates" },
-      { href: "/contact", icon: "book",  title: "Procurement Guide", desc: "Terminology, concepts and frameworks" },
-    ],
-  },
-  col2: {
-    heading: "Data & Trends",
-    links: [
-      { href: "/contact", icon: "dollar", title: "Salary Benchmark", desc: "Procurement pay data by role & sector" },
-      { href: "/contact", icon: "chart",  title: "Market Updates",   desc: "Industry news and hiring trends" },
-    ],
-  },
-};
-
-// roleDropdown is built dynamically in the component (needs setCandidateModalOpen)
+// All dropdowns built inside component (need access to state setters)
 // See Nav component body below
 
 export default function Nav() {
@@ -56,9 +19,48 @@ export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lang, setLang] = useState<"EN" | "NL">("EN");
   const [candidateModalOpen, setCandidateModalOpen] = useState(false);
+  const [consultationModalOpen, setConsultationModalOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
-  // Built here so the CTA onClick can reference setCandidateModalOpen
+  // All dropdowns built here so CTAs can reference state setters
+  const hireDropdown: DropdownContent = {
+    col1: {
+      heading: "Services",
+      links: [
+        { href: "/about#services", icon: "briefcase", title: "Permanent Recruitment", desc: "Full-cycle permanent placements" },
+        { href: "/about#services", icon: "clock",     title: "Interim Inkoop",         desc: "Screened professionals within days" },
+        { href: "/about#services", icon: "users",     title: "Detachering",             desc: "Professionals on Xentys payroll" },
+        { href: "/about#services", icon: "star",      title: "Executive Search",        desc: "Senior & confidential placements" },
+      ],
+    },
+    col2: {
+      heading: "Resources",
+      links: [
+        { href: "/contact", icon: "dollar", title: "Salary Benchmark", desc: "Procurement salary data by role & sector" },
+        { href: "/contact", icon: "file",   title: "Hiring Guide",     desc: "How to brief, select and onboard" },
+        { href: "/contact", icon: "star",   title: "Customer Cases",   desc: "Real placement stories from clients" },
+      ],
+      cta: { label: "Request a Consultation →", onClick: () => { setConsultationModalOpen(true); setOpen(null); } },
+    },
+  };
+
+  const insightsDropdown: DropdownContent = {
+    col1: {
+      heading: "Read",
+      links: [
+        { href: "/contact", icon: "file",  title: "Case Studies",      desc: "Real placement stories from clients and candidates" },
+        { href: "/contact", icon: "book",  title: "Procurement Guide", desc: "Terminology, concepts and frameworks" },
+      ],
+    },
+    col2: {
+      heading: "Data & Trends",
+      links: [
+        { href: "/contact", icon: "dollar", title: "Salary Benchmark", desc: "Procurement pay data by role & sector" },
+        { href: "/contact", icon: "chart",  title: "Market Updates",   desc: "Industry news and hiring trends" },
+      ],
+    },
+  };
+
   const roleDropdown: DropdownContent = {
     col1: {
       heading: "Career Hub",
@@ -238,13 +240,14 @@ export default function Nav() {
         </div>
 
         {/* Mega dropdowns */}
-        <MegaDropdown open={open === "hire"}     content={hireDropdown} />
-        <MegaDropdown open={open === "role"}     content={roleDropdown} />
-        <MegaDropdown open={open === "insights"} content={insightsDropdown} />
+        <MegaDropdown open={open === "hire"}     content={hireDropdown}     onClose={() => setOpen(null)} />
+        <MegaDropdown open={open === "role"}     content={roleDropdown}     onClose={() => setOpen(null)} />
+        <MegaDropdown open={open === "insights"} content={insightsDropdown} onClose={() => setOpen(null)} />
       </nav>
 
       <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} lang={lang} setLang={setLang} />
       <CandidateModal open={candidateModalOpen} onClose={() => setCandidateModalOpen(false)} />
+      <ConsultationModal open={consultationModalOpen} onClose={() => setConsultationModalOpen(false)} />
     </>
   );
 }

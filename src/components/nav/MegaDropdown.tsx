@@ -20,7 +20,11 @@ export interface DropdownLink { href: string; icon: string; title: string; desc:
 export interface DropdownCol  { heading: string; links: DropdownLink[]; cta?: { href?: string; label: string; onClick?: () => void }; }
 export interface DropdownContent { col1: DropdownCol; col2: DropdownCol; }
 
-export function MegaDropdown({ open, content }: { open: boolean; content: DropdownContent }) {
+export function MegaDropdown({ open, content, onClose }: {
+  open: boolean;
+  content: DropdownContent;
+  onClose?: () => void;
+}) {
   return (
     <div className={cn(
       "absolute top-full left-0 right-0 bg-white border-b border-[#e1e4e8] transition-all duration-[240ms] ease-out origin-top",
@@ -36,6 +40,7 @@ export function MegaDropdown({ open, content }: { open: boolean; content: Dropdo
                 <Link
                   key={link.href + link.title}
                   href={link.href}
+                  onClick={onClose}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-[2px] hover:bg-[#f6f8fa] transition-colors duration-[180ms] group"
                 >
                   <div className="w-8 h-8 bg-[#f6f8fa] group-hover:bg-[#eef0f2] rounded-none flex items-center justify-center text-text-muted flex-shrink-0 transition-colors duration-[180ms]">
@@ -53,13 +58,13 @@ export function MegaDropdown({ open, content }: { open: boolean; content: Dropdo
                 {col.cta.onClick ? (
                   <button
                     type="button"
-                    onClick={col.cta.onClick}
+                    onClick={() => { col.cta!.onClick?.(); onClose?.(); }}
                     className="inline-flex items-center gap-2 px-5 py-[10px] rounded-[2px] text-[13px] font-semibold tracking-[0.01em] bg-amber text-navy hover:bg-[#e8970a] transition-all duration-[200ms] ease-out whitespace-nowrap cursor-pointer"
                   >
                     {col.cta.label}
                   </button>
                 ) : (
-                  <LinkButton href={col.cta.href!} variant="primary">{col.cta.label}</LinkButton>
+                  <LinkButton href={col.cta.href!} variant="primary" onClick={onClose}>{col.cta.label}</LinkButton>
                 )}
               </div>
             )}
