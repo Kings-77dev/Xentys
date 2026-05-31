@@ -65,7 +65,7 @@ function Rail() {
   };
 
   return (
-    <nav aria-label="On this page">
+    <nav className="hidden lg:block sticky self-start" style={{ top: 96 }} aria-label="On this page">
       <ol ref={listRef} className="relative flex flex-col gap-6 list-none m-0 p-0 pl-6">
         {/* Track */}
         <div className="absolute left-[7px] top-0 bottom-0 w-[2px] bg-[#e1e4e8]" aria-hidden="true" />
@@ -198,7 +198,7 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
               { icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z", text: `Posted ${vacancy.postedAgo}` },
             ].map(({ icon, text }) => (
               <span key={text} className="flex items-center gap-2 text-[14px] text-white/70">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true"><path d={icon}/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5bd08e" strokeWidth="1.9" aria-hidden="true"><path d={icon}/></svg>
                 {text}
               </span>
             ))}
@@ -216,21 +216,11 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
 
       {/* ── Body ────────────────────────────────────────────── */}
       <div className="bg-off-white py-12">
-        {/*
-          relative on this container so the absolute rail is contained within
-          the body section — it naturally appears when scrolled into view
-          and disappears when the section ends (sticky within absolute).
-        */}
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] relative">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+          <div className="grid lg:grid-cols-[120px_1fr_340px] gap-8 items-start">
 
-          {/* Floating rail — sits in the left gutter margin, outside the grid */}
-          <div className="hidden lg:block absolute" style={{ left: "-130px", top: 0, bottom: 0, width: 110 }}>
-            <div style={{ position: "sticky", top: 96 }}>
-              <Rail />
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-[1fr_340px] gap-8 items-start">
+            {/* Left rail */}
+            <Rail />
 
             {/* Main content */}
             <div className="flex flex-col gap-10">
@@ -339,10 +329,12 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
                 Apply for this role →
               </button>
 
-              {/* Post-apply timeline — navy bg */}
-              <div className="bg-navy p-5">
-                <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-amber mb-4">What happens after you apply</p>
-                <ol className="flex flex-col relative list-none m-0 p-0">
+              {/* Post-apply timeline — matches open-application page exactly */}
+              <div className="bg-navy p-6">
+                <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber mb-4">
+                  What happens after you apply
+                </p>
+                <ol className="flex flex-col relative list-none m-0 p-0" style={{ gap: 0 }}>
                   <div className="absolute left-[7px] top-3 bottom-3 w-0.5 bg-gradient-to-b from-amber to-amber/20" aria-hidden="true" />
                   {[
                     { day: "Day 1",    text: "Adriaan reviews your application personally." },
@@ -350,9 +342,9 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
                     { day: "Day 5–10", text: "Presented to the client if there's a strong match." },
                     { day: "Day 10+",  text: "Interview support, offer guidance and onboarding check-in." },
                   ].map(s => (
-                    <li key={s.day} className="pl-6 relative pb-4 last:pb-0">
-                      <span className="absolute left-0 top-1 w-3.5 h-3.5 rounded-full bg-amber border-[2.5px] border-navy shadow-[0_0_0_2px_#ffa300] block" aria-hidden="true" />
-                      <span className="text-[10px] font-bold tracking-[0.08em] uppercase text-amber block mb-0.5">{s.day}</span>
+                    <li key={s.day} className="pl-7 relative pb-5 last:pb-0">
+                      <span className="absolute left-0 top-1 w-4 h-4 rounded-full bg-amber border-[3px] border-navy shadow-[0_0_0_2px_#ffa300] block" aria-hidden="true" />
+                      <span className="text-[11px] font-semibold tracking-[0.08em] uppercase text-amber block mb-0.5">{s.day}</span>
                       <p className="text-[12px] text-white/65 leading-relaxed m-0">{s.text}</p>
                     </li>
                   ))}
