@@ -350,36 +350,26 @@ export default function OpenApplicationPage() {
                 </div>
               </div>
 
-              {/* Post-apply timeline */}
-              <div className="bg-white border border-border p-6" style={{ borderTop: "3px solid #ffa300" }}>
-                <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">
+              {/* Post-apply timeline — navy bg, matches consultation page */}
+              <div className="bg-navy p-6">
+                <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber mb-4">
                   What happens after you apply
                 </p>
-                <div className="h-px bg-border mb-4" />
-                <div className="flex gap-3">
-                  {/* Dots + connector lines */}
-                  <div className="flex flex-col items-center flex-shrink-0 pt-0.5">
-                    <span className="w-6 h-6 rounded-full bg-amber flex items-center justify-center text-navy font-bold text-[12px]">1</span>
-                    <div className="w-px flex-1 bg-amber/30 my-1" style={{ minHeight: 20 }} />
-                    <span className="w-6 h-6 rounded-full bg-amber flex items-center justify-center text-navy font-bold text-[12px]">2</span>
-                    <div className="w-px flex-1 bg-amber/30 my-1" style={{ minHeight: 20 }} />
-                    <span className="w-6 h-6 rounded-full bg-amber flex items-center justify-center text-navy font-bold text-[12px]">3</span>
-                  </div>
-                  <div className="flex flex-col gap-5 flex-1">
-                    <div>
-                      <p className="font-semibold text-[13px] text-text-primary">CV Review</p>
-                      <p className="text-[12px] text-text-secondary mt-1 leading-relaxed">We assess your profile and experience.</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-[13px] text-amber-text">Discovery Call</p>
-                      <p className="text-[12px] text-text-secondary mt-1 leading-relaxed">A short conversation about your goals, preferences, and opportunities.</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-[13px] text-amber-text">Targeted Introductions</p>
-                      <p className="text-[12px] text-text-secondary mt-1 leading-relaxed">Matched to relevant roles with your consent every time.</p>
-                    </div>
-                  </div>
-                </div>
+                <ol className="flex flex-col relative list-none m-0 p-0" style={{ gap: "0" }}>
+                  {/* Amber gradient line down the left */}
+                  <div className="absolute left-[7px] top-3 bottom-3 w-0.5 bg-gradient-to-b from-amber to-amber/20" aria-hidden="true" />
+                  {[
+                    { title: "CV Review",               desc: "We assess your profile and experience." },
+                    { title: "Discovery Call",           desc: "A short conversation about your goals, preferences, and opportunities." },
+                    { title: "Targeted Introductions",   desc: "Matched to relevant roles with your consent every time." },
+                  ].map((s) => (
+                    <li key={s.title} className="pl-7 relative pb-5 last:pb-0">
+                      <span className="absolute left-0 top-1 w-4 h-4 rounded-full bg-amber border-[3px] border-navy shadow-[0_0_0_2px_#ffa300] block" aria-hidden="true" />
+                      <span className="text-[11px] font-semibold tracking-[0.08em] uppercase text-amber block mb-0.5">{s.title}</span>
+                      <p className="text-[12px] text-white/65 leading-relaxed m-0">{s.desc}</p>
+                    </li>
+                  ))}
+                </ol>
               </div>
 
             </aside>
