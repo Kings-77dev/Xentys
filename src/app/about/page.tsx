@@ -123,9 +123,50 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 3. What we do ───────────────────────────────────── */}
+      {/* ── 3. Meet the team ────────────────────────────────── */}
       <SectionBorder />
-      <section className="bg-off-white py-[88px]" id="services" aria-labelledby="ab-svc-h">
+      <section className="bg-off-white py-[88px]" id="ab-team" aria-labelledby="ab-team-h">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+          <div className="flex items-end justify-between gap-6 flex-wrap mb-10">
+            <div>
+              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Meet the team</p>
+              <h2 className="font-bold text-[32px] text-navy tracking-tight mb-2" id="ab-team-h">The people behind xentys.</h2>
+              <p className="text-[16px] text-text-secondary">Four specialists, one focus. You&apos;ll always know exactly who you&apos;re talking to.</p>
+            </div>
+            <Link href="/contact" className="text-[13px] font-semibold text-navy hover:text-amber-text transition-colors flex-shrink-0">
+              Contact our team →
+            </Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">
+            {team.map((m) => (
+              <article key={m.initials} className="bg-white border border-border overflow-hidden flex flex-col">
+                <div
+                  className="relative flex items-center justify-center"
+                  style={{ aspectRatio: "4/5", background: "linear-gradient(165deg, #0d2b55 0%, #15396b 100%)", overflow: "hidden" }}
+                >
+                  <span className="absolute font-semibold text-white select-none" style={{ fontSize: "80px", opacity: 0.12, letterSpacing: "-0.02em", userSelect: "none" }} aria-hidden="true">{m.initials}</span>
+                  <span className="absolute top-3 left-3 text-[10px] font-semibold tracking-[0.08em] uppercase text-amber px-2 py-1" style={{ background: "rgba(7,25,53,0.7)", backdropFilter: "blur(4px)" }}>{m.tag}</span>
+                </div>
+                <div className="p-[18px] flex flex-col gap-1 flex-1">
+                  <span className="font-bold text-[15px] text-navy tracking-tight">{m.name}</span>
+                  <span className="text-[12.5px] text-text-secondary">{m.role}</span>
+                  <span className="text-[12px] text-text-muted mt-0.5">{m.exp}</span>
+                  <div className="flex gap-4 mt-3">
+                    <a href={`mailto:${m.email}`} className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors flex items-center gap-1">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Email
+                    </a>
+                    <a href="https://linkedin.com" rel="noopener noreferrer" className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors">LinkedIn</a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4. What we do ───────────────────────────────────── */}
+      <SectionBorder />
+      <section className="bg-white py-[88px]" id="services" aria-labelledby="ab-svc-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
           {/* Section head */}
           <div className="flex items-end justify-between gap-6 flex-wrap mb-10">
@@ -218,132 +259,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 6. Meet the team ────────────────────────────────── */}
-      <SectionBorder />
-      <section className="bg-off-white py-[88px]" id="ab-team" aria-labelledby="ab-team-h">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          {/* Section head */}
-          <div className="flex items-end justify-between gap-6 flex-wrap mb-10">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Meet the team</p>
-              <h2 className="font-bold text-[32px] text-navy tracking-tight mb-2" id="ab-team-h">The people behind xentys.</h2>
-              <p className="text-[16px] text-text-secondary">Four specialists, one focus. You&apos;ll always know exactly who you&apos;re talking to.</p>
-            </div>
-            <Link href="/contact" className="text-[13px] font-semibold text-navy hover:text-amber-text transition-colors flex-shrink-0">
-              Contact our team →
-            </Link>
-          </div>
-
-          {/* 4 portrait cards */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">
-            {team.map((m) => (
-              <article key={m.initials} className="bg-white border border-border overflow-hidden flex flex-col">
-                {/* Portrait — gradient with large faint initials */}
-                <div
-                  className="relative flex items-center justify-center"
-                  style={{
-                    aspectRatio: "4/5",
-                    background: "linear-gradient(165deg, #0d2b55 0%, #15396b 100%)",
-                    overflow: "hidden",
-                  }}
-                >
-                  {/* Faint large initials */}
-                  <span
-                    className="absolute font-semibold text-white select-none"
-                    style={{ fontSize: "80px", opacity: 0.12, letterSpacing: "-0.02em", userSelect: "none" }}
-                    aria-hidden="true"
-                  >
-                    {m.initials}
-                  </span>
-                  {/* Specialism tag */}
-                  <span
-                    className="absolute top-3 left-3 text-[10px] font-semibold tracking-[0.08em] uppercase text-amber px-2 py-1"
-                    style={{ background: "rgba(7,25,53,0.7)", backdropFilter: "blur(4px)" }}
-                  >
-                    {m.tag}
-                  </span>
-                </div>
-
-                {/* Body */}
-                <div className="p-[18px] flex flex-col gap-1 flex-1">
-                  <span className="font-bold text-[15px] text-navy tracking-tight">{m.name}</span>
-                  <span className="text-[12.5px] text-text-secondary">{m.role}</span>
-                  <span className="text-[12px] text-text-muted mt-0.5">{m.exp}</span>
-                  <div className="flex gap-4 mt-3">
-                    <a href={`mailto:${m.email}`} className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors flex items-center gap-1">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-                      Email
-                    </a>
-                    <a href="https://linkedin.com" rel="noopener noreferrer" className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors">
-                      LinkedIn
-                    </a>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 7. Visit our office ─────────────────────────────── */}
-      <SectionBorder />
-      <section className="bg-white py-[88px]" aria-labelledby="ab-visit-h">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          <div className="grid lg:grid-cols-2 gap-[56px] items-center">
-
-            {/* 2 photo slots */}
-            <div className="grid grid-cols-2 gap-[14px]">
-              <PhotoPlaceholder className="h-[280px]" note="Office interior — lounge" />
-              <PhotoPlaceholder className="h-[280px]" note="Office interior — meeting room" />
-            </div>
-
-            {/* Body */}
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-4">Visit our office</p>
-              <h2 className="font-bold text-[30px] text-navy tracking-tight mb-4" id="ab-visit-h">
-                We&apos;re always happy to meet.
-              </h2>
-              <p className="text-[16px] text-text-secondary leading-relaxed max-w-[440px] mb-6">
-                Our office is in <span className="font-semibold text-amber-text">Rijswijk</span>, and you&apos;re welcome to visit us by appointment. Come by for a coffee and a straight conversation about hiring or your next move.
-              </p>
-
-              {/* Office card */}
-              <div className="bg-off-white border border-border p-6 mb-6">
-                <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-amber-text mb-3">Address &amp; hours</p>
-                <address className="not-italic text-[14px] text-text-primary pb-4 border-b border-border mb-4">
-                  <strong className="block font-bold text-navy mb-0.5">xentys B.V.</strong>
-                  Geestbrugkade 35, 2281 CX · Rijswijk, Netherlands
-                </address>
-                <div className="flex flex-col gap-2">
-                  {[
-                    { day: "Monday – Friday", hours: "09:00 – 17:00" },
-                    { day: "Saturday – Sunday", hours: "Closed" },
-                  ].map(({ day, hours }) => (
-                    <div key={day} className="flex justify-between text-[13px]">
-                      <span className="text-text-secondary">{day}</span>
-                      <strong className="text-navy font-semibold">{hours}</strong>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex gap-3 flex-wrap">
-                <a
-                  href="https://maps.google.com/?q=Geestbrugkade+35,+Rijswijk"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="h-11 px-5 border border-border text-navy font-semibold text-[14px] rounded-[2px] flex items-center hover:border-[#c9cdd3] hover:bg-off-white transition-all"
-                >
-                  Get directions →
-                </a>
-                <LinkButton href="/contact" variant="secondary">Contact us →</LinkButton>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 8. Final CTA ────────────────────────────────────── */}
+      {/* ── 7. Final CTA ────────────────────────────────────── */}
       <CTABanner />
     </>
   );
