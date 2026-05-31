@@ -65,7 +65,7 @@ function Rail() {
   };
 
   return (
-    <nav className="hidden lg:block sticky self-start" style={{ top: 96 }} aria-label="On this page">
+    <nav aria-label="On this page">
       <ol ref={listRef} className="relative flex flex-col gap-6 list-none m-0 p-0 pl-6">
         {/* Track */}
         <div className="absolute left-[7px] top-0 bottom-0 w-[2px] bg-[#e1e4e8]" aria-hidden="true" />
@@ -216,11 +216,21 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
 
       {/* ── Body ────────────────────────────────────────────── */}
       <div className="bg-off-white py-12">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          <div className="grid lg:grid-cols-[120px_1fr_340px] gap-8 items-start">
+        {/*
+          relative on this container so the absolute rail is contained within
+          the body section — it naturally appears when scrolled into view
+          and disappears when the section ends (sticky within absolute).
+        */}
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] relative">
 
-            {/* Left rail */}
-            <Rail />
+          {/* Floating rail — sits in the left gutter margin, outside the grid */}
+          <div className="hidden lg:block absolute" style={{ left: "-130px", top: 0, bottom: 0, width: 110 }}>
+            <div style={{ position: "sticky", top: 96 }}>
+              <Rail />
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-[1fr_340px] gap-8 items-start">
 
             {/* Main content */}
             <div className="flex flex-col gap-10">
