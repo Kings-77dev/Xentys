@@ -45,7 +45,7 @@ export function HowWeWork() {
             From brief to shortlist in <span style={{ color: "#ffa300" }}>days</span>, not weeks.
           </h2>
           <p className="text-[16px] leading-6 text-[#4d5056] max-w-[554px]">
-            A clear process, from your first call to your hire's first day.
+            A clear process, from your first call to your hire&apos;s first day.
           </p>
         </div>
 
