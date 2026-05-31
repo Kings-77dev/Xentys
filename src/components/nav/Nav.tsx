@@ -24,8 +24,26 @@ const hireDropdown: DropdownContent = {
     links: [
       { href: "/contact", icon: "dollar", title: "Salary Benchmark", desc: "Procurement salary data by role & sector" },
       { href: "/contact", icon: "file",   title: "Hiring Guide",     desc: "How to brief, select and onboard" },
+      { href: "/contact", icon: "star",   title: "Customer Cases",   desc: "Real placement stories from clients" },
     ],
     cta: { href: "/consultation", label: "Request a Consultation →" },
+  },
+};
+
+const insightsDropdown: DropdownContent = {
+  col1: {
+    heading: "Read",
+    links: [
+      { href: "/contact", icon: "file",  title: "Case Studies",      desc: "Real placement stories from clients and candidates" },
+      { href: "/contact", icon: "book",  title: "Procurement Guide", desc: "Terminology, concepts and frameworks" },
+    ],
+  },
+  col2: {
+    heading: "Data & Trends",
+    links: [
+      { href: "/contact", icon: "dollar", title: "Salary Benchmark", desc: "Procurement pay data by role & sector" },
+      { href: "/contact", icon: "chart",  title: "Market Updates",   desc: "Industry news and hiring trends" },
+    ],
   },
 };
 
@@ -34,7 +52,7 @@ const hireDropdown: DropdownContent = {
 
 export default function Nav() {
   const scrolled = useScrolled(80);
-  const [open, setOpen] = useState<"hire" | "role" | null>(null);
+  const [open, setOpen] = useState<"hire" | "role" | "insights" | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [lang, setLang] = useState<"EN" | "NL">("EN");
   const [candidateModalOpen, setCandidateModalOpen] = useState(false);
@@ -54,6 +72,7 @@ export default function Nav() {
       links: [
         { href: "/contact", icon: "dollar", title: "Salary Guide",      desc: "What procurement professionals earn" },
         { href: "/contact", icon: "book",   title: "Procurement Guide", desc: "Terminology, concepts and frameworks" },
+        { href: "/contact", icon: "star",   title: "Customer Cases",    desc: "Placements from people like you" },
       ],
       cta: { label: "Open Application →", onClick: () => { setCandidateModalOpen(true); setOpen(null); } },
     },
@@ -137,21 +156,42 @@ export default function Nav() {
                   </svg>
                 </button>
               ))}
-              {["About", "Contact"].map((label) => (
-                <Link
-                  key={label}
-                  href={`/${label.toLowerCase()}`}
-                  className={cn(
-                    "px-3.5 py-2 rounded-none text-[13px] font-medium tracking-[0.01em] transition-all duration-[180ms] ease-out",
-                    isLight
-                      ? "text-text-secondary hover:text-text-primary hover:bg-[#f6f8fa]"
+              <Link
+                href="/about"
+                className={cn(
+                  "px-3.5 py-2 rounded-none text-[13px] font-medium tracking-[0.01em] transition-all duration-[180ms] ease-out",
+                  isLight
+                    ? "text-text-secondary hover:text-text-primary hover:bg-[#f6f8fa]"
+                    : "text-white/80 hover:text-white hover:bg-white/8"
+                )}
+                role="menuitem"
+              >
+                About
+              </Link>
+              {/* Insights dropdown trigger */}
+              <button
+                className={cn(
+                  "flex items-center gap-1.5 px-3.5 py-2 rounded-none text-[13px] font-medium tracking-[0.01em] transition-all duration-[180ms] ease-out",
+                  isLight
+                    ? open === "insights"
+                      ? "text-text-primary bg-[#f6f8fa]"
+                      : "text-text-secondary hover:text-text-primary hover:bg-[#f6f8fa]"
+                    : open === "insights"
+                      ? "text-white bg-white/10"
                       : "text-white/80 hover:text-white hover:bg-white/8"
-                  )}
-                  role="menuitem"
-                >
-                  {label}
-                </Link>
-              ))}
+                )}
+                onClick={() => setOpen(open === "insights" ? null : "insights")}
+                aria-expanded={open === "insights"}
+                aria-haspopup="true"
+                role="menuitem"
+              >
+                Insights
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" aria-hidden="true"
+                  className={cn("transition-transform duration-[180ms]", open === "insights" && "rotate-180")}>
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
             </div>
 
             {/* Language toggle */}
@@ -179,7 +219,7 @@ export default function Nav() {
             </div>
 
             {/* CTA */}
-            <LinkButton href="/consultation" variant="primary" className="hidden lg:inline-flex flex-shrink-0">
+            <LinkButton href="/contact" variant="primary" className="hidden lg:inline-flex flex-shrink-0">
               Get in touch
             </LinkButton>
 
@@ -198,8 +238,9 @@ export default function Nav() {
         </div>
 
         {/* Mega dropdowns */}
-        <MegaDropdown open={open === "hire"} content={hireDropdown} />
-        <MegaDropdown open={open === "role"} content={roleDropdown} />
+        <MegaDropdown open={open === "hire"}     content={hireDropdown} />
+        <MegaDropdown open={open === "role"}     content={roleDropdown} />
+        <MegaDropdown open={open === "insights"} content={insightsDropdown} />
       </nav>
 
       <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} lang={lang} setLang={setLang} />

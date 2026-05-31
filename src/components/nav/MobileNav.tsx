@@ -43,16 +43,30 @@ export function MobileNav({ open, onClose, lang, setLang }: MobileNavProps) {
             <Link key={s} href="/about#services" onClick={onClose}
               className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">{s}</Link>
           ))}
+          <Link href="/contact" onClick={onClose}
+            className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Customer Cases</Link>
         </Accordion>
         <Accordion label="For Candidates">
           <Link href="/vacancies" onClick={onClose} className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Browse Vacancies</Link>
           <Link href="#" onClick={onClose} className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Subscribe for Newsletter</Link>
+          <Link href="/contact" onClick={onClose}
+            className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Customer Cases</Link>
         </Accordion>
         <Link href="/about" onClick={onClose} className="py-4 font-semibold text-lg text-white border-b border-white/10">About</Link>
-        <Link href="/contact" onClick={onClose} className="py-4 font-semibold text-lg text-white border-b border-white/10">Contact</Link>
+        <Accordion label="Insights">
+          {[
+            { href: "/contact", label: "Case Studies" },
+            { href: "/contact", label: "Procurement Guide" },
+            { href: "/contact", label: "Salary Benchmark" },
+            { href: "/contact", label: "Market Updates" },
+          ].map(({ href, label }) => (
+            <Link key={label} href={href} onClick={onClose}
+              className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">{label}</Link>
+          ))}
+        </Accordion>
 
         <div className="flex flex-col gap-3 mt-6">
-          <LinkButton href="/consultation" variant="primary" className="justify-center" onClick={onClose}>Get in touch →</LinkButton>
+          <LinkButton href="/contact" variant="primary" className="justify-center" onClick={onClose}>Get in touch →</LinkButton>
           <LinkButton href="/vacancies" variant="ghost-inv" className="justify-center" onClick={onClose}>Browse vacancies</LinkButton>
         </div>
 
