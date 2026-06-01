@@ -72,6 +72,7 @@ export default function VacanciesPage() {
   const [sort,    setSort]    = useState<SortKey>("recent");
   const [shown,   setShown]   = useState(PAGE_SIZE);
   const [sortOpen, setSortOpen] = useState(false);
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
 
   // ── Bidirectional: toggle a single type (used by both tabs and checkboxes)
   const toggleType = useCallback((type: PlacementType) => {
@@ -241,8 +242,8 @@ export default function VacanciesPage() {
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
           <div className="grid lg:grid-cols-[260px_1fr] gap-8 items-start">
 
-            {/* ── Sidebar ──────────────────────────────── */}
-            <aside aria-label="Deep filter vacancies">
+            {/* ── Sidebar — desktop only ───────────────── */}
+            <aside aria-label="Deep filter vacancies" className="hidden lg:block">
               <div className="bg-white border border-border p-6 sticky top-[108px]">
                 <div className="flex items-center justify-between mb-5">
                   <h2 className="font-semibold text-[14px] text-text-primary">Filters</h2>
@@ -308,6 +309,88 @@ export default function VacanciesPage() {
 
             {/* ── Cards + load more ────────────────────── */}
             <div>
+
+              {/* Mobile filter button */}
+              <div className="flex items-center justify-between mb-4 lg:hidden">
+                <span className="text-[13px] text-text-muted">{filtered.length} role{filtered.length !== 1 ? "s" : ""}</span>
+                <button
+                  onClick={() => setFilterDrawerOpen(true)}
+                  className="flex items-center gap-2 h-9 px-4 bg-white border border-border text-[13px] font-semibold text-navy hover:border-amber transition-colors"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
+                  </svg>
+                  Filters
+                  {(types.length + sects.length + locs.length) > 0 && (
+                    <span className="w-5 h-5 rounded-full bg-amber text-navy text-[11px] font-bold flex items-center justify-center">
+                      {types.length + sects.length + locs.length}
+                    </span>
+                  )}
+                </button>
+              </div>
+
+              {/* Mobile filter drawer */}
+              {filterDrawerOpen && (
+                <>
+                  {/* Backdrop */}
+                  <div
+                    className="fixed inset-0 z-40 bg-[rgba(7,25,53,0.5)]"
+                    onClick={() => setFilterDrawerOpen(false)}
+                    aria-hidden="true"
+                  />
+                  {/* Drawer */}
+                  <div className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-[12px] max-h-[80vh] flex flex-col shadow-xl">
+                    {/* Drag handle */}
+                    <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
+                      <div className="w-10 h-1 bg-[#d1d5db] rounded-full" />
+                    </div>
+                    {/* Header */}
+                    <div className="flex items-center justify-between px-6 py-4 border-b border-border flex-shrink-0">
+                      <span className="font-semibold text-[15px] text-navy">Filters</span>
+                      {hasFilters && (
+                        <button onClick={clearAll} className="text-[12px] text-amber-text hover:text-navy transition-colors">Clear all</button>
+                      )}
+                    </div>
+                    {/* Scrollable content */}
+                    <div className="overflow-y-auto px-6 py-5 flex flex-col gap-6">
+                      <div>
+                        <h3 className="text-[11px] font-semibold tracking-[0.06em] uppercase text-text-muted mb-3">Placement type</h3>
+                        <div className="flex flex-col gap-2">
+                          {placementTypes.map(({ value, label }) => (
+                            <Checkbox key={value} id={`m-type-${value}`} label={label} checked={types.includes(value)} onChange={() => toggleType(value)} />
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-[11px] font-semibold tracking-[0.06em] uppercase text-text-muted mb-3">Sector</h3>
+                        <div className="flex flex-col gap-2">
+                          {sectors.map(({ value, label }) => (
+                            <Checkbox key={value} id={`m-sec-${value}`} label={label} checked={sects.includes(value)} onChange={() => toggle(sects, value, setSects)} />
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-[11px] font-semibold tracking-[0.06em] uppercase text-text-muted mb-3">Location</h3>
+                        <div className="flex flex-col gap-2">
+                          {locations.map(({ value, label }) => (
+                            <Checkbox key={value} id={`m-loc-${value}`} label={label} checked={locs.includes(value)} onChange={() => toggle(locs, value, setLocs)} />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    {/* Apply button */}
+                    <div className="px-6 py-4 border-t border-border flex-shrink-0">
+                      <button
+                        onClick={() => setFilterDrawerOpen(false)}
+                        className="w-full h-11 bg-amber text-navy font-semibold text-[14px] rounded-[2px] hover:bg-[#e89400] transition-colors"
+                      >
+                        Show {filtered.length} role{filtered.length !== 1 ? "s" : ""}
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+
               {visible.length > 0 ? (
                 <>
                   <div className="grid sm:grid-cols-2 gap-5">

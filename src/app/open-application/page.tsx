@@ -127,7 +127,7 @@ export default function OpenApplicationPage() {
                 <>
                   {/* Step 1 — How would you like to engage? */}
                   <SectionHead num={1} title="How would you like to engage?" />
-                  <div className="grid grid-cols-2 gap-4 mb-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-2">
                     {[
                       { id: "specific" as const, label: "I have a specific role in mind",       tagLabel: "Specific role",    tagClass: "bg-[#f0fdf4] text-[#166534]" },
                       { id: "open"     as const, label: "I'm open to procurement opportunities", tagLabel: "Open application", tagClass: "bg-[#eff6ff] text-[#1e40af]" },
@@ -164,7 +164,7 @@ export default function OpenApplicationPage() {
 
                     {/* Step 2 — What you're looking for */}
                     <SectionHead num={2} title="What you're looking for" />
-                    <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
                       <Field id="role-title" label="Role title or vacancy URL" optional>
                         <input id="role-title" name="roleTitle" type="text"
                           placeholder="Vacancy or role title you're applying for"
@@ -231,7 +231,7 @@ export default function OpenApplicationPage() {
 
                     {/* Step 3 — Contact details */}
                     <SectionHead num={3} title="Contact details" />
-                    <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
                       <Field id="name" label="Full name" required>
                         <input id="name" name="name" type="text" required autoComplete="name"
                           placeholder="Your full name" className={inputCls} />

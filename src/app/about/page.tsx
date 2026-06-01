@@ -80,7 +80,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── 2. Our story ────────────────────────────────────── */}
-      <section className="bg-white py-[88px]" id="story" aria-labelledby="ab-story-h">
+      <section className="bg-white py-16 lg:py-[88px]" id="story" aria-labelledby="ab-story-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
           <div className="grid lg:grid-cols-[300px_1fr] gap-[72px] items-start">
 
@@ -118,7 +118,7 @@ export default function AboutPage() {
 
       {/* ── 3. Meet the team ────────────────────────────────── */}
       <SectionBorder />
-      <section className="bg-off-white py-[88px]" id="ab-team" aria-labelledby="ab-team-h">
+      <section className="bg-off-white py-16 lg:py-[88px]" id="ab-team" aria-labelledby="ab-team-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
           <div className="flex items-end justify-between gap-6 flex-wrap mb-10">
             <div>
@@ -162,7 +162,7 @@ export default function AboutPage() {
 
       {/* ── 4. Sectors we know (ledger editorial) ───────────── */}
       <SectionBorder />
-      <section className="bg-white py-[88px]" aria-labelledby="ab-sec-h">
+      <section className="bg-white py-16 lg:py-[88px]" aria-labelledby="ab-sec-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
           <div className="mb-12">
             <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Sectors we know</p>
@@ -177,34 +177,40 @@ export default function AboutPage() {
           {/* Ledger editorial rows */}
           <div className="border-t border-border">
             {sectors.map((s) => (
-              <div
-                key={s.num}
-                className="grid border-b border-border transition-colors hover:bg-off-white"
-                style={{ gridTemplateColumns: "96px 1fr 300px", alignItems: "baseline", gap: "32px", padding: "30px 0" }}
-              >
-                {/* Giant amber number */}
-                <span
-                  className="font-bold text-[#d1d5db]  leading-none select-none"
-                  style={{ fontSize: "32px", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}
-                  aria-hidden="true"
-                >
-                  {s.num}
-                </span>
-
-                {/* Title + description */}
-                <div>
-                  <h3 className="font-bold text-[22px] text-navy tracking-tight mb-2">{s.title}</h3>
-                  <p className="text-[14.5px] text-text-secondary leading-relaxed max-w-[460px]">{s.desc}</p>
+              <div key={s.num} className="border-b border-border transition-colors hover:bg-off-white">
+                {/* Mobile: simple stack */}
+                <div className="sm:hidden py-5 flex gap-4 items-start">
+                  <span className="font-bold text-amber leading-none select-none flex-shrink-0"
+                    style={{ fontSize: "28px", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }} aria-hidden="true">
+                    {s.num}
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-[17px] text-navy tracking-tight mb-1">{s.title}</h3>
+                    <p className="text-[13px] text-text-secondary leading-relaxed">{s.desc}</p>
+                  </div>
                 </div>
 
-                {/* Role bullet list */}
-                <div className="flex flex-wrap gap-x-[18px] gap-y-2 self-center">
-                  {s.roles.map((r) => (
-                    <span key={r} className="text-[12px] text-text-muted relative pl-[14px]">
-                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[5px] h-[5px] rounded-full bg-amber" aria-hidden="true" />
-                      {r}
-                    </span>
-                  ))}
+                {/* Desktop: 3-col ledger */}
+                <div
+                  className="hidden sm:grid"
+                  style={{ gridTemplateColumns: "96px 1fr 300px", alignItems: "baseline", gap: "32px", padding: "30px 0" }}
+                >
+                  <span className="font-bold text-[#d1d5db] leading-none select-none"
+                    style={{ fontSize: "32px", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }} aria-hidden="true">
+                    {s.num}
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-[22px] text-navy tracking-tight mb-2">{s.title}</h3>
+                    <p className="text-[14.5px] text-text-secondary leading-relaxed max-w-[460px]">{s.desc}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-x-[18px] gap-y-2 self-center">
+                    {s.roles.map((r) => (
+                      <span key={r} className="text-[12px] text-text-muted relative pl-[14px]">
+                        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[5px] h-[5px] rounded-full bg-amber" aria-hidden="true" />
+                        {r}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
@@ -213,7 +219,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── 5. Our approach ─────────────────────────────────── */}
-      <section className="bg-[#f8f8f7] py-[88px]" aria-labelledby="ab-app-h">
+      <section className="bg-[#f8f8f7] py-16 lg:py-[88px]" aria-labelledby="ab-app-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
 
           {/* Header — left-aligned */}

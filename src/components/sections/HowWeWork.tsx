@@ -31,7 +31,7 @@ const steps = [
 
 export function HowWeWork() {
   return (
-    <section className="bg-[#f8f8f7] py-[120px]" aria-labelledby="how-heading">
+    <section className="bg-[#f8f8f7] py-16 lg:py-[120px]" aria-labelledby="how-heading">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
 
         {/* Header */}

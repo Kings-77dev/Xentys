@@ -3,7 +3,7 @@ import Link from "next/link";
 export function CTABanner() {
   return (
     <section
-      className="bg-navy relative overflow-hidden py-[52px]"
+      className="bg-navy relative overflow-hidden py-10 lg:py-[52px]"
       style={{ borderLeft: "5px solid #ffa300" }}
       aria-labelledby="cta-banner-heading"
     >
@@ -13,7 +13,7 @@ export function CTABanner() {
           {/* Copy */}
           <div className="flex-1">
             <h2
-              className="font-bold text-[36px] text-white mb-2"
+              className="font-bold text-[26px] lg:text-[36px] text-white mb-2"
               id="cta-banner-heading"
             >
               Ready to find the right match?
@@ -27,13 +27,13 @@ export function CTABanner() {
           <div className="flex flex-col sm:flex-row gap-4 items-start">
             <Link
               href="/consultation"
-              className="inline-flex items-center justify-center h-[52px] px-6 bg-amber rounded-[2px] text-[14px] font-semibold text-navy hover:opacity-90 transition-opacity whitespace-nowrap"
+              className="inline-flex items-center justify-center h-11 sm:h-[52px] px-6 bg-amber rounded-[2px] text-[14px] font-semibold text-navy hover:opacity-90 transition-opacity whitespace-nowrap"
             >
               Request a Consultation
             </Link>
             <Link
               href="/vacancies"
-              className="inline-flex items-center justify-center h-[52px] px-6 rounded-[2px] border-[1.5px] border-[#668fbd] text-[14px] font-semibold text-white hover:border-white transition-colors whitespace-nowrap"
+              className="inline-flex items-center justify-center h-11 sm:h-[52px] px-6 rounded-[2px] border-[1.5px] border-[#668fbd] text-[14px] font-semibold text-white hover:border-white transition-colors whitespace-nowrap"
             >
               Browse vacancies
             </Link>

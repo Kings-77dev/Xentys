@@ -102,7 +102,9 @@ export default function Nav() {
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-[240ms] ease-out",
           isLight
-            ? "bg-white/95 backdrop-blur-sm border-b border-[#e1e4e8]"
+            ? open !== null
+              ? "bg-white border-b border-[#e1e4e8]"
+              : "bg-white/95 backdrop-blur-sm border-b border-[#e1e4e8]"
             : "bg-transparent"
         )}
         aria-label="Main navigation"

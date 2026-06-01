@@ -73,9 +73,8 @@ export function Modal({ open, onClose, title, children, className, hideCloseButt
   return (
     <div
       ref={backdropRef}
-      className="fixed inset-0 z-50 flex items-center justify-center p-6"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-6"
       style={{
-        // Glassmorphism backdrop — matches reference HTML exactly
         background: "rgba(7,25,53,0.55)",
         backdropFilter: "blur(4px)",
         WebkitBackdropFilter: "blur(4px)",
@@ -89,18 +88,29 @@ export function Modal({ open, onClose, title, children, className, hideCloseButt
       aria-labelledby="modal-title"
     >
       <div
-        className={cn("bg-white w-full max-h-[92vh] relative", className)}
+        className={cn(
+          "bg-white w-full relative overflow-y-auto",
+          // Mobile: bottom sheet with rounded top; desktop: standard sharp corners
+          "rounded-t-[12px] sm:rounded-none",
+          // Mobile: full height cap; desktop: existing 92vh
+          "max-h-[92vh]",
+          className
+        )}
         style={{
-          // Entrance: slides up from 16px + scales from 0.98 — matches reference
-          transform: open ? "translateY(0) scale(1)" : "translateY(16px) scale(0.98)",
+          // Mobile: slides up from bottom; desktop: translateY+scale entrance
+          transform: open
+            ? "translateY(0) scale(1)"
+            : "translateY(100%) scale(1)",
           opacity: open ? 1 : 0,
           transition: "transform 0.32s cubic-bezier(0.2,0.8,0.2,1), opacity 0.25s ease",
-          // Navy-toned deep shadow — matches reference
           boxShadow: "0 24px 64px -8px rgba(7,25,53,0.32), 0 2px 8px rgba(7,25,53,0.08)",
-          borderRadius: 0, // our system
           maxWidth: 700,
         }}
       >
+        {/* Mobile drag handle */}
+        <div className="sm:hidden flex justify-center pt-3 pb-1 flex-shrink-0">
+          <div className="w-10 h-1 bg-[#d1d5db] rounded-full" aria-hidden="true" />
+        </div>
         {/* Built-in close button — hidden when child manages its own */}
         {!hideCloseButton && (
           <button

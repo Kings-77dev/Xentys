@@ -10,19 +10,19 @@ export function JobAlertStrip() {
       style={{ borderTop: "4px solid #ffa300" }}
       aria-labelledby="alert-heading"
     >
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] py-12">
-        <div className="flex flex-col lg:flex-row gap-12 items-start lg:items-center">
+      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] py-10 lg:py-12">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-center">
 
           {/* Left — copy */}
           <div className="flex-1">
             <h2
-              className="font-semibold text-[22px] leading-8 text-white mb-2"
+              className="font-semibold text-[20px] sm:text-[22px] leading-8 text-white mb-2"
               id="alert-heading"
             >
               Stay informed. Roles and hiring updates, once a month.
             </h2>
             <p className="text-[16px] leading-6 text-[#d9e5f2]">
-              No weekly digests. Select what's relevant to you and we'll do the rest.
+              No weekly digests. Select what&apos;s relevant to you and we&apos;ll do the rest.
             </p>
           </div>
 
@@ -48,7 +48,7 @@ export function JobAlertStrip() {
                     Notify me
                   </button>
                 </form>
-                <div className="flex gap-8 items-center">
+                <div className="flex flex-wrap gap-4 sm:gap-8 items-center">
                   {[
                     { id: "alert-hire", label: "I am a hiring manager" },
                     { id: "alert-role", label: "I am looking for a role" },
@@ -69,7 +69,7 @@ export function JobAlertStrip() {
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
                 </div>
-                <p className="text-[15px] text-white">You're on the list. We'll be in touch.</p>
+                <p className="text-[15px] text-white">You&apos;re on the list. We&apos;ll be in touch.</p>
               </div>
             )}
           </div>

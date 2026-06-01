@@ -79,11 +79,11 @@ export function Hero() {
         </p>
 
         {/* Door CTAs — 8px radius, no pill */}
-        <div className="flex flex-wrap gap-3 mb-14">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-14">
           <button
             type="button"
             onClick={() => setModalOpen(true)}
-            className="flex flex-col justify-center px-6 py-4 rounded-[2px] bg-amber min-w-[248px] h-[76px] transition-all duration-[200ms] ease-out hover:bg-[#e8970a] hover:shadow-[0_8px_20px_rgba(255,163,0,0.25)] active:bg-[#d4850a] text-left"
+            className="flex flex-col justify-center px-6 py-4 rounded-[2px] bg-amber w-full sm:min-w-[248px] sm:w-auto h-[64px] sm:h-[76px] transition-all duration-[200ms] ease-out hover:bg-[#e8970a] hover:shadow-[0_8px_20px_rgba(255,163,0,0.25)] active:bg-[#d4850a] text-left"
           >
             <span className="font-semibold text-navy text-[15px] leading-tight">
               I&apos;m looking for a buyer
@@ -95,7 +95,7 @@ export function Hero() {
 
           <Link
             href="/vacancies"
-            className="flex flex-col justify-center px-6 py-4 rounded-[2px] bg-white/8 border border-white/20 min-w-[248px] h-[76px] transition-all duration-[200ms] ease-out hover:bg-white/12 hover:border-white/35 active:bg-white/6"
+            className="flex flex-col justify-center px-6 py-4 rounded-[2px] bg-white/8 border border-white/20 w-full sm:min-w-[248px] sm:w-auto h-[64px] sm:h-[76px] transition-all duration-[200ms] ease-out hover:bg-white/12 hover:border-white/35 active:bg-white/6"
           >
             <span className="font-semibold text-white text-[15px] leading-tight">
               I'm looking for a new role
@@ -107,7 +107,7 @@ export function Hero() {
         </div>
 
         {/* Trust bar */}
-        <div className="flex flex-wrap items-center gap-5" aria-label="Key facts">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-5" aria-label="Key facts">
           {trustItems.map((item, i) => (
             <div key={item} className="flex items-center gap-5">
               {i > 0 && (

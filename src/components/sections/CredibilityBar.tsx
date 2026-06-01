@@ -9,14 +9,18 @@ const stats = [
   { count: null, suffix: "",  display: "98%",   label: "Client satisfaction rate" },
 ];
 
-function Counter({ count, suffix, display }: { count: number | null; suffix: string; display: string | null }) {
+function Counter({ count, suffix, display, sectionRef }: {
+  count: number | null;
+  suffix: string;
+  display: string | null;
+  sectionRef: React.RefObject<HTMLElement | null>;
+}) {
   const [val, setVal] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
   const animated = useRef(false);
 
   useEffect(() => {
     if (!count) return;
-    const el = ref.current;
+    const el = sectionRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting || animated.current) return;
@@ -31,23 +35,40 @@ function Counter({ count, suffix, display }: { count: number | null; suffix: str
       };
       requestAnimationFrame(tick);
       observer.disconnect();
-    }, { threshold: 0.5 });
+    }, { threshold: 0.2 });
     observer.observe(el);
     return () => observer.disconnect();
-  }, [count]);
+  }, [count, sectionRef]);
 
-  return (
-    <span ref={ref}>
-      {display ?? `${val}${suffix}`}
-    </span>
-  );
+  return <span>{display ?? `${val}${suffix}`}</span>;
 }
 
 export function CredibilityBar() {
+  const sectionRef = useRef<HTMLElement>(null);
+
   return (
-    <section className="bg-white border-t border-[#f0f2f4]" aria-label="Key statistics">
+    <section ref={sectionRef} className="bg-white border-t border-[#f0f2f4]" aria-label="Key statistics">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-        <div className="flex items-stretch justify-center">
+
+        {/* Mobile / tablet — 2-col grid (no divider overflow) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:hidden border border-[#e1e4e8] divide-x divide-y divide-[#e1e4e8]">
+          {stats.map((s) => (
+            <div key={s.label} className="flex flex-col items-center gap-1.5 text-center py-8 px-3">
+              <span
+                className="font-bold text-amber-text block"
+                style={{ fontSize: "32px", letterSpacing: "-0.03em", lineHeight: 1.1 }}
+              >
+                <Counter count={s.count} suffix={s.suffix} display={s.display} sectionRef={sectionRef} />
+              </span>
+              <span className="text-text-muted text-[12px] leading-snug max-w-[140px]">
+                {s.label}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop — original flex with mx-10 dividers */}
+        <div className="hidden lg:flex items-stretch justify-center">
           {stats.map((s, i) => (
             <div key={s.label} className="flex items-center">
               {i > 0 && (
@@ -58,18 +79,16 @@ export function CredibilityBar() {
                   className="font-bold text-amber-text block"
                   style={{ fontSize: "40px", letterSpacing: "-0.03em", lineHeight: 1.1 }}
                 >
-                  <Counter count={s.count} suffix={s.suffix} display={s.display} />
+                  <Counter count={s.count} suffix={s.suffix} display={s.display} sectionRef={sectionRef} />
                 </span>
-                <span
-                  className="text-text-muted max-w-[180px]"
-                  style={{ fontSize: "13px", lineHeight: 1.4 }}
-                >
+                <span className="text-text-muted max-w-[180px]" style={{ fontSize: "13px", lineHeight: 1.4 }}>
                   {s.label}
                 </span>
               </div>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );

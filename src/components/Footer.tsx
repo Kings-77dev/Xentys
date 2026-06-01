@@ -4,8 +4,8 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <footer className="bg-navy" aria-label="Site footer">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] pt-16 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1.5fr] gap-12 pb-10 border-b border-white/10 mb-8">
+      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] pt-12 lg:pt-16 pb-6 lg:pb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1.5fr] gap-8 md:gap-12 pb-10 border-b border-white/10 mb-8">
 
           {/* Brand */}
           <div className="flex flex-col gap-4">

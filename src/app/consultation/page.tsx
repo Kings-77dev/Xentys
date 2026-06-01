@@ -95,7 +95,7 @@ export default function ConsultationPage() {
                     <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-amber-text mb-3">
                       Step 1 · Choose the type of hire
                     </p>
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {tiles.map((t) => {
                         const active = placement === t.id;
                         return (
@@ -135,7 +135,7 @@ export default function ConsultationPage() {
 
                     {/* Step 2 — The role */}
                     <SectionHead num={2} title="The role" />
-                    <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
                       <div className="col-span-2">
                         <Field id="role" label="Role title" required>
                           <input id="role" name="role" required placeholder="e.g. Strategic Buyer, Category Manager" className={inputCls} />
@@ -228,7 +228,7 @@ export default function ConsultationPage() {
 
                     {/* Step 3 — About you */}
                     <SectionHead num={3} title="About you" />
-                    <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
                       <Field id="name" label="Full name" required>
                         <input id="name" name="name" required autoComplete="name" className={inputCls} />
                       </Field>

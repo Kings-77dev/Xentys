@@ -404,7 +404,7 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
                   Your details go directly to {vacancy.recruiterName.split(" ")[0]}. Response within 1 working day.
                 </p>
                 <form id="apply-form" className="flex flex-col gap-4" onSubmit={e => { e.preventDefault(); setSubmitted(true); }} noValidate>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {[
                       { id: "af-first", label: "First name", ph: "Jan", auto: "given-name", type: "text" },
                       { id: "af-last",  label: "Last name",  ph: "de Vries", auto: "family-name", type: "text" },

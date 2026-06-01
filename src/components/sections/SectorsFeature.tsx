@@ -35,7 +35,7 @@ export function SectorsFeature() {
   const s = sectors[active];
 
   return (
-    <section className="py-[88px] bg-white border-t border-border" aria-labelledby="sf-heading">
+    <section className="py-16 lg:py-[88px] bg-white border-t border-border" aria-labelledby="sf-heading">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
         {/* Section head */}
         <div className="max-w-[680px] mb-10">
@@ -89,7 +89,7 @@ export function SectorsFeature() {
           {/* Right panel — key causes remount on tab change, re-triggering animation */}
           <div
             key={active}
-            className="sf-panel-enter grid lg:grid-cols-[1fr_220px] gap-7 p-9 items-center min-h-[280px]"
+            className="sf-panel-enter grid lg:grid-cols-[1fr_220px] gap-7 p-6 lg:p-9 items-center min-h-[280px]"
           >
             {/* Content */}
             <div>

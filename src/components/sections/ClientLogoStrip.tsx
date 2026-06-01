@@ -10,7 +10,7 @@ const logos = [
 
 export function ClientLogoStrip() {
   return (
-    <section className="bg-white border-t border-border overflow-hidden" aria-label="Trusted by">
+    <section className="bg-white border-t border-border sm:overflow-hidden" aria-label="Trusted by">
       <div className="py-8">
         <p className="text-[13px] text-[#6b6f75] text-center mb-7">
           Trusted by leading organisations across the Netherlands.
@@ -18,11 +18,11 @@ export function ClientLogoStrip() {
 
         {/* Full-width scrolling track — CSS classes defined in globals.css */}
         <div className="logo-mask">
-          <div className="logo-track flex items-center gap-16" style={{ width: "max-content" }}>
+          <div className="logo-track flex items-center gap-8 sm:gap-16" style={{ width: "max-content" }}>
             {[...logos, ...logos].map((logo, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 h-[44px] w-[140px] flex items-center justify-center"
+                className="flex-shrink-0 h-9 w-28 sm:h-[44px] sm:w-[140px] flex items-center justify-center"
               >
                 <img
                   src={logo.src}
