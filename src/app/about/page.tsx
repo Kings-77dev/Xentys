@@ -66,7 +66,7 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-wrap gap-3 mb-8">
             <LinkButton href="#ab-team" variant="primary">Meet the team →</LinkButton>
-            <LinkButton href="/consultation" variant="ghost-inv">Request a consultation →</LinkButton>
+            <LinkButton href="/consultation" variant="ghost-inv">Share a vacancy brief →</LinkButton>
           </div>
           <div className="flex flex-wrap gap-5">
             {["15+ years specialist focus", "One named recruiter throughout", "Response within 1 working day"].map((t) => (

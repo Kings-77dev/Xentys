@@ -25,7 +25,7 @@ export function HomeCTACard() {
               href="/consultation"
               className="inline-flex h-12 px-7 bg-amber text-navy font-semibold text-[14px] rounded-[2px] items-center hover:bg-[#e89400] transition-colors whitespace-nowrap"
             >
-              Request a Consultation
+              Share a vacancy brief
             </Link>
             <Link
               href="/vacancies"

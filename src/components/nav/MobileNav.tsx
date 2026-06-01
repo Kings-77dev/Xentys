@@ -9,6 +9,7 @@ interface MobileNavProps {
   onClose: () => void;
   lang: "EN" | "NL";
   setLang: (l: "EN" | "NL") => void;
+  onRequestConsultation: () => void;
 }
 
 function Accordion({ label, children }: { label: string; children: React.ReactNode }) {
@@ -31,7 +32,7 @@ function Accordion({ label, children }: { label: string; children: React.ReactNo
   );
 }
 
-export function MobileNav({ open, onClose, lang, setLang }: MobileNavProps) {
+export function MobileNav({ open, onClose, lang, setLang, onRequestConsultation }: MobileNavProps) {
   return (
     <div className={cn(
       "fixed inset-0 z-30 bg-navy overflow-y-auto transition-opacity duration-200",
@@ -66,7 +67,13 @@ export function MobileNav({ open, onClose, lang, setLang }: MobileNavProps) {
         </Accordion>
 
         <div className="flex flex-col gap-3 mt-6">
-          <LinkButton href="/contact" variant="primary" className="justify-center" onClick={onClose}>Get in touch →</LinkButton>
+          <button
+            type="button"
+            onClick={() => { onClose(); onRequestConsultation(); }}
+            className="inline-flex items-center justify-center w-full px-5 py-[10px] rounded-[2px] text-[13px] font-semibold tracking-[0.01em] bg-amber text-navy hover:bg-[#e8970a] transition-all duration-[200ms]"
+          >
+            Share a vacancy brief →
+          </button>
           <LinkButton href="/vacancies" variant="ghost-inv" className="justify-center" onClick={onClose}>Browse vacancies</LinkButton>
         </div>
 

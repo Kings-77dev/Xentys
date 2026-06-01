@@ -116,7 +116,7 @@ export default function ContactPage() {
               <div className="flex flex-wrap gap-3 mt-auto">
                 <Link href="/consultation"
                   className="inline-flex items-center h-11 px-5 bg-amber text-navy font-semibold text-[14px] rounded-[2px] hover:bg-[#e89400] transition-colors whitespace-nowrap">
-                  Request a Consultation →
+                  Share a vacancy brief →
                 </Link>
               </div>
             </article>
@@ -164,10 +164,6 @@ export default function ContactPage() {
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.2" aria-hidden="true">
                   <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
                 </svg>
-                <p className="text-[15px] text-text-muted text-center px-8">Drop a team photo of the xentys people</p>
-                <p className="text-[13px] text-text-muted">
-                  or <span className="text-navy underline underline-offset-2 cursor-pointer">browse files</span>
-                </p>
               </div>
 
               {/* Caption — inset floating card inside the dashed container */}
@@ -190,12 +186,11 @@ export default function ContactPage() {
             <div>
               <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Visit us</p>
               <h2 className="font-bold text-[28px] text-navy mb-4 tracking-tight" id="ct-visit-h">
-                We're people, not just pixels.
+                Visit us in Rijswijk.
               </h2>
               <p className="text-[16px] text-text-secondary leading-relaxed mb-8">
-                Come by for a coffee in our building at{" "}
+                Prefer to talk in person? You are welcome to meet the team at our office by appointment at{" "}
                 <em className="not-italic font-medium text-text-primary">Geestbrugkade 35, Rijswijk</em>.
-                {" "}We're here to help you personally — check the hours below and make an appointment.
               </p>
 
               {/* Office card */}

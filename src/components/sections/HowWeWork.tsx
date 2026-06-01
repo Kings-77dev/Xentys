@@ -157,7 +157,7 @@ export function HowWeWork() {
             href="/consultation"
             className="inline-flex items-center justify-center min-w-[248px] h-[76px] px-7 bg-amber rounded-[2px] text-[13px] font-semibold text-[#071935] hover:opacity-90 transition-opacity"
           >
-            Request a Consultation →
+            Share a vacancy brief →
           </Link>
         </div>
 

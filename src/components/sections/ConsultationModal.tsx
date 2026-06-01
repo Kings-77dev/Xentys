@@ -132,7 +132,7 @@ export function ConsultationModal({ open, onClose }: Props) {
   const { firstName, roleText, typeLabel } = successData;
 
   return (
-    <Modal open={open} onClose={handleClose} title="Request a Consultation" className="p-0 overflow-hidden" hideCloseButton>
+    <Modal open={open} onClose={handleClose} title="Share a vacancy brief" className="p-0 overflow-hidden" hideCloseButton>
       <div className="flex flex-col max-h-[92vh] overflow-hidden">
 
         {/* ── Top bar — matches reference HTML exactly ───── */}
@@ -170,10 +170,10 @@ export function ConsultationModal({ open, onClose }: Props) {
             <>
               {/* Header */}
               <h2 style={{ fontSize: 24, fontWeight: 700, color: "#0d2b55", letterSpacing: "-0.015em", marginBottom: 6 }}>
-                Request a Consultation
+                Share a vacancy brief
               </h2>
               <p style={{ fontSize: 14, color: "#4d5057", marginBottom: 20 }}>
-                Tell us a little — a sector recruiter calls within 1 working day. Takes ~60 seconds.
+                Short on time? Send the essentials now. We will confirm the details during your call.
               </p>
 
               {/* Placement tiles */}
@@ -312,9 +312,9 @@ export function ConsultationModal({ open, onClose }: Props) {
 
                 {/* "Full brief" link */}
                 <p style={{ textAlign: "center", fontSize: 13, color: "#4d5057", padding: "20px 0 4px", marginTop: 18, borderTop: "1px solid #e0e2e5" }}>
-                  Want to provide more detail?{" "}
+                  Already have the full brief?{" "}
                   <Link href="/consultation" onClick={handleClose} style={{ color: "#0d2b55", fontWeight: 600, borderBottom: "1px dotted #0d2b55" }}>
-                    Open the full brief form →
+                    Share more details instead →
                   </Link>
                 </p>
               </form>

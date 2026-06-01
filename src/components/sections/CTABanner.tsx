@@ -29,7 +29,7 @@ export function CTABanner() {
               href="/consultation"
               className="inline-flex items-center justify-center h-11 sm:h-[52px] px-6 bg-amber rounded-[2px] text-[14px] font-semibold text-navy hover:opacity-90 transition-opacity whitespace-nowrap"
             >
-              Request a Consultation
+              Share a vacancy brief
             </Link>
             <Link
               href="/vacancies"

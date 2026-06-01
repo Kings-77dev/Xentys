@@ -40,7 +40,7 @@ export default function Nav() {
         { href: "/contact", icon: "file",   title: "Hiring Guide",     desc: "How to brief, select and onboard" },
         { href: "/contact", icon: "star",   title: "Customer Cases",   desc: "Real placement stories from clients" },
       ],
-      cta: { label: "Request a Consultation →", onClick: () => { setConsultationModalOpen(true); setOpen(null); } },
+      cta: { label: "Share a vacancy brief →", onClick: () => { setConsultationModalOpen(true); setOpen(null); } },
     },
   };
 
@@ -248,7 +248,7 @@ export default function Nav() {
         <MegaDropdown open={open === "insights"} content={insightsDropdown} onClose={() => setOpen(null)} />
       </nav>
 
-      <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} lang={lang} setLang={setLang} />
+      <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} lang={lang} setLang={setLang} onRequestConsultation={() => setConsultationModalOpen(true)} />
       <CandidateModal open={candidateModalOpen} onClose={() => setCandidateModalOpen(false)} />
       <ConsultationModal open={consultationModalOpen} onClose={() => setConsultationModalOpen(false)} />
     </>

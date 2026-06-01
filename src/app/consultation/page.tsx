@@ -60,11 +60,11 @@ export default function ConsultationPage() {
           <nav className="flex items-center gap-2 text-[12px] text-white/50 mb-6" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>
             <span aria-hidden="true">/</span>
-            <span className="text-white/80" aria-current="page">Request a Consultation</span>
+            <span className="text-white/80" aria-current="page">Share a vacancy brief</span>
           </nav>
           <Eyebrow label="Full brief · ~5 minutes" inv />
           <h1 className="font-bold text-4xl lg:text-5xl tracking-tight text-white mb-4 max-w-2xl" id="consult-heading">
-            Request a Consultation
+            Share a vacancy brief
           </h1>
           <p className="text-lg text-white/70 max-w-xl mb-8">
             Share the role brief in detail and a sector specialist will call you within 1 working day to confirm fit, walk through the process, and start the search.
