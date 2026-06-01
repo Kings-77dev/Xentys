@@ -42,7 +42,7 @@ export function HowWeWork() {
             style={{ fontSize: "28px" }}
             id="how-heading"
           >
-            From brief to shortlist in <span style={{ color: "#ffa300" }}>days</span>, not weeks.
+            From brief to shortlist in <span className="text-amber-text">days</span>, not weeks.
           </h2>
           <p className="text-[16px] leading-6 text-[#4d5056] max-w-[554px]">
             A clear process, from your first call to your hire&apos;s first day.
@@ -62,7 +62,7 @@ export function HowWeWork() {
         {/* Staggered step columns — desktop only stagger */}
         {/* Mobile: single column | Tablet: 3 col no stagger | Desktop: 5 col stagger */}
         <div
-          className="hidden lg:grid pb-16"
+          className="hidden lg:grid pb-16 items-start"
           style={{
             gridTemplateColumns: "repeat(5, 1fr)",
             gap: "0",
@@ -72,16 +72,13 @@ export function HowWeWork() {
           {steps.map((step, i) => (
             <div
               key={step.num}
-              className={`flex flex-col gap-5 px-8 ${i < steps.length - 1 ? "border-r border-[#e0e2e5]" : ""}`}
-              style={{
-                transform: i % 2 === 1 ? "translateY(56px)" : "translateY(0)",
-                paddingTop: "8px",
-              }}
+              className={`group flex flex-col gap-5 px-8 ${i < steps.length - 1 ? "border-r border-[#e0e2e5]" : ""}`}
+              style={{ paddingTop: "8px" }}
               role="listitem"
             >
               {/* Giant step number */}
               <span
-                className="font-bold text-navy select-none leading-none"
+                className="font-bold text-[#d1d5db] group-hover:text-amber-text transition-colors duration-200 select-none leading-none"
                 style={{ fontSize: "72px", letterSpacing: "-2px", lineHeight: 1 }}
                 aria-hidden="true"
               >
@@ -113,11 +110,11 @@ export function HowWeWork() {
           {steps.map((step, i) => (
             <div
               key={step.num}
-              className={`flex flex-col gap-4 p-6 ${i < steps.length - 1 ? "border-b md:border-b-0 md:border-r border-[#e0e2e5]" : ""}`}
+              className={`group flex flex-col gap-4 p-6 ${i < steps.length - 1 ? "border-b md:border-b-0 md:border-r border-[#e0e2e5]" : ""}`}
               role="listitem"
             >
               <span
-                className="font-bold text-navy select-none leading-none"
+                className="font-bold text-navy group-hover:text-amber transition-colors duration-200 select-none leading-none"
                 style={{ fontSize: "56px", letterSpacing: "-1.5px", lineHeight: 1 }}
                 aria-hidden="true"
               >
@@ -135,11 +132,11 @@ export function HowWeWork() {
           {steps.map((step) => (
             <div
               key={step.num}
-              className="flex gap-5 items-start pb-8 border-b border-[#e0e2e5] last:border-0 last:pb-0"
+              className="group flex gap-5 items-start pb-8 border-b border-[#e0e2e5] last:border-0 last:pb-0"
               role="listitem"
             >
               <span
-                className="font-bold text-navy select-none flex-shrink-0"
+                className="font-bold text-navy group-hover:text-amber transition-colors duration-200 select-none flex-shrink-0"
                 style={{ fontSize: "48px", letterSpacing: "-1px", lineHeight: 1 }}
                 aria-hidden="true"
               >

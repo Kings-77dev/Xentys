@@ -5,17 +5,10 @@ import { CTABanner } from "@/components/sections/CTABanner";
 
 // ── Team data (existing site team) ──────────────────────────
 const team = [
-  { initials: "MS", name: "Maarten Smits van Oyen", role: "Consultant — Permanent & Interim",    exp: "10+ years in procurement recruitment", tag: "Permanent · Interim",     email: "maarten.smitsvanoyen@xentys.nl" },
-  { initials: "AB", name: "Adriaan Brok",            role: "Consultant — Interim Specialist",     exp: "8 years in interim procurement",      tag: "Industry · Construction", email: "adriaan.brok@xentys.nl" },
-  { initials: "AU", name: "Aurelia Bredet",           role: "Consultant — Permanent Recruitment", exp: "6 years specialising in strategic roles", tag: "Offshore · Energy",   email: "aurelia.bredet@xentys.nl" },
-  { initials: "MH", name: "Martin Havelka",           role: "Chief of Technology",               exp: "Joined 2018",                         tag: "Technology",             email: "martin.havelka@xentys.nl" },
-];
-
-const services = [
-  { title: "Permanent recruitment",    desc: "Long-term placements for specialist procurement and supply chain roles." },
-  { title: "Interim procurement",      desc: "Screened interim professionals for projects, cover, or rapid growth." },
-  { title: "Secondment (detachering)", desc: "Procurement specialists on the xentys payroll, embedded in your team." },
-  { title: "Executive search",         desc: "Targeted, confidential recruitment for senior and leadership appointments." },
+  { initials: "MS", name: "Maarten Smits van Oyen", role: "Consultant — Permanent & Interim",    exp: "10+ years in procurement recruitment", tag: "Permanent · Interim",     email: "maarten.smitsvanoyen@xentys.nl", phone: "+31612345678" },
+  { initials: "AB", name: "Adriaan Brok",            role: "Consultant — Interim Specialist",     exp: "8 years in interim procurement",      tag: "Industry · Construction", email: "adriaan.brok@xentys.nl",          phone: "+31623456789" },
+  { initials: "AU", name: "Aurelia Bredet",           role: "Consultant — Permanent Recruitment", exp: "6 years specialising in strategic roles", tag: "Offshore · Energy",   email: "aurelia.bredet@xentys.nl",        phone: "+31634567890" },
+  { initials: "MH", name: "Martin Havelka",           role: "Chief of Technology",               exp: "Joined 2018",                         tag: "Technology",             email: "martin.havelka@xentys.nl",        phone: "+31645678901" },
 ];
 
 const sectors = [
@@ -139,7 +132,7 @@ export default function AboutPage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">
             {team.map((m) => (
-              <article key={m.initials} className="bg-white border border-border overflow-hidden flex flex-col">
+              <article key={m.initials} className="bg-white border border-border rounded-lg overflow-hidden flex flex-col">
                 <div
                   className="relative flex items-center justify-center"
                   style={{ aspectRatio: "4/5", background: "linear-gradient(165deg, #0d2b55 0%, #15396b 100%)", overflow: "hidden" }}
@@ -151,7 +144,10 @@ export default function AboutPage() {
                   <span className="font-bold text-[15px] text-navy tracking-tight">{m.name}</span>
                   <span className="text-[12.5px] text-text-secondary">{m.role}</span>
                   <span className="text-[12px] text-text-muted mt-0.5">{m.exp}</span>
-                  <div className="flex gap-4 mt-3">
+                  <div className="flex gap-4 mt-3 flex-wrap">
+                    <a href={`tel:${m.phone}`} className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors flex items-center gap-1">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.92z"/></svg>Call
+                    </a>
                     <a href={`mailto:${m.email}`} className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors flex items-center gap-1">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Email
                     </a>
@@ -164,43 +160,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 4. What we do ───────────────────────────────────── */}
-      <SectionBorder />
-      <section className="bg-white py-[88px]" id="services" aria-labelledby="ab-svc-h">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          {/* Section head */}
-          <div className="flex items-end justify-between gap-6 flex-wrap mb-10">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">What we do</p>
-              <h2 className="font-bold text-[32px] text-navy tracking-tight" id="ab-svc-h">
-                Procurement recruitment, built around your hiring need.
-              </h2>
-            </div>
-            <Link href="/consultation" className="text-[13px] font-semibold text-navy hover:text-amber-text transition-colors flex-shrink-0">
-              See how we work →
-            </Link>
-          </div>
-
-          {/* 4 service cards */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {services.map((s) => (
-              <article
-                key={s.title}
-                className="bg-white border border-border p-6 flex flex-col gap-3 relative"
-                style={{ borderTop: "3px solid #ffa300" }}
-              >
-                <h3 className="font-bold text-[17px] text-navy tracking-tight">{s.title}</h3>
-                <p className="text-[13.5px] text-text-secondary leading-relaxed flex-1">{s.desc}</p>
-                <Link href="/consultation" className="text-[13px] font-semibold text-navy hover:text-amber-text transition-colors flex items-center gap-1">
-                  Learn more <span>→</span>
-                </Link>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 4. Sectors we know ──────────────────────────────── */}
+      {/* ── 4. Sectors we know (ledger editorial) ───────────── */}
       <SectionBorder />
       <section className="bg-white py-[88px]" aria-labelledby="ab-sec-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
@@ -214,21 +174,39 @@ export default function AboutPage() {
             </p>
           </div>
 
-          {/* 4 sector cards — data-sectors="numbered" variant */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">
+          {/* Ledger editorial rows */}
+          <div className="border-t border-border">
             {sectors.map((s) => (
-              <article key={s.num} className="bg-white border border-border p-6 flex flex-col gap-3">
-                {/* Numbered index — shown in "numbered" variant */}
-                <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-amber-text">{s.num}</span>
-                <h3 className="font-bold text-[17px] text-navy tracking-tight">{s.title}</h3>
-                <p className="text-[13px] text-text-secondary leading-[1.55]">{s.desc}</p>
-                {/* Role chips — hidden in "numbered" variant, keep in DOM for completeness */}
-                <div className="hidden flex-wrap gap-1.5">
+              <div
+                key={s.num}
+                className="grid border-b border-border transition-colors hover:bg-off-white"
+                style={{ gridTemplateColumns: "96px 1fr 300px", alignItems: "baseline", gap: "32px", padding: "30px 0" }}
+              >
+                {/* Giant amber number */}
+                <span
+                  className="font-bold text-[#d1d5db]  leading-none select-none"
+                  style={{ fontSize: "32px", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}
+                  aria-hidden="true"
+                >
+                  {s.num}
+                </span>
+
+                {/* Title + description */}
+                <div>
+                  <h3 className="font-bold text-[22px] text-navy tracking-tight mb-2">{s.title}</h3>
+                  <p className="text-[14.5px] text-text-secondary leading-relaxed max-w-[460px]">{s.desc}</p>
+                </div>
+
+                {/* Role bullet list */}
+                <div className="flex flex-wrap gap-x-[18px] gap-y-2 self-center">
                   {s.roles.map((r) => (
-                    <span key={r} className="text-[11.5px] px-2 py-1 bg-off-white text-text-secondary">{r}</span>
+                    <span key={r} className="text-[12px] text-text-muted relative pl-[14px]">
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[5px] h-[5px] rounded-full bg-amber" aria-hidden="true" />
+                      {r}
+                    </span>
                   ))}
                 </div>
-              </article>
+              </div>
             ))}
           </div>
         </div>
