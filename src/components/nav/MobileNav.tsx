@@ -54,6 +54,7 @@ export function MobileNav({ open, onClose, lang, setLang, onRequestConsultation 
             className="px-4 py-3 rounded-[2px] text-white/80 hover:bg-white/8 hover:text-white transition-colors">Customer Cases</Link>
         </Accordion>
         <Link href="/about" onClick={onClose} className="py-4 font-semibold text-lg text-white border-b border-white/10">About</Link>
+        <Link href="/contact" onClick={onClose} className="py-4 font-semibold text-lg text-white border-b border-white/10">Contact</Link>
         <Accordion label="Insights">
           {[
             { href: "/contact", label: "Case Studies" },

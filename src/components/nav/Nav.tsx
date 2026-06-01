@@ -235,9 +235,9 @@ export default function Nav() {
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(!mobileOpen)}
             >
-              <span className={cn("block w-5 h-[1.5px] rounded-full transition-all duration-200", mobileOpen ? "bg-white" : isLight ? "bg-text-primary" : "bg-white", mobileOpen && "translate-y-[6.5px] rotate-45")} />
-              <span className={cn("block w-5 h-[1.5px] rounded-full transition-opacity duration-200", mobileOpen ? "bg-white" : isLight ? "bg-text-primary" : "bg-white", mobileOpen && "opacity-0")} />
-              <span className={cn("block w-5 h-[1.5px] rounded-full transition-all duration-200", mobileOpen ? "bg-white" : isLight ? "bg-text-primary" : "bg-white", mobileOpen && "-translate-y-[6.5px] -rotate-45")} />
+              <span className={cn("block w-5 h-[1.5px] rounded-full transition-all duration-200", isLight ? "bg-text-primary" : "bg-white", mobileOpen && "translate-y-[6.5px] rotate-45")} />
+              <span className={cn("block w-5 h-[1.5px] rounded-full transition-opacity duration-200", isLight ? "bg-text-primary" : "bg-white", mobileOpen && "opacity-0")} />
+              <span className={cn("block w-5 h-[1.5px] rounded-full transition-all duration-200", isLight ? "bg-text-primary" : "bg-white", mobileOpen && "-translate-y-[6.5px] -rotate-45")} />
             </button>
           </div>
         </div>

@@ -179,26 +179,16 @@ export default function AboutPage() {
             {sectors.map((s) => (
               <div key={s.num} className="border-b border-border transition-colors hover:bg-off-white">
                 {/* Mobile: simple stack */}
-                <div className="sm:hidden py-5 flex gap-4 items-start">
-                  <span className="font-bold text-amber leading-none select-none flex-shrink-0"
-                    style={{ fontSize: "28px", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }} aria-hidden="true">
-                    {s.num}
-                  </span>
-                  <div>
-                    <h3 className="font-bold text-[17px] text-navy tracking-tight mb-1">{s.title}</h3>
-                    <p className="text-[13px] text-text-secondary leading-relaxed">{s.desc}</p>
-                  </div>
+                <div className="sm:hidden py-5">
+                  <h3 className="font-bold text-[17px] text-navy tracking-tight mb-1">{s.title}</h3>
+                  <p className="text-[13px] text-text-secondary leading-relaxed">{s.desc}</p>
                 </div>
 
-                {/* Desktop: 3-col ledger */}
+                {/* Desktop: 2-col ledger (number removed) */}
                 <div
                   className="hidden sm:grid"
-                  style={{ gridTemplateColumns: "96px 1fr 300px", alignItems: "baseline", gap: "32px", padding: "30px 0" }}
+                  style={{ gridTemplateColumns: "1fr 300px", alignItems: "baseline", gap: "32px", padding: "30px 0" }}
                 >
-                  <span className="font-bold text-[#d1d5db] leading-none select-none"
-                    style={{ fontSize: "32px", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }} aria-hidden="true">
-                    {s.num}
-                  </span>
                   <div>
                     <h3 className="font-bold text-[22px] text-navy tracking-tight mb-2">{s.title}</h3>
                     <p className="text-[14.5px] text-text-secondary leading-relaxed max-w-[460px]">{s.desc}</p>
@@ -206,7 +196,7 @@ export default function AboutPage() {
                   <div className="flex flex-wrap gap-x-[18px] gap-y-2 self-center">
                     {s.roles.map((r) => (
                       <span key={r} className="text-[12px] text-text-muted relative pl-[14px]">
-                        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[5px] h-[5px] rounded-full bg-amber" aria-hidden="true" />
+                        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[5px] h-[5px] rounded-full bg-navy" aria-hidden="true" />
                         {r}
                       </span>
                     ))}

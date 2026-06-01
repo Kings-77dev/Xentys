@@ -151,77 +151,62 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── 03 Visit us ──────────────────────────────────── */}
-      <section className="bg-white py-16" aria-labelledby="ct-visit-h">
+      {/* ── 03 Direct recruiter contact ──────────────────── */}
+      <section className="bg-off-white py-16 border-t border-border" aria-labelledby="ct-rec-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          {/* Natural heights — no items-stretch, matches reference layout */}
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-center">
 
-            {/* Left: image-slot — exact reference structure */}
-            <div className="relative w-full border-2 border-dashed border-[#d5d8dd] bg-[#f0f1f3]" style={{ height: 440 }}>
-              {/* Drop zone */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3" style={{ paddingBottom: 160 }}>
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.2" aria-hidden="true">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-                </svg>
-              </div>
-
-              {/* Caption — inset floating card inside the dashed container */}
-              <div className="absolute bottom-3 left-3 right-3 bg-white p-5 border border-[#d5d8dd] shadow-sm">
-                <p className="font-semibold text-[15px] text-navy mb-1">Speak to a real person.</p>
-                <p className="text-[13px] text-text-secondary mb-4 leading-relaxed">
-                  Adriaan, 15 years in procurement, leads our personal service. He'll find the right path and call you himself.
-                </p>
-                <div className="flex gap-4">
-                  <a href="tel:+31702400414" className="flex items-center gap-2 text-[13px] font-semibold text-navy hover:text-amber-text transition-colors">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-                    Call Adriaan directly
-                  </a>
-                  <a href="https://linkedin.com" rel="noopener noreferrer" className="text-[13px] font-semibold text-navy hover:text-amber-text transition-colors">LinkedIn →</a>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: body — natural flow, exact reference structure */}
+            {/* Left — copy */}
             <div>
-              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Visit us</p>
-              <h2 className="font-bold text-[28px] text-navy mb-4 tracking-tight" id="ct-visit-h">
-                Visit us in Rijswijk.
+              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Direct contact</p>
+              <h2 className="font-bold text-[28px] text-navy tracking-tight mb-4" id="ct-rec-h">
+                Speak directly with a specialist.
               </h2>
-              <p className="text-[16px] text-text-secondary leading-relaxed mb-8">
-                Prefer to talk in person? You are welcome to meet the team at our office by appointment at{" "}
-                <em className="not-italic font-medium text-text-primary">Geestbrugkade 35, Rijswijk</em>.
+              <p className="text-[16px] text-text-secondary leading-relaxed mb-8 max-w-[480px]">
+                Every enquiry is handled personally. Adriaan leads our candidate and employer service — he&apos;ll find the right path and call you himself within 1 working day.
               </p>
+              <div className="flex flex-wrap gap-3">
+                <a href="tel:+31702400414"
+                  className="inline-flex items-center gap-2 h-11 px-5 bg-amber text-navy font-semibold text-[14px] rounded-[2px] hover:bg-[#e89400] transition-colors whitespace-nowrap">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/>
+                  </svg>
+                  Call 070 240 04 14
+                </a>
+                <a href="mailto:adriaan.brok@xentys.nl"
+                  className="inline-flex items-center h-11 px-5 border border-border text-navy font-semibold text-[14px] rounded-[2px] hover:border-[#c9cdd3] hover:bg-white transition-all whitespace-nowrap">
+                  Email Adriaan →
+                </a>
+              </div>
+            </div>
 
-              {/* Office card */}
-              <div className="border border-border p-6 mb-6">
-                <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Our office &amp; hours</p>
-                <address className="not-italic text-[14px] text-text-primary font-semibold mb-4">
-                  xentys B.V.<br />
-                  <span className="font-normal text-text-secondary">Geestbrugkade 35, 2281 CX · Rijswijk, Netherlands</span>
-                </address>
-                <div className="flex flex-col gap-2 mb-4 text-[13px]">
-                  <div className="flex justify-between">
-                    <span className="text-text-secondary">Monday – Friday</span>
-                    <strong className="text-text-primary font-semibold">09:00 – 17:00</strong>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-text-secondary">Saturday – Sunday</span>
-                    <strong className="text-text-primary font-semibold">Closed</strong>
-                  </div>
-                </div>
-                {/* Live status — plain, no background tint */}
-                <div className="flex items-start gap-2 text-[12px] text-text-muted pt-3 border-t border-border">
-                  <span className={`w-2 h-2 rounded-full flex-shrink-0 mt-0.5 ${liveStatus.open ? "bg-[#22c55e]" : "bg-[#9ca3af]"}`} aria-hidden="true" />
-                  {liveStatus.label}
+            {/* Right — recruiter card */}
+            <div className="bg-white border border-border" style={{ borderTop: "2px solid #ffa300" }}>
+              {/* Portrait placeholder */}
+              <div
+                className="relative overflow-hidden"
+                style={{ aspectRatio: "4/3", background: "linear-gradient(165deg, #0d2b55 0%, #15396b 100%)" }}
+              >
+                <span className="absolute inset-0 flex items-center justify-center font-semibold text-white/10 select-none" style={{ fontSize: 80 }} aria-hidden="true">AB</span>
+                <span className="absolute top-3 left-3 text-[10px] font-semibold tracking-[0.08em] uppercase text-amber px-2 py-1" style={{ background: "rgba(7,25,53,0.7)", backdropFilter: "blur(4px)" }}>
+                  Interim specialist
+                </span>
+              </div>
+              <div className="p-6">
+                <p className="font-bold text-[17px] text-navy mb-0.5">Adriaan Brok</p>
+                <p className="text-[13px] text-text-secondary mb-1">Senior Procurement Recruiter</p>
+                <p className="text-[12px] text-text-muted mb-4">Industry &amp; Construction · 8 years in interim procurement</p>
+                <p className="text-[13px] text-text-secondary leading-relaxed italic mb-5">
+                  &ldquo;I know this market from the inside. Call me — I&apos;ll tell you exactly what&apos;s possible.&rdquo;
+                </p>
+                <div className="flex gap-4 pt-4 border-t border-border">
+                  <a href="tel:+31702400414" className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors flex items-center gap-1">Call</a>
+                  <a href="mailto:adriaan.brok@xentys.nl" className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors">Email</a>
+                  <a href="https://linkedin.com" rel="noopener noreferrer" className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors">LinkedIn →</a>
                 </div>
               </div>
-
-              <a href="https://maps.google.com/?q=Geestbrugkade+35,+Rijswijk" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center h-11 px-5 border border-border text-navy font-semibold text-[14px] rounded-[2px] hover:border-[#c9cdd3] hover:bg-off-white transition-all">
-                Get directions →
-              </a>
             </div>
+
           </div>
         </div>
       </section>
@@ -352,7 +337,64 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── 06 Final CTA ─────────────────────────────────── */}
+      {/* ── 06 Office visit information ──────────────────── */}
+      <section className="bg-white py-16 border-t border-border" aria-labelledby="ct-visit-h">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+
+            {/* Left: image placeholder */}
+            <div className="relative w-full border-2 border-dashed border-[#d5d8dd] bg-[#f0f1f3]" style={{ height: 440 }}>
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.2" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+                </svg>
+                <p className="text-[13px] text-[#9ca3af]">Office / team photo</p>
+              </div>
+            </div>
+
+            {/* Right: address, hours, directions */}
+            <div>
+              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Visit us</p>
+              <h2 className="font-bold text-[28px] text-navy mb-4 tracking-tight" id="ct-visit-h">
+                Visit us in Rijswijk.
+              </h2>
+              <p className="text-[16px] text-text-secondary leading-relaxed mb-8">
+                Prefer to talk in person? You are welcome to meet the team at our office by appointment at{" "}
+                <em className="not-italic font-medium text-text-primary">Geestbrugkade 35, Rijswijk</em>.
+              </p>
+
+              <div className="border border-border p-6 mb-6">
+                <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Our office &amp; hours</p>
+                <address className="not-italic text-[14px] text-text-primary font-semibold mb-4">
+                  xentys B.V.<br />
+                  <span className="font-normal text-text-secondary">Geestbrugkade 35, 2281 CX · Rijswijk, Netherlands</span>
+                </address>
+                <div className="flex flex-col gap-2 mb-4 text-[13px]">
+                  <div className="flex justify-between">
+                    <span className="text-text-secondary">Monday – Friday</span>
+                    <strong className="text-text-primary font-semibold">09:00 – 17:00</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-text-secondary">Saturday – Sunday</span>
+                    <strong className="text-text-primary font-semibold">Closed</strong>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2 text-[12px] text-text-muted pt-3 border-t border-border">
+                  <span className={`w-2 h-2 rounded-full flex-shrink-0 mt-0.5 ${liveStatus.open ? "bg-[#22c55e]" : "bg-[#9ca3af]"}`} aria-hidden="true" />
+                  {liveStatus.label}
+                </div>
+              </div>
+
+              <a href="https://maps.google.com/?q=Geestbrugkade+35,+Rijswijk" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center h-11 px-5 border border-border text-navy font-semibold text-[14px] rounded-[2px] hover:border-[#c9cdd3] hover:bg-off-white transition-all">
+                Get directions →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 07 Final CTA ─────────────────────────────────── */}
       <section className="bg-navy py-20" aria-label="Final call to action">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
           <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-center">
