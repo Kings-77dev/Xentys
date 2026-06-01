@@ -182,17 +182,6 @@ body {
   animation-play-state: paused;
 }
 
-/* Mobile: disable marquee animation, wrap logos statically */
-@media (max-width: 639px) {
-  .logo-track {
-    animation: none !important;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: auto !important;
-    gap: 16px;
-    padding: 0 8px;
-  }
-}
 
 /* ── SectorsFeature — panel crossfade animation ───────────── */
 @keyframes sf-fade-in {

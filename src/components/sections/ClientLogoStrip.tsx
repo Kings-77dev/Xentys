@@ -10,14 +10,28 @@ const logos = [
 
 export function ClientLogoStrip() {
   return (
-    <section className="bg-white border-t border-border sm:overflow-hidden" aria-label="Trusted by">
+    <section className="bg-white border-t border-border overflow-hidden" aria-label="Trusted by">
       <div className="py-8">
         <p className="text-[13px] text-[#6b6f75] text-center mb-7">
           Trusted by leading organisations across the Netherlands.
         </p>
 
-        {/* Full-width scrolling track — CSS classes defined in globals.css */}
-        <div className="logo-mask">
+        {/* Mobile — static wrapped grid, no animation */}
+        <div className="sm:hidden flex flex-wrap justify-center gap-4 px-6 pb-2">
+          {logos.map((logo, i) => (
+            <div key={i} className="h-9 w-28 flex items-center justify-center">
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                className="max-h-full max-w-full object-contain opacity-50"
+                draggable={false}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop — animated marquee */}
+        <div className="hidden sm:block logo-mask">
           <div className="logo-track flex items-center gap-8 sm:gap-16" style={{ width: "max-content" }}>
             {[...logos, ...logos].map((logo, i) => (
               <div

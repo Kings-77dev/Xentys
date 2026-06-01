@@ -99,6 +99,7 @@ export default function Nav() {
     <>
       <nav
         ref={navRef}
+        style={{ transform: "translateZ(0)" }}
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-[240ms] ease-out",
           isLight
@@ -222,10 +223,10 @@ export default function Nav() {
               ))}
             </div>
 
-            {/* CTA */}
-            <LinkButton href="/contact" variant="primary" className="hidden lg:inline-flex flex-shrink-0">
-              Get in touch
-            </LinkButton>
+            {/* CTA — wrapped in div so hidden works regardless of LinkButton's inline-flex base */}
+            <div className="hidden lg:block flex-shrink-0">
+              <LinkButton href="/contact" variant="primary">Get in touch</LinkButton>
+            </div>
 
             {/* Hamburger */}
             <button
@@ -234,9 +235,9 @@ export default function Nav() {
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(!mobileOpen)}
             >
-              <span className={cn("block w-5 h-[1.5px] rounded-full transition-all duration-200", isLight || mobileOpen ? "bg-text-primary" : "bg-white", mobileOpen && "translate-y-[6.5px] rotate-45")} />
-              <span className={cn("block w-5 h-[1.5px] rounded-full transition-opacity duration-200", isLight || mobileOpen ? "bg-text-primary" : "bg-white", mobileOpen && "opacity-0")} />
-              <span className={cn("block w-5 h-[1.5px] rounded-full transition-all duration-200", isLight || mobileOpen ? "bg-text-primary" : "bg-white", mobileOpen && "-translate-y-[6.5px] -rotate-45")} />
+              <span className={cn("block w-5 h-[1.5px] rounded-full transition-all duration-200", mobileOpen ? "bg-white" : isLight ? "bg-text-primary" : "bg-white", mobileOpen && "translate-y-[6.5px] rotate-45")} />
+              <span className={cn("block w-5 h-[1.5px] rounded-full transition-opacity duration-200", mobileOpen ? "bg-white" : isLight ? "bg-text-primary" : "bg-white", mobileOpen && "opacity-0")} />
+              <span className={cn("block w-5 h-[1.5px] rounded-full transition-all duration-200", mobileOpen ? "bg-white" : isLight ? "bg-text-primary" : "bg-white", mobileOpen && "-translate-y-[6.5px] -rotate-45")} />
             </button>
           </div>
         </div>
