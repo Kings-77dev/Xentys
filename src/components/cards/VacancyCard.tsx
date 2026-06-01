@@ -6,7 +6,16 @@ interface VacancyCardProps { vacancy: Vacancy; }
 
 export function VacancyCard({ vacancy }: VacancyCardProps) {
   return (
-    <article className="relative bg-white border border-[#e1e4e8] rounded-none p-6 flex flex-col gap-4 transition-all duration-[200ms] ease-out hover:-translate-y-px hover:border-[#c9cdd3] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] overflow-hidden">
+    <article className="relative bg-white border border-[#e1e4e8] rounded-none p-6 flex flex-col gap-4 transition-all duration-[200ms] ease-out hover:-translate-y-px hover:border-[#c9cdd3] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] overflow-hidden cursor-pointer">
+
+      {/* Stretched link — makes the entire card clickable */}
+      <Link
+        href={`/vacancies/${vacancy.slug}`}
+        className="absolute inset-0 z-0"
+        aria-label={`View role: ${vacancy.title}`}
+        tabIndex={-1}
+        aria-hidden="true"
+      />
 
       {/*
         Decorative watermark — aria-hidden so screen readers skip it entirely.
@@ -53,12 +62,9 @@ export function VacancyCard({ vacancy }: VacancyCardProps) {
           </div>
           {vacancy.recruiterName.split(" ")[0]}
         </div>
-        <Link
-          href={`/vacancies/${vacancy.slug}`}
-          className="text-[12px] font-semibold text-text-muted hover:text-text-primary transition-colors duration-[180ms] tracking-[0.01em]"
-        >
+        <span className="relative z-10 text-[12px] font-semibold text-text-muted tracking-[0.01em]">
           View role →
-        </Link>
+        </span>
       </div>
     </article>
   );
