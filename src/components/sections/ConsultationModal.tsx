@@ -423,17 +423,6 @@ export function ConsultationModal({ open, onClose }: Props) {
         )}
       </div>
 
-      {/* Shake keyframe */}
-      <style>{`
-        @keyframes tile-shake {
-          0%   { transform: translateX(0); }
-          20%  { transform: translateX(-4px); }
-          40%  { transform: translateX(4px); }
-          60%  { transform: translateX(-3px); }
-          80%  { transform: translateX(3px); }
-          100% { transform: translateX(0); }
-        }
-      `}</style>
     </Modal>
   );
 }

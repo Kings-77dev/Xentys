@@ -213,27 +213,44 @@ export default function AboutPage() {
       </section>
 
       {/* ── 5. Our approach ─────────────────────────────────── */}
-      <section className="bg-navy py-[88px]" aria-labelledby="ab-app-h">
+      <section className="bg-[#f8f8f7] py-[88px]" aria-labelledby="ab-app-h">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
-          <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber mb-4">Our approach</p>
-          <h2 className="font-bold text-[32px] text-white tracking-tight mb-3" id="ab-app-h">Four principles, since day one.</h2>
-          <p className="text-[16px] text-white/65 leading-relaxed max-w-[600px] mb-12">
-            They&apos;re not slogans. They&apos;re the reason clients and candidates come back — and the standard we hold ourselves to on every brief.
-          </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4">
+          {/* Header — left-aligned */}
+          <div className="max-w-[665px] mb-16">
+            <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Our approach</p>
+            <h2 className="font-bold text-[32px] text-navy tracking-tight mb-3" id="ab-app-h">Four principles, since day one.</h2>
+            <p className="text-[16px] text-[#4d5056] leading-relaxed">
+              They&apos;re not slogans. They&apos;re the reason clients and candidates come back — and the standard we hold ourselves to on every brief.
+            </p>
+          </div>
+
+          {/* 4-column grid — same pattern as HowWeWork */}
+          <div className="grid lg:grid-cols-4 items-start" style={{ gap: 0 }}>
             {principles.map((p, i) => (
               <div
                 key={p.num}
-                className="px-7 first:pl-0"
-                style={{ borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.1)" : "none" }}
+                className={`group flex flex-col gap-5 px-8 first:pl-0 ${i < principles.length - 1 ? "border-r border-[#e0e2e5]" : ""}`}
+                style={{ paddingTop: "8px" }}
               >
-                <div className="text-[13px] font-bold text-amber tracking-[0.02em] mb-4">{p.num}</div>
-                <h3 className="text-[17px] font-bold text-white mb-3 tracking-tight">{p.title}</h3>
-                <p className="text-[13.5px] text-white/65 leading-[1.62]">{p.desc}</p>
+                {/* Giant number */}
+                <span
+                  className="font-bold text-[#d1d5db] group-hover:text-amber-text transition-colors duration-200 select-none leading-none"
+                  style={{ fontSize: "72px", letterSpacing: "-2px", lineHeight: 1 }}
+                  aria-hidden="true"
+                >
+                  {p.num}
+                </span>
+                {/* Amber accent bar */}
+                <div className="w-8 h-[3px] bg-amber rounded-full" aria-hidden="true" />
+                {/* Title */}
+                <h3 className="font-semibold text-[22px] text-navy leading-tight">{p.title}</h3>
+                {/* Description */}
+                <p className="text-[15px] leading-6 text-[#4d5056]">{p.desc}</p>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 

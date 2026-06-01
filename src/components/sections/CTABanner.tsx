@@ -19,7 +19,7 @@ export function CTABanner() {
               Ready to find the right match?
             </h2>
             <p className="text-[16px] text-[#a6c2e0]">
-              Whether you're hiring or looking — we respond within 1 working day.
+              Whether you&apos;re hiring or looking — we respond within 1 working day.
             </p>
           </div>
 

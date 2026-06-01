@@ -9,7 +9,7 @@ const services = [
     index: 0,
     label: "Permanent",
     title: "Permanent Recruitment",
-    tag: { label: "Permanent", className: "bg-[#f0fdf4] text-[#166534] border border-[#bbf7d0]" },
+    tag: { label: "Permanent", className: "bg-amber text-navy tracking-widest uppercase rounded-[2px]" },
     description:
       "Full-cycle search for permanent procurement hires. Fixed fee agreed upfront, no hidden costs. 3-month replacement guarantee on every placement. You receive 3–5 screened, briefed candidates only.",
     href: "/consultation",
@@ -22,7 +22,7 @@ const services = [
     index: 1,
     label: "Interim",
     title: "Interim Recruitment",
-    tag: { label: "Interim", className: "bg-[#fffbeb] text-[#92400e] border border-[#fde68a]" },
+    tag: { label: "Interim", className: "bg-navy text-white tracking-widest uppercase rounded-[2px]" },
     description:
       "Screened interim procurement professionals deployed within days — not weeks. Self-employed or payroll basis. Ideal for project capacity, maternity cover, or rapid scaling of your team.",
     href: "/consultation",
@@ -35,7 +35,7 @@ const services = [
     index: 2,
     label: "Secondment",
     title: "Secondment",
-    tag: { label: "Secondment", className: "bg-[#eff6ff] text-[#1e40af] border border-[#bfdbfe]" },
+    tag: { label: "Secondment", className: "bg-[#0e7490] text-white tracking-widest uppercase rounded-[2px]" },
     description:
       "Procurement professionals on our payroll, embedded in your organisation. All employer obligations managed by Xentys. Flexible hours and duration throughout the full assignment period.",
     href: "/consultation",
@@ -170,19 +170,6 @@ export function ServicesRows() {
                         }}
                         aria-hidden="true"
                       />
-                      {/* Number */}
-                      <span
-                        className="font-bold"
-                        style={{
-                          fontSize: "14px",
-                          letterSpacing: "0.04em",
-                          fontVariantNumeric: "tabular-nums",
-                          color: isActive ? "#d97706" : "#9ca3af",
-                          transition: "color 0.25s ease",
-                        }}
-                      >
-                        {s.id}
-                      </span>
                       {/* Label */}
                       <span
                         className="font-semibold"

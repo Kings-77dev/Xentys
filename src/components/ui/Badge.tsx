@@ -4,7 +4,7 @@ import type { PlacementType } from "@/data/vacancies";
 const variants: Record<PlacementType, string> = {
   permanent: "bg-navy text-white",
   interim:   "bg-amber text-navy",
-  secondment:"bg-teal text-white",
+  secondment:"bg-[#0e7490] text-white",
   executive: "bg-purple text-white",
 };
 

@@ -8,7 +8,7 @@ import { HowWeWork } from "@/components/sections/HowWeWork";
 import { ConsultantPreview } from "@/components/sections/ConsultantPreview";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { JobAlertStrip } from "@/components/sections/JobAlertStrip";
-import { CTABanner } from "@/components/sections/CTABanner";
+import { HomeCTACard } from "@/components/sections/HomeCTACard";
 
 export default function HomePage() {
   return (
@@ -22,8 +22,8 @@ export default function HomePage() {
       <HowWeWork />
       <ConsultantPreview />
       <Testimonials />
+      <HomeCTACard />
       <JobAlertStrip />
-      <CTABanner />
     </>
   );
 }

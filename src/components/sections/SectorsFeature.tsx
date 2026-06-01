@@ -36,14 +36,6 @@ export function SectorsFeature() {
 
   return (
     <section className="py-[88px] bg-white border-t border-border" aria-labelledby="sf-heading">
-      <style>{`
-        @keyframes sf-fade-in {
-          from { opacity: 0; transform: translateY(6px); }
-          to   { opacity: 1; transform: none; }
-        }
-        .sf-panel-enter { animation: sf-fade-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-      `}</style>
-
       <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
         {/* Section head */}
         <div className="max-w-[680px] mb-10">
@@ -89,9 +81,6 @@ export function SectorsFeature() {
                 aria-selected={i === active}
                 role="tab"
               >
-                <span className="text-[12px] font-bold text-text-muted w-9 flex-shrink-0">
-                  {sec.num}
-                </span>
                 <span className="text-[15px] font-semibold leading-snug">{sec.title}</span>
               </button>
             ))}
@@ -104,9 +93,6 @@ export function SectorsFeature() {
           >
             {/* Content */}
             <div>
-              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">
-                {s.num} — Sector focus
-              </p>
               <h3 className="font-bold text-[24px] text-navy tracking-tight mb-3">{s.title}</h3>
               <p className="text-[15px] text-text-secondary leading-relaxed mb-5">{s.desc}</p>
 
