@@ -314,7 +314,7 @@ export function CandidateModal({ open, onClose }: Props) {
               {/* Recruiter card */}
               <div style={{ textAlign: "left", border: "1px solid #e0e2e5", borderTop: "3px solid #ffa300", borderRadius: 0, padding: "18px 20px", maxWidth: 460, margin: "0 auto 18px", background: "#fff" }}>
                 <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                  <div style={{ width: 44, height: 44, borderRadius: "50%", flexShrink: 0, background: "#f0f1f3", color: "#0d2b55", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 15 }}>AB</div>
+                  <img src="/images/AdriaanVierkant.avif" alt="Adriaan Brok" style={{ width: 44, height: 44, borderRadius: "50%", flexShrink: 0, objectFit: "cover", objectPosition: "top center" }} />
                   <div>
                     <div style={{ fontSize: 15, fontWeight: 700, color: "#0d2b55" }}>Adriaan Brok</div>
                     <div style={{ fontSize: 12.5, color: "#6b6f75", marginBottom: 6 }}>Senior Procurement Recruiter · Industry &amp; Construction</div>
@@ -335,9 +335,9 @@ export function CandidateModal({ open, onClose }: Props) {
               {/* What's next */}
               <div style={{ display: "flex", maxWidth: 460, margin: "0 auto 22px", border: "1px solid #e0e2e5", overflow: "hidden" }}>
                 {[
-                  { day: "Day 1",  text: "We review your profile." },
-                  { day: "~Day 2", text: "Adriaan calls you." },
-                  { day: "~Day 5", text: "Active representation starts." },
+                  { day: "Step 1",  text: "We review your profile." },
+                  { day: "Step 2", text: "Adriaan calls you." },
+                  { day: "Step 3", text: "Active representation starts." },
                 ].map((s, i) => (
                   <div key={s.day} style={{ flex: 1, padding: "12px 14px", borderLeft: i > 0 ? "1px solid #e0e2e5" : "none" }}>
                     <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: "#663d00" }}>{s.day}</div>
@@ -364,11 +364,19 @@ export function CandidateModal({ open, onClose }: Props) {
             className="flex-shrink-0"
             style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", height: 64, borderTop: "1px solid #f0f1f3", background: "#fff" }}
           >
-            <div style={{ fontSize: 13, color: "#4d5057" }}>
-              Prefer to call?{" "}
-              <a href="tel:+31702400414" style={{ color: "#0d2b55", fontWeight: 600, borderBottom: "1px dotted #0d2b55" }}>
-                <strong>Dial 070 240 04 14</strong>
-              </a>
+            <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              <span style={{ fontSize: 13, color: "#4d5057" }}>
+                Prefer to call?{" "}
+                <a href="tel:+31702400414" style={{ color: "#0d2b55", fontWeight: 600, borderBottom: "1px dotted #0d2b55" }}>
+                  <strong>Dial 070 240 04 14</strong>
+                </a>
+              </span>
+              <span style={{ fontSize: 12, color: "#6b6f75" }}>
+                Something else?{" "}
+                <Link href="/contact" onClick={handleClose} style={{ color: "#0d2b55", fontWeight: 600 }}>
+                  Contact us →
+                </Link>
+              </span>
             </div>
             <button
               type="submit"

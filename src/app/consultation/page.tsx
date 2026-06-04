@@ -42,6 +42,8 @@ export default function ConsultationPage() {
   const [placement, setPlacement] = useState<PlacementType>(null);
   const [fileName, setFileName] = useState("No file chosen · PDF / DOCX, max 2 GB");
   const [successName, setSuccessName] = useState("");
+  const [callTime,    setCallTime]    = useState("either");
+  const [contactPref, setContactPref] = useState("phone");
   const fileRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -55,8 +57,16 @@ export default function ConsultationPage() {
   return (
     <>
       {/* ── Hero ───────────────────────────────────────── */}
-      <section className="bg-navy pt-36 pb-16" aria-labelledby="consult-heading">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-navy pt-36 pb-16 px-6 md:px-10 lg:px-20" aria-labelledby="consult-heading">
+        <div className="max-w-[1280px] mx-auto">
+          {/* Google rating — top-right, matches vacancy detail pattern */}
+          <div className="flex justify-end mb-4">
+            <div className="flex items-center gap-1.5 text-[13px]">
+              <strong className="text-white font-semibold">4.9</strong>
+              <span className="text-amber">★★★★★</span>
+              <span className="text-white/50">47 Google reviews</span>
+            </div>
+          </div>
           <nav className="flex items-center gap-2 text-[12px] text-white/50 mb-6" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>
             <span aria-hidden="true">/</span>
@@ -81,8 +91,8 @@ export default function ConsultationPage() {
       </section>
 
       {/* ── Body ───────────────────────────────────────── */}
-      <div className="bg-off-white py-16">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <div className="bg-off-white py-16 px-6 md:px-10 lg:px-20">
+        <div className="max-w-[1080px] mx-auto">
           <div className="grid lg:grid-cols-[1fr_360px] gap-12 items-start">
 
             {/* ── Main form ────────────────────────────── */}
@@ -247,27 +257,39 @@ export default function ConsultationPage() {
                         </Field>
                       </div>
 
-                      {/* Radio groups */}
+                      {/* Radio groups — styled to match ConsultationModal SegBtn */}
                       <div className="flex flex-col gap-2">
                         <span className="text-[11px] font-semibold text-text-secondary">Best time to call</span>
                         <div className="flex gap-2 flex-wrap">
-                          {["Morning", "Afternoon", "Either"].map((v, i) => (
-                            <label key={v} className="flex items-center gap-2 text-[13.5px] text-text-secondary cursor-pointer px-[14px] py-[9px] border border-[#d5d8dd] rounded-[2px] hover:border-[#c7cace] transition-colors">
-                              <input type="radio" name="besttime" value={v.toLowerCase()} defaultChecked={i === 2} className="accent-amber" />
-                              {v}
-                            </label>
-                          ))}
+                          {["Morning", "Afternoon", "Either"].map((v) => {
+                            const active = callTime === v.toLowerCase();
+                            return (
+                              <label key={v} className="inline-flex items-center gap-2 cursor-pointer select-none" style={{ padding: "9px 14px", border: active ? "1.5px solid #ffa300" : "1.5px solid #d5d8dd", borderRadius: 2, fontSize: 13.5, color: active ? "#0f172a" : "#4d5057", boxShadow: active ? "0 0 0 2px rgba(255,163,0,0.14)" : "none", background: "#fff", transition: "all 0.15s ease" }}>
+                                <input type="radio" className="sr-only" checked={active} onChange={() => setCallTime(v.toLowerCase())} />
+                                <span style={{ width: 16, height: 16, borderRadius: "50%", flexShrink: 0, background: active ? "#ffa300" : "#fff", border: active ? "none" : "1.5px solid #c7cace", display: "flex", alignItems: "center", justifyContent: "center" }} aria-hidden="true">
+                                  {active && <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
+                                </span>
+                                {v}
+                              </label>
+                            );
+                          })}
                         </div>
                       </div>
                       <div className="flex flex-col gap-2">
                         <span className="text-[11px] font-semibold text-text-secondary">Preferred contact</span>
                         <div className="flex gap-2 flex-wrap">
-                          {["Phone", "Email"].map((v, i) => (
-                            <label key={v} className="flex items-center gap-2 text-[13.5px] text-text-secondary cursor-pointer px-[14px] py-[9px] border border-[#d5d8dd] rounded-[2px] hover:border-[#c7cace] transition-colors">
-                              <input type="radio" name="prefer" value={v.toLowerCase()} defaultChecked={i === 0} className="accent-amber" />
-                              {v}
-                            </label>
-                          ))}
+                          {["Phone", "Email"].map((v) => {
+                            const active = contactPref === v.toLowerCase();
+                            return (
+                              <label key={v} className="inline-flex items-center gap-2 cursor-pointer select-none" style={{ padding: "9px 14px", border: active ? "1.5px solid #ffa300" : "1.5px solid #d5d8dd", borderRadius: 2, fontSize: 13.5, color: active ? "#0f172a" : "#4d5057", boxShadow: active ? "0 0 0 2px rgba(255,163,0,0.14)" : "none", background: "#fff", transition: "all 0.15s ease" }}>
+                                <input type="radio" className="sr-only" checked={active} onChange={() => setContactPref(v.toLowerCase())} />
+                                <span style={{ width: 16, height: 16, borderRadius: "50%", flexShrink: 0, background: active ? "#ffa300" : "#fff", border: active ? "none" : "1.5px solid #c7cace", display: "flex", alignItems: "center", justifyContent: "center" }} aria-hidden="true">
+                                  {active && <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
+                                </span>
+                                {v}
+                              </label>
+                            );
+                          })}
                         </div>
                       </div>
                     </div>
@@ -287,12 +309,20 @@ export default function ConsultationPage() {
 
                     {/* Submit row */}
                     <div className="flex items-center justify-between gap-4 mt-7 pt-6 border-t border-border flex-wrap">
-                      <p className="text-[12.5px] text-text-muted">
-                        Prefer to call?{" "}
-                        <a href="tel:+31702400414" className="text-navy font-bold border-b border-dotted border-navy">
-                          Dial <strong>070 240 04 14</strong>
-                        </a>
-                      </p>
+                      <div className="flex flex-col gap-0.5">
+                        <p className="text-[12.5px] text-text-muted">
+                          Prefer to call?{" "}
+                          <a href="tel:+31702400414" className="text-navy font-bold border-b border-dotted border-navy hover:text-amber-text transition-colors">
+                            Dial <strong>070 240 04 14</strong>
+                          </a>
+                        </p>
+                        <p className="text-[12.5px] text-text-muted">
+                          Something else?{" "}
+                          <Link href="/contact" className="text-navy font-semibold hover:text-amber-text transition-colors">
+                            Contact us →
+                          </Link>
+                        </p>
+                      </div>
                       <button type="submit"
                         className="h-11 px-6 bg-amber text-navy font-semibold text-[14px] rounded-[2px] hover:bg-[#e89400] transition-colors whitespace-nowrap">
                         Submit brief →
@@ -342,18 +372,13 @@ export default function ConsultationPage() {
               <div className="bg-white border border-border p-6">
                 <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-amber-text mb-4">You'll work with</p>
                 <div className="flex gap-4 items-start">
-                  {/* Portrait rectangle placeholder (3:4) */}
-                  <div
-                    className="flex-shrink-0 flex items-center justify-center text-white font-bold text-[18px]"
-                    style={{
-                      width: 80, height: 107,
-                      background: "linear-gradient(180deg, #c7cace, #8a8e94)",
-                      borderRadius: 0,
-                    }}
-                    aria-hidden="true"
-                  >
-                    AB
-                  </div>
+                  {/* Portrait */}
+                  <img
+                    src="/images/AdriaanVierkant.avif"
+                    alt="Adriaan Brok"
+                    className="flex-shrink-0"
+                    style={{ width: 80, height: 107, objectFit: "cover", objectPosition: "top center" }}
+                  />
                   <div className="min-w-0">
                     <p className="font-bold text-[16px] text-navy mb-0.5">Adriaan Brok</p>
                     <p className="text-[12.5px] text-text-secondary leading-snug">Senior Procurement Recruiter<br />15y · Industry &amp; Construction · 60+ placements</p>

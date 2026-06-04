@@ -31,8 +31,8 @@ const steps = [
 
 export function HowWeWork() {
   return (
-    <section className="bg-[#f8f8f7] py-16 lg:py-[120px]" aria-labelledby="how-heading">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+    <section className="bg-[#f8f8f7] py-16 lg:py-[120px] px-6 md:px-10 lg:px-20" aria-labelledby="how-heading">
+      <div className="max-w-[1280px] mx-auto">
 
         {/* Header */}
         <div className="flex flex-col items-center text-center max-w-[665px] mx-auto mb-4">
@@ -155,7 +155,7 @@ export function HowWeWork() {
         <div className="flex justify-center" style={{ marginTop: "32px" }}>
           <Link
             href="/consultation"
-            className="inline-flex items-center justify-center min-w-[248px] h-[76px] px-7 bg-amber rounded-[2px] text-[13px] font-semibold text-[#071935] hover:opacity-90 transition-opacity"
+            className="inline-flex items-center justify-center min-w-[248px] h-[76px] px-7 bg-amber rounded-[2px] text-[13px] font-semibold text-[#071935] hover:bg-[#e89400] transition-colors"
           >
             Share a vacancy brief →
           </Link>

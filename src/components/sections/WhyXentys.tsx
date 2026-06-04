@@ -25,8 +25,8 @@ const items = [
 
 export function WhyXentys() {
   return (
-    <section className="bg-white py-[120px]" aria-labelledby="why-heading">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+    <section className="bg-white py-[120px] px-6 md:px-10 lg:px-20" aria-labelledby="why-heading">
+      <div className="max-w-[1280px] mx-auto">
         <div className="grid lg:grid-cols-[360px_1fr] gap-20 items-start">
 
           {/* Sticky header */}

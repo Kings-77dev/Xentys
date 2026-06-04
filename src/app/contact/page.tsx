@@ -75,8 +75,16 @@ export default function ContactPage() {
   return (
     <>
       {/* ── 01 Hero — matches consultation page pattern exactly ── */}
-      <section className="bg-navy pt-36 pb-16" aria-labelledby="ct-heading">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-navy pt-36 pb-16 px-6 md:px-10 lg:px-20" aria-labelledby="ct-heading">
+        <div className="max-w-[1280px] mx-auto">
+          {/* Google rating — top-right, matches vacancy detail pattern */}
+          <div className="flex justify-end mb-4">
+            <div className="flex items-center gap-1.5 text-[13px]">
+              <strong className="text-white font-semibold">4.9</strong>
+              <span className="text-amber">★★★★★</span>
+              <span className="text-white/50">47 Google reviews</span>
+            </div>
+          </div>
           <nav className="flex items-center gap-2 text-[12px] text-white/50 mb-6" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>
             <span aria-hidden="true">/</span>
@@ -101,12 +109,12 @@ export default function ContactPage() {
       </section>
 
       {/* ── 02 Routing cards ─────────────────────────────── */}
-      <section className="bg-off-white py-16" aria-label="Choose your route">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-off-white py-16 px-6 md:px-10 lg:px-20" aria-label="Choose your route">
+        <div className="max-w-[1280px] mx-auto">
           <div className="grid sm:grid-cols-2 gap-6">
 
             {/* I need to hire */}
-            <article className="bg-white border border-border p-8 flex flex-col gap-5">
+            <article className="bg-white border border-border p-8 flex flex-col gap-5 transition-all duration-200 hover:-translate-y-2 hover:shadow-xl">
               <div>
                 <h2 className="font-bold text-[22px] text-navy mb-2">I need to hire</h2>
                 <p className="text-[15px] text-text-secondary leading-relaxed">
@@ -122,7 +130,7 @@ export default function ContactPage() {
             </article>
 
             {/* I want a role */}
-            <article className="bg-navy p-8 flex flex-col gap-5">
+            <article className="bg-navy p-8 flex flex-col gap-5 transition-all duration-200 hover:-translate-y-2">
               <div>
                 <h2 className="font-bold text-[22px] text-white mb-2">I want a role</h2>
                 <p className="text-[15px] text-white/70 leading-relaxed">
@@ -152,8 +160,8 @@ export default function ContactPage() {
       </section>
 
       {/* ── 03 Direct recruiter contact ──────────────────── */}
-      <section className="bg-off-white py-16 border-t border-border" aria-labelledby="ct-rec-h">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-off-white py-16 border-t border-border px-6 md:px-10 lg:px-20" aria-labelledby="ct-rec-h">
+        <div className="max-w-[1280px] mx-auto">
           <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-center">
 
             {/* Left — copy */}
@@ -163,7 +171,7 @@ export default function ContactPage() {
                 Speak directly with a specialist.
               </h2>
               <p className="text-[16px] text-text-secondary leading-relaxed mb-8 max-w-[480px]">
-                Every enquiry is handled personally. Adriaan leads our candidate and employer service — he&apos;ll find the right path and call you himself within 1 working day.
+                Every enquiry is handled personally. Maarten leads our candidate and employer service — he&apos;ll find the right path and call you himself within 1 working day.
               </p>
               <div className="flex flex-wrap gap-3">
                 <a href="tel:+31702400414"
@@ -173,36 +181,34 @@ export default function ContactPage() {
                   </svg>
                   Call 070 240 04 14
                 </a>
-                <a href="mailto:adriaan.brok@xentys.nl"
+                <a href="mailto:maarten.smitsvanoyen@xentys.nl"
                   className="inline-flex items-center h-11 px-5 border border-border text-navy font-semibold text-[14px] rounded-[2px] hover:border-[#c9cdd3] hover:bg-white transition-all whitespace-nowrap">
-                  Email Adriaan →
+                  Email Maarten →
                 </a>
               </div>
             </div>
 
             {/* Right — recruiter card */}
             <div className="bg-white border border-border" style={{ borderTop: "2px solid #ffa300" }}>
-              {/* Portrait placeholder */}
-              <div
-                className="relative overflow-hidden"
-                style={{ aspectRatio: "4/3", background: "linear-gradient(165deg, #0d2b55 0%, #15396b 100%)" }}
-              >
-                <span className="absolute inset-0 flex items-center justify-center font-semibold text-white/10 select-none" style={{ fontSize: 80 }} aria-hidden="true">AB</span>
+              {/* Portrait */}
+              <div className="relative overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                <img src="/images/MaartenVierkant.avif" alt="Maarten Smits van Oyen" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} />
                 <span className="absolute top-3 left-3 text-[10px] font-semibold tracking-[0.08em] uppercase text-amber px-2 py-1" style={{ background: "rgba(7,25,53,0.7)", backdropFilter: "blur(4px)" }}>
-                  Interim specialist
+                  Permanent · Interim
                 </span>
               </div>
               <div className="p-6">
-                <p className="font-bold text-[17px] text-navy mb-0.5">Adriaan Brok</p>
+                <p className="font-bold text-[17px] text-navy mb-0.5">Maarten Smits van Oyen</p>
                 <p className="text-[13px] text-text-secondary mb-1">Senior Procurement Recruiter</p>
-                <p className="text-[12px] text-text-muted mb-4">Industry &amp; Construction · 8 years in interim procurement</p>
+                <p className="text-[12px] text-text-muted mb-4">Permanent &amp; Interim · 10+ years in procurement recruitment</p>
                 <p className="text-[13px] text-text-secondary leading-relaxed italic mb-5">
-                  &ldquo;I know this market from the inside. Call me — I&apos;ll tell you exactly what&apos;s possible.&rdquo;
+                  &ldquo;When you genuinely know procurement, you make better connections — for the company and for the person.&rdquo;
                 </p>
-                <div className="flex gap-4 pt-4 border-t border-border">
-                  <a href="tel:+31702400414" className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors flex items-center gap-1">Call</a>
-                  <a href="mailto:adriaan.brok@xentys.nl" className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors">Email</a>
-                  <a href="https://linkedin.com" rel="noopener noreferrer" className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors">LinkedIn →</a>
+                <div className="pt-4 border-t border-border">
+                  <a href="https://linkedin.com" rel="noopener noreferrer" className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors flex items-center gap-1">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    LinkedIn →
+                  </a>
                 </div>
               </div>
             </div>
@@ -212,8 +218,8 @@ export default function ContactPage() {
       </section>
 
       {/* ── 04 General enquiry form ──────────────────────── */}
-      <section className="bg-white py-16" aria-labelledby="ct-enq-h">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-white py-16 px-6 md:px-10 lg:px-20" aria-labelledby="ct-enq-h">
+        <div className="max-w-[1080px] mx-auto">
           <div className="mb-8">
             <h2 className="font-bold text-[28px] text-navy mb-2 tracking-tight" id="ct-enq-h">General enquiry</h2>
             <p className="text-[15px] text-text-secondary">For press, partnerships, or anything else.</p>
@@ -289,8 +295,8 @@ export default function ContactPage() {
       </section>
 
       {/* ── 05 FAQ — individual white cards ──────────────── */}
-      <section className="bg-white py-16" id="faq" aria-labelledby="ct-faq-h">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-white py-16 px-6 md:px-10 lg:px-20" id="faq" aria-labelledby="ct-faq-h">
+        <div className="max-w-[760px] mx-auto">
           <div className="flex items-start justify-between gap-8 mb-10 flex-wrap">
             <div>
               <h2 className="font-bold text-[28px] text-navy mb-2 tracking-tight" id="ct-faq-h">
@@ -313,7 +319,7 @@ export default function ContactPage() {
                     type="button"
                     aria-expanded={isOpen}
                     onClick={() => setOpenFaq(isOpen ? null : i)}
-                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
+                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-off-white transition-colors"
                   >
                     <span className={`text-[15px] font-semibold transition-colors ${isOpen ? "text-navy" : "text-text-primary"}`}>
                       {faq.q}
@@ -338,18 +344,13 @@ export default function ContactPage() {
       </section>
 
       {/* ── 06 Office visit information ──────────────────── */}
-      <section className="bg-white py-16 border-t border-border" aria-labelledby="ct-visit-h">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-white py-16 border-t border-border px-6 md:px-10 lg:px-20" aria-labelledby="ct-visit-h">
+        <div className="max-w-[1280px] mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-            {/* Left: image placeholder */}
-            <div className="relative w-full border-2 border-dashed border-[#d5d8dd] bg-[#f0f1f3]" style={{ height: 440 }}>
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.2" aria-hidden="true">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-                </svg>
-                <p className="text-[13px] text-[#9ca3af]">Office / team photo</p>
-              </div>
+            {/* Left: office photo */}
+            <div className="relative w-full overflow-hidden" style={{ height: 440 }}>
+              <img src="/images/office.avif" alt="xentys office" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
 
             {/* Right: address, hours, directions */}
@@ -395,8 +396,8 @@ export default function ContactPage() {
       </section>
 
       {/* ── 07 Final CTA ─────────────────────────────────── */}
-      <section className="bg-navy py-20" aria-label="Final call to action">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-navy py-20 px-6 md:px-10 lg:px-20" aria-label="Final call to action">
+        <div className="max-w-[1280px] mx-auto">
           <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-center">
             <div>
               <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber mb-4">Still deciding?</p>

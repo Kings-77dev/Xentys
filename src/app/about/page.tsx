@@ -5,10 +5,10 @@ import { CTABanner } from "@/components/sections/CTABanner";
 
 // ── Team data (existing site team) ──────────────────────────
 const team = [
-  { initials: "MS", name: "Maarten Smits van Oyen", role: "Consultant — Permanent & Interim",    exp: "10+ years in procurement recruitment", tag: "Permanent · Interim",     email: "maarten.smitsvanoyen@xentys.nl", phone: "+31612345678" },
-  { initials: "AB", name: "Adriaan Brok",            role: "Consultant — Interim Specialist",     exp: "8 years in interim procurement",      tag: "Industry · Construction", email: "adriaan.brok@xentys.nl",          phone: "+31623456789" },
-  { initials: "AU", name: "Aurelia Bredet",           role: "Consultant — Permanent Recruitment", exp: "6 years specialising in strategic roles", tag: "Offshore · Energy",   email: "aurelia.bredet@xentys.nl",        phone: "+31634567890" },
-  { initials: "MH", name: "Martin Havelka",           role: "Chief of Technology",               exp: "Joined 2018",                         tag: "Technology",             email: "martin.havelka@xentys.nl",        phone: "+31645678901" },
+  { initials: "MS", photo: "/images/MaartenVierkant.avif",  name: "Maarten Smits van Oyen", role: "Consultant — Permanent & Interim",    exp: "10+ years in procurement recruitment", tag: "Permanent · Interim",     email: "maarten.smitsvanoyen@xentys.nl", phone: "+31612345678" },
+  { initials: "AB", photo: "/images/AdriaanVierkant.avif",  name: "Adriaan Brok",            role: "Consultant — Interim Specialist",     exp: "8 years in interim procurement",      tag: "Industry · Construction", email: "adriaan.brok@xentys.nl",          phone: "+31623456789" },
+  { initials: "AU", photo: "/images/Aurelia-Bredet.jpg",    name: "Aurelia Bredet",           role: "Consultant — Permanent Recruitment", exp: "6 years specialising in strategic roles", tag: "Offshore · Energy",   email: "aurelia.bredet@xentys.nl",        phone: "+31634567890" },
+  { initials: "SH", photo: "/images/SarahSarah Høgetveit.jpeg", name: "Sarah Høgetveit",         role: "Chief of Technology",               exp: "Joined 2021",                         tag: "Technology",             email: "sarah.hogetveit@xentys.nl",        phone: "+31645678901" },
 ];
 
 const sectors = [
@@ -48,8 +48,8 @@ export default function AboutPage() {
   return (
     <>
       {/* ── 1. Hero ─────────────────────────────────────────── */}
-      <section className="bg-navy pt-36 pb-16" aria-labelledby="ab-heading">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-navy pt-36 pb-16 px-6 md:px-10 lg:px-20" aria-labelledby="ab-heading">
+        <div className="max-w-[1280px] mx-auto">
           <nav className="flex items-center gap-2 text-[12px] text-white/50 mb-6" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>
             <span aria-hidden="true">/</span>
@@ -80,8 +80,8 @@ export default function AboutPage() {
       </section>
 
       {/* ── 2. Our story ────────────────────────────────────── */}
-      <section className="bg-white py-16 lg:py-[88px]" id="story" aria-labelledby="ab-story-h">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-white py-16 lg:py-[88px] px-6 md:px-10 lg:px-20" id="story" aria-labelledby="ab-story-h">
+        <div className="max-w-[1280px] mx-auto">
           <div className="grid lg:grid-cols-[300px_1fr] gap-[72px] items-start">
 
             {/* Sticky aside */}
@@ -90,7 +90,7 @@ export default function AboutPage() {
               <h2 className="font-bold text-[30px] text-navy tracking-tight mb-5" id="ab-story-h">
                 Built on expertise.<br />Kept personal.
               </h2>
-              <PhotoPlaceholder className="w-full h-[220px] mb-3" note="Drop a photo of The Hague / the team" />
+              <img src="/images/office.avif" alt="xentys office" className="w-full h-[220px] mb-3 object-cover" />
               <p className="text-[12px] text-text-muted">Founded in The Hague, 2010.</p>
             </div>
 
@@ -118,26 +118,33 @@ export default function AboutPage() {
 
       {/* ── 3. Meet the team ────────────────────────────────── */}
       <SectionBorder />
-      <section className="bg-off-white py-16 lg:py-[88px]" id="ab-team" aria-labelledby="ab-team-h">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-off-white py-16 lg:py-[88px] px-6 md:px-10 lg:px-20" id="ab-team" aria-labelledby="ab-team-h">
+        <div className="max-w-[1280px] mx-auto">
           <div className="flex items-end justify-between gap-6 flex-wrap mb-10">
             <div>
               <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Meet the team</p>
               <h2 className="font-bold text-[32px] text-navy tracking-tight mb-2" id="ab-team-h">The people behind xentys.</h2>
               <p className="text-[16px] text-text-secondary">Four specialists, one focus. You&apos;ll always know exactly who you&apos;re talking to.</p>
             </div>
-            <Link href="/contact" className="text-[13px] font-semibold text-navy hover:text-amber-text transition-colors flex-shrink-0">
-              Contact our team →
-            </Link>
+            <div className="flex flex-col items-end gap-2 flex-shrink-0">
+              <div className="flex items-center gap-1.5 text-[12px]">
+                <span className="text-amber tracking-[0.05em]">★★★★★</span>
+                <span className="font-semibold text-text-primary">4.9</span>
+                <span className="text-text-muted">· 47 Google reviews</span>
+              </div>
+              <Link href="/contact" className="text-[13px] font-semibold text-navy hover:text-amber-text transition-colors">
+                Contact our team →
+              </Link>
+            </div>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[18px]">
             {team.map((m) => (
-              <article key={m.initials} className="bg-white border border-border rounded-lg overflow-hidden flex flex-col">
+              <article key={m.initials} className="bg-white border border-border rounded-lg overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-2 hover:shadow-xl">
                 <div
-                  className="relative flex items-center justify-center"
-                  style={{ aspectRatio: "4/5", background: "linear-gradient(165deg, #0d2b55 0%, #15396b 100%)", overflow: "hidden" }}
+                  className="relative"
+                  style={{ aspectRatio: "4/5", overflow: "hidden" }}
                 >
-                  <span className="absolute font-semibold text-white select-none" style={{ fontSize: "80px", opacity: 0.12, letterSpacing: "-0.02em", userSelect: "none" }} aria-hidden="true">{m.initials}</span>
+                  <img src={m.photo} alt={m.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
                   <span className="absolute top-3 left-3 text-[10px] font-semibold tracking-[0.08em] uppercase text-amber px-2 py-1" style={{ background: "rgba(7,25,53,0.7)", backdropFilter: "blur(4px)" }}>{m.tag}</span>
                 </div>
                 <div className="p-[18px] flex flex-col gap-1 flex-1">
@@ -151,7 +158,10 @@ export default function AboutPage() {
                     <a href={`mailto:${m.email}`} className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors flex items-center gap-1">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Email
                     </a>
-                    <a href="https://linkedin.com" rel="noopener noreferrer" className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors">LinkedIn</a>
+                    <a href="https://linkedin.com" rel="noopener noreferrer" className="text-[12px] font-semibold text-navy hover:text-amber-text transition-colors flex items-center gap-1">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                      LinkedIn
+                    </a>
                   </div>
                 </div>
               </article>
@@ -162,8 +172,8 @@ export default function AboutPage() {
 
       {/* ── 4. Sectors we know (ledger editorial) ───────────── */}
       <SectionBorder />
-      <section className="bg-white py-16 lg:py-[88px]" aria-labelledby="ab-sec-h">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-white py-16 lg:py-[88px] px-6 md:px-10 lg:px-20" aria-labelledby="ab-sec-h">
+        <div className="max-w-[1280px] mx-auto">
           <div className="mb-12">
             <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-amber-text mb-3">Sectors we know</p>
             <h2 className="font-bold text-[32px] text-navy tracking-tight mb-3" id="ab-sec-h">
@@ -209,8 +219,8 @@ export default function AboutPage() {
       </section>
 
       {/* ── 5. Our approach ─────────────────────────────────── */}
-      <section className="bg-[#f8f8f7] py-16 lg:py-[88px]" aria-labelledby="ab-app-h">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-[#f8f8f7] py-16 lg:py-[88px] px-6 md:px-10 lg:px-20" aria-labelledby="ab-app-h">
+        <div className="max-w-[1280px] mx-auto">
 
           {/* Header — left-aligned */}
           <div className="max-w-[665px] mb-16">

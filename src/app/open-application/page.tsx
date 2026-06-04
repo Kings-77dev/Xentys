@@ -86,8 +86,8 @@ export default function OpenApplicationPage() {
   return (
     <>
       {/* ── Hero ────────────────────────────────────────────── */}
-      <section className="bg-navy pt-36 pb-16" aria-labelledby="oa-heading">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-navy pt-36 pb-16 px-6 md:px-10 lg:px-20" aria-labelledby="oa-heading">
+        <div className="max-w-[1280px] mx-auto">
           <nav className="flex items-center gap-2 text-[12px] text-white/50 mb-6" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>
             <span aria-hidden="true">/</span>
@@ -116,8 +116,8 @@ export default function OpenApplicationPage() {
       </section>
 
       {/* ── Body ────────────────────────────────────────────── */}
-      <div className="bg-off-white py-16">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <div className="bg-off-white py-16 px-6 md:px-10 lg:px-20">
+        <div className="max-w-[1080px] mx-auto">
           <div className="grid lg:grid-cols-[1fr_360px] gap-12 items-start">
 
             {/* ── Main form ──────────────────────────────────── */}
@@ -273,12 +273,20 @@ export default function OpenApplicationPage() {
 
                     {/* Submit row */}
                     <div className="flex items-center justify-between gap-4 mt-7 pt-6 border-t border-border flex-wrap">
-                      <p className="text-[12.5px] text-text-muted">
-                        Prefer to call?{" "}
-                        <a href="tel:+31702400414" className="text-navy font-bold border-b border-dotted border-navy">
-                          Dial <strong>070 240 04 14</strong>
-                        </a>
-                      </p>
+                      <div className="flex flex-col gap-0.5">
+                        <p className="text-[12.5px] text-text-muted">
+                          Prefer to call?{" "}
+                          <a href="tel:+31702400414" className="text-navy font-bold border-b border-dotted border-navy hover:text-amber-text transition-colors">
+                            Dial <strong>070 240 04 14</strong>
+                          </a>
+                        </p>
+                        <p className="text-[12.5px] text-text-muted">
+                          Something else?{" "}
+                          <Link href="/contact" className="text-navy font-semibold hover:text-amber-text transition-colors">
+                            Contact us →
+                          </Link>
+                        </p>
+                      </div>
                       <button type="submit"
                         className="h-11 px-6 bg-amber text-navy font-semibold text-[15px] rounded-[2px] hover:bg-[#e89400] transition-colors">
                         Submit application →
@@ -317,17 +325,23 @@ export default function OpenApplicationPage() {
             {/* ── Sidebar ─────────────────────────────────────── */}
             <aside className="flex flex-col gap-5 sticky top-24 self-start">
 
+              {/* Google rating */}
+              <div className="flex items-center gap-1.5 text-[12px]">
+                <span className="text-amber tracking-[0.05em]">★★★★★</span>
+                <span className="font-semibold text-text-primary">4.9</span>
+                <span className="text-text-muted">· 47 Google reviews</span>
+              </div>
+
               {/* Recruiter card */}
               <div className="bg-white border border-border p-6" style={{ borderTop: "3px solid #ffa300" }}>
                 <div className="flex items-start gap-4 mb-4">
-                  {/* Portrait placeholder (3:4) */}
-                  <div
-                    className="flex-shrink-0 flex items-center justify-center text-white font-bold text-[18px]"
-                    style={{ width: 64, height: 85, background: "linear-gradient(180deg, #c7cace, #8a8e94)" }}
-                    aria-hidden="true"
-                  >
-                    AB
-                  </div>
+                  {/* Portrait */}
+                  <img
+                    src="/images/AdriaanVierkant.avif"
+                    alt="Adriaan Brok"
+                    className="flex-shrink-0"
+                    style={{ width: 64, height: 85, objectFit: "cover", objectPosition: "top center" }}
+                  />
                   <div>
                     <p className="font-bold text-[16px] text-navy">Adriaan Brok</p>
                     <p className="text-[12px] text-text-secondary mt-0.5">Senior Procurement Recruiter</p>

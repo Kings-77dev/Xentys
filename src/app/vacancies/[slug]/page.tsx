@@ -9,6 +9,14 @@ import { VacancyCard } from "@/components/cards/VacancyCard";
 import { JobAlertStrip } from "@/components/sections/JobAlertStrip";
 import { vacancies, getVacancyBySlug } from "@/data/vacancies";
 
+// ── Recruiter photo lookup ───────────────────────────────────
+const recruiterPhotos: Record<string, string> = {
+  MS: "/images/MaartenVierkant.avif",
+  AB: "/images/AdriaanVierkant.avif",
+  AU: "/images/Aurelia-Bredet.jpg",
+  SH: "/images/SarahSarah Høgetveit.jpeg",
+};
+
 // ── Left rail section navigator ─────────────────────────────
 const sections = [
   { id: "sec-about", num: "01", label: "About" },
@@ -40,23 +48,21 @@ function Rail() {
   }, [updateBar]);
 
   useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter(e => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) {
-          const idx = sections.findIndex(s => s.id === visible.target.id);
-          if (idx >= 0) setActiveIdx(idx);
-        }
-      },
-      { rootMargin: "-20% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
-    );
-    sections.forEach(s => {
-      const el = document.getElementById(s.id);
-      if (el) io.observe(el);
-    });
-    return () => io.disconnect();
+    const handleScroll = () => {
+      // Active section = last one whose top edge is above 40% of viewport
+      const trigger = 120; // just below the sticky nav bar
+      let newActive = 0;
+      sections.forEach((s, i) => {
+        const el = document.getElementById(s.id);
+        if (!el) return;
+        if (el.getBoundingClientRect().top <= trigger) newActive = i;
+      });
+      setActiveIdx(newActive);
+    };
+
+    handleScroll(); // set initial state on mount
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollTo = (id: string) => {
@@ -155,8 +161,8 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
   return (
     <>
       {/* ── Hero ────────────────────────────────────────────── */}
-      <section className="bg-navy pt-36 pb-12" aria-labelledby="vd-heading">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <section className="bg-navy pt-36 pb-12 px-6 md:px-10 lg:px-20" aria-labelledby="vd-heading">
+        <div className="max-w-[1280px] mx-auto">
 
           {/* Top row: rating */}
           <div className="flex justify-end mb-4">
@@ -216,7 +222,7 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
 
       {/* ── Body ────────────────────────────────────────────── */}
       <div className="bg-off-white py-12">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+        <div className="max-w-[1280px] mx-auto">
           <div className="grid lg:grid-cols-[120px_1fr_340px] gap-8 items-start">
 
             {/* Left rail */}
@@ -289,10 +295,13 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
               {/* Recruiter card */}
               <div className="bg-white border border-border p-5" style={{ borderTop: "3px solid #ffa300" }}>
                 <div className="flex items-start gap-3 mb-4">
-                  {/* Portrait placeholder */}
-                  <div className="flex-shrink-0 flex items-center justify-center font-bold text-white text-[15px]"
-                    style={{ width: 56, height: 75, background: "linear-gradient(180deg,#c7cace,#8a8e94)" }}
-                    aria-hidden="true">AB</div>
+                  {/* Portrait */}
+                  <img
+                    src={recruiterPhotos[vacancy.recruiterInitials] ?? "/images/AdriaanVierkant.avif"}
+                    alt={vacancy.recruiterName}
+                    className="flex-shrink-0"
+                    style={{ width: 56, height: 75, objectFit: "cover", objectPosition: "top center" }}
+                  />
                   <div>
                     <p className="font-bold text-[15px] text-navy">{vacancy.recruiterName}</p>
                     <p className="text-[11px] text-text-secondary mt-0.5">{vacancy.recruiterTitle}</p>
@@ -313,11 +322,21 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
                     {vacancy.recruiterEmail}
                   </a>
-                  <a href="https://linkedin.com" rel="noopener noreferrer" className="hover:text-amber-text transition-colors">LinkedIn →</a>
+                  <a href="https://linkedin.com" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-amber-text transition-colors">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    LinkedIn →
+                  </a>
                 </div>
                 <div className="flex items-center gap-2 px-3 py-2 bg-[#e0f5e5] border-l-[3px] border-[#125e2e] text-[11.5px] font-semibold text-[#125e2e]">
                   ✓ Response within 1 working day
                 </div>
+              </div>
+
+              {/* Google rating — above apply CTA */}
+              <div className="flex items-center gap-1.5 text-[12px]">
+                <span className="text-amber tracking-[0.05em]">★★★★★</span>
+                <span className="font-semibold text-text-primary">4.9</span>
+                <span className="text-text-muted">· 47 Google reviews</span>
               </div>
 
               {/* Apply button */}
@@ -337,10 +356,10 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
                 <ol className="flex flex-col relative list-none m-0 p-0" style={{ gap: 0 }}>
                   <div className="absolute left-[7px] top-3 bottom-3 w-0.5 bg-gradient-to-b from-amber to-amber/20" aria-hidden="true" />
                   {[
-                    { day: "Day 1",    text: "Adriaan reviews your application personally." },
-                    { day: "Day 2–3",  text: "A 30-minute intro call to discuss the role and fit." },
-                    { day: "Day 5–10", text: "Presented to the client if there's a strong match." },
-                    { day: "Day 10+",  text: "Interview support, offer guidance and onboarding check-in." },
+                    { day: "Step 1",    text: "Adriaan reviews your application personally." },
+                    { day: "Step 2",  text: "A 30-minute intro call to discuss the role and fit." },
+                    { day: "Step 3", text: "Presented to the client if there's a strong match." },
+                    { day: "Step 4",  text: "Interview support, offer guidance and onboarding check-in." },
                   ].map(s => (
                     <li key={s.day} className="pl-7 relative pb-5 last:pb-0">
                       <span className="absolute left-0 top-1 w-4 h-4 rounded-full bg-amber border-[3px] border-navy shadow-[0_0_0_2px_#ffa300] block" aria-hidden="true" />
@@ -357,8 +376,8 @@ export default function VacancyDetailPage({ params }: { params: Promise<{ slug: 
 
       {/* ── Similar vacancies ──────────────────────────────── */}
       {similar.length > 0 && (
-        <section className="bg-white py-16" aria-labelledby="sim-heading">
-          <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+        <section className="bg-white py-16 px-6 md:px-10 lg:px-20" aria-labelledby="sim-heading">
+          <div className="max-w-[1280px] mx-auto">
             <div className="flex items-center justify-between mb-8">
               <h2 className="font-bold text-[24px] text-navy tracking-tight" id="sim-heading">Similar vacancies</h2>
               <Link href="/vacancies" className="text-[13px] font-semibold text-navy hover:text-amber-text transition-colors">

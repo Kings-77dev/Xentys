@@ -38,8 +38,8 @@ const services = [
 
 export function PlacementTypes() {
   return (
-    <section className="bg-off-white py-[120px]" aria-labelledby="services-heading">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+    <section className="bg-off-white py-[120px] px-6 md:px-10 lg:px-20" aria-labelledby="services-heading">
+      <div className="max-w-[1280px] mx-auto">
         <div className="text-center max-w-xl mx-auto mb-16">
           <Eyebrow label="How we place" center />
           <h2 className="font-bold text-3xl lg:text-4xl tracking-tight text-text-primary" id="services-heading">

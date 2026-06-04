@@ -27,11 +27,11 @@ export function MegaDropdown({ open, content, onClose }: {
 }) {
   return (
     <div className={cn(
-      "absolute top-full left-0 right-0 bg-white border-b border-[#e1e4e8] transition-all duration-[240ms] ease-out origin-top",
+      "absolute top-full left-0 right-0 bg-white border-b border-[#e1e4e8] transition-all duration-[240ms] ease-out origin-top px-6 md:px-10 lg:px-20",
       "shadow-[0_8px_24px_rgba(0,0,0,0.07),0_2px_6px_rgba(0,0,0,0.04)]",
       open ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-1"
     )}>
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] py-10 grid grid-cols-2 gap-12">
+      <div className="max-w-[1280px] mx-auto py-10 grid grid-cols-2 gap-12">
         {[content.col1, content.col2].map((col, i) => (
           <div key={i}>
             <h3 className="text-[10px] font-semibold tracking-[0.1em] uppercase text-text-muted mb-3">{col.heading}</h3>

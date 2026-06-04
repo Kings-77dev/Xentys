@@ -47,8 +47,8 @@ export function CredibilityBar() {
   const sectionRef = useRef<HTMLElement>(null);
 
   return (
-    <section ref={sectionRef} className="bg-white border-t border-[#f0f2f4]" aria-label="Key statistics">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+    <section ref={sectionRef} className="bg-white border-t border-[#f0f2f4] px-6 md:px-10 lg:px-20" aria-label="Key statistics">
+      <div className="max-w-[1280px] mx-auto">
 
         {/* Mobile / tablet — 2-col grid (no divider overflow) */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:hidden border border-[#e1e4e8] divide-x divide-y divide-[#e1e4e8]">

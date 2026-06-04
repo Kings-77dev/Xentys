@@ -24,8 +24,8 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="bg-[#f6f8fa] py-[120px]" aria-labelledby="testimonials-heading">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+    <section className="bg-[#f6f8fa] py-[120px] px-6 md:px-10 lg:px-20" aria-labelledby="testimonials-heading">
+      <div className="max-w-[1280px] mx-auto">
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-12">

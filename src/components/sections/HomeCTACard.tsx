@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export function HomeCTACard() {
   return (
-    <section className="bg-off-white py-12 border-t border-border" aria-labelledby="home-cta-heading">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+    <section className="bg-off-white py-12 border-t border-border px-6 md:px-10 lg:px-20" aria-labelledby="home-cta-heading">
+      <div className="max-w-[1280px] mx-auto">
         <div className="bg-navy p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
 
           {/* Copy */}
