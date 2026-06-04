@@ -6,21 +6,25 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 const sectors = [
   {
     title: "Industry & Manufacturing",
+    image: "/images/industrial.png",
     desc: "Procurement roles across production, engineering and technical operations. We know the demands of high-volume sourcing, complex supplier networks and the drive for operational efficiency.",
     roles: ["Strategic Buyer", "Category Mgr", "CPO", "Supply Chain Analyst"],
   },
   {
     title: "Construction & Infrastructure",
+    image: "/images/contruction.png",
     desc: "Specialists for contractors, developers and complex project environments. Procurement in construction moves fast — we place people who can keep it moving.",
     roles: ["Project Buyer", "Sourcing Mgr", "Contract Mgr", "Procurement Lead"],
   },
   {
     title: "Offshore & Energy",
+    image: "/images/offshore.png",
     desc: "Procurement expertise for marine, offshore and energy organisations. We understand the compliance demands, the global supply chains and the urgency that comes with the territory.",
     roles: ["Procurement Mgr", "Supply Chain Lead", "Category Specialist"],
   },
   {
     title: "High-Tech",
+    image: "/images/high tech.png",
     desc: "Specialists for fast-moving, technical and innovation-led businesses. Procurement in high-tech demands agility and technical literacy — we find people who bring both.",
     roles: ["Tactical Buyer", "Supply Chain", "Commodity Mgr", "Sourcing Engineer"],
   },
@@ -35,8 +39,8 @@ export function SectorsFeature() {
   const s = sectors[active];
 
   return (
-    <section className="py-16 lg:py-[88px] bg-white border-t border-border" aria-labelledby="sf-heading">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+    <section className="py-16 lg:py-[88px] bg-white border-t border-border px-6 md:px-10 lg:px-20" aria-labelledby="sf-heading">
+      <div className="max-w-[1280px] mx-auto">
 
         {/* Section head — shared */}
         <div className="max-w-[680px] mb-10">
@@ -62,7 +66,7 @@ export function SectorsFeature() {
                   onClick={() => setOpenAcc(isOpen ? null : i)}
                   className={[
                     "w-full flex items-center justify-between gap-4 py-5 text-left transition-colors duration-150",
-                    isOpen ? "text-navy" : "text-text-secondary hover:text-navy",
+                    isOpen ? "text-navy" : "text-text-secondary hover:text-navy hover:bg-white/60",
                   ].join(" ")}
                   aria-expanded={isOpen}
                 >
@@ -108,9 +112,11 @@ export function SectorsFeature() {
                           </span>
                         ))}
                       </div>
-                      <a href="#" className="text-[13px] font-semibold text-navy hover:text-amber-text transition-colors inline-flex items-center gap-1">
-                        Read more <span aria-hidden="true">→</span>
-                      </a>
+                      <div className="flex justify-end">
+                        <a href="#" className="text-[13px] font-semibold text-navy hover:text-amber-text transition-colors inline-flex items-center gap-1">
+                          Read more <span aria-hidden="true">→</span>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -142,7 +148,7 @@ export function SectorsFeature() {
                 onClick={() => setActive(i)}
                 className={[
                   "lg:flex-1 flex-shrink-0 flex items-center gap-2.5 px-5 py-4 lg:px-6 cursor-pointer border-r lg:border-r-0 lg:border-b border-border last:border-r-0 lg:last:border-b-0 text-left transition-colors duration-200",
-                  i === active ? "bg-white text-navy" : "text-text-secondary hover:text-navy",
+                  i === active ? "bg-white text-navy" : "text-text-secondary hover:text-navy hover:bg-white/60",
                 ].join(" ")}
                 aria-selected={i === active}
                 role="tab"
@@ -153,7 +159,7 @@ export function SectorsFeature() {
           </div>
 
           {/* Right panel */}
-          <div key={active} className="sf-panel-enter grid lg:grid-cols-[1fr_220px] gap-7 p-6 lg:p-9 items-center min-h-[280px]">
+          <div key={active} className="sf-panel-enter grid lg:grid-cols-[1fr_320px] gap-7 p-6 lg:p-9 items-center min-h-[280px]">
             <div>
               <h3 className="font-bold text-[24px] text-navy tracking-tight mb-3">{s.title}</h3>
               <p className="text-[15px] text-text-secondary leading-relaxed mb-5">{s.desc}</p>
@@ -169,18 +175,13 @@ export function SectorsFeature() {
               </a>
             </div>
 
-            {/* Image placeholder */}
-            <div
-              className="hidden lg:flex flex-col items-center justify-center gap-3 border-2 border-dashed border-[#d5d8dd] bg-[#f0f1f3] text-text-muted w-full max-w-[220px] aspect-square"
-              aria-hidden="true"
-            >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3">
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <circle cx="8.5" cy="8.5" r="1.5" />
-                <polyline points="21 15 16 10 5 21" />
-              </svg>
-              <span className="text-[11px] text-center px-4">Sector photo</span>
-            </div>
+            {/* Sector image */}
+            <img
+              key={sectors[active].image}
+              src={sectors[active].image}
+              alt={sectors[active].title}
+              className="hidden lg:block w-full max-w-[320px] aspect-square object-cover rounded-[2px] sector-img-enter"
+            />
           </div>
         </div>
 

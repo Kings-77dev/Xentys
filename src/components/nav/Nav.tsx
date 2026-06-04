@@ -101,7 +101,7 @@ export default function Nav() {
         ref={navRef}
         style={{ transform: "translateZ(0)" }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-40 transition-all duration-[240ms] ease-out",
+          "fixed top-0 left-0 right-0 z-40 transition-all duration-[240ms] ease-out px-6 md:px-10 lg:px-20",
           isLight
             ? open !== null
               ? "bg-white border-b border-[#e1e4e8]"
@@ -110,7 +110,7 @@ export default function Nav() {
         )}
         aria-label="Main navigation"
       >
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+        <div className="max-w-[1280px] mx-auto">
           <div
             className="flex items-center gap-8"
             style={{ height: scrolled ? "60px" : "72px", transition: "height 240ms ease-out" }}
@@ -141,7 +141,7 @@ export default function Nav() {
                     isLight
                       ? open === key
                         ? "text-text-primary bg-[#f6f8fa]"
-                        : "text-text-secondary hover:text-text-primary hover:bg-[#f6f8fa]"
+                        : "text-text-secondary hover:text-text-primary hover:bg-[#eef0f3]"
                       : open === key
                         ? "text-white bg-white/10"
                         : "text-white/80 hover:text-white hover:bg-white/8"
@@ -166,7 +166,7 @@ export default function Nav() {
                 className={cn(
                   "px-3.5 py-2 rounded-none text-[13px] font-medium tracking-[0.01em] transition-all duration-[180ms] ease-out",
                   isLight
-                    ? "text-text-secondary hover:text-text-primary hover:bg-[#f6f8fa]"
+                    ? "text-text-secondary hover:text-text-primary hover:bg-[#eef0f3]"
                     : "text-white/80 hover:text-white hover:bg-white/8"
                 )}
                 role="menuitem"
@@ -180,7 +180,7 @@ export default function Nav() {
                   isLight
                     ? open === "insights"
                       ? "text-text-primary bg-[#f6f8fa]"
-                      : "text-text-secondary hover:text-text-primary hover:bg-[#f6f8fa]"
+                      : "text-text-secondary hover:text-text-primary hover:bg-[#eef0f3]"
                     : open === "insights"
                       ? "text-white bg-white/10"
                       : "text-white/80 hover:text-white hover:bg-white/8"

@@ -14,7 +14,7 @@ export function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
   return (
     <>
-    <section className="relative overflow-hidden" aria-labelledby="hero-heading">
+    <section className="relative overflow-hidden px-6 md:px-10 lg:px-20" aria-labelledby="hero-heading">
       {/* Photo background */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -44,7 +44,7 @@ export function Hero() {
       />
 
       {/* Content */}
-      <div className="relative z-20 max-w-[1280px] mx-auto px-6 lg:px-[120px] pt-44 pb-28">
+      <div className="relative z-20 max-w-[1280px] mx-auto pt-44 pb-28">
 
         {/* Eyebrow */}
         <p
@@ -83,24 +83,31 @@ export function Hero() {
           <button
             type="button"
             onClick={() => setModalOpen(true)}
-            className="flex flex-col justify-center px-6 py-4 rounded-[2px] bg-amber w-full sm:min-w-[248px] sm:w-auto h-[64px] sm:h-[76px] transition-all duration-[200ms] ease-out hover:bg-[#e8970a] hover:shadow-[0_8px_20px_rgba(255,163,0,0.25)] active:bg-[#d4850a] text-left"
+            className="flex flex-col justify-center px-6 py-4 rounded-[2px] bg-amber w-full sm:min-w-[248px] sm:w-auto h-[64px] sm:h-[76px] transition-all duration-[200ms] ease-out hover:bg-[#e8970a] hover:-translate-y-2 hover:shadow-xl active:bg-[#d4850a] text-left"
           >
             <span className="font-semibold text-navy text-[15px] leading-tight">
               I need to hire
             </span>
             <span className="text-navy/70 text-[13px] mt-0.5">
-              Share a vacancy brief →
+              Request consultation →
             </span>
           </button>
 
           <Link
             href="/vacancies"
-            className="flex flex-col justify-center px-6 py-4 rounded-[2px] bg-white/8 border border-white/20 w-full sm:min-w-[248px] sm:w-auto h-[64px] sm:h-[76px] transition-all duration-[200ms] ease-out hover:bg-white/12 hover:border-white/35 active:bg-white/6"
+            className="flex flex-col justify-center px-6 py-4 rounded-[2px] w-full sm:min-w-[248px] sm:w-auto h-[64px] sm:h-[76px] transition-all duration-[200ms] ease-out hover:-translate-y-2 hover:shadow-xl"
+            style={{
+              background: "rgba(255,255,255,0.10)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              border: "1.5px solid rgba(255,255,255,0.55)",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.25)",
+            }}
           >
             <span className="font-semibold text-white text-[15px] leading-tight">
               I'm looking for a new role
             </span>
-            <span className="text-white/55 text-[13px] mt-0.5">
+            <span className="text-[13px] mt-0.5" style={{ color: "rgba(255,255,255,0.78)" }}>
               Browse vacancies →
             </span>
           </Link>

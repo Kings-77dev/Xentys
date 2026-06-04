@@ -7,8 +7,8 @@ import { vacancies } from "@/data/vacancies";
 export function FeaturedVacancies() {
   const featured = vacancies.slice(0, 3);
   return (
-    <section className="bg-white py-[120px]" aria-labelledby="vacancies-heading">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+    <section className="bg-white py-[120px] px-6 md:px-10 lg:px-20" aria-labelledby="vacancies-heading">
+      <div className="max-w-[1280px] mx-auto">
         <div className="flex items-end justify-between gap-6 mb-12 flex-wrap">
           <div>
             <Eyebrow label="Open roles" />

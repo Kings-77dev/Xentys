@@ -6,11 +6,11 @@ export function JobAlertStrip() {
 
   return (
     <section
-      className="bg-navy relative overflow-hidden"
+      className="bg-navy relative overflow-hidden px-6 md:px-10 lg:px-20"
       style={{ borderTop: "4px solid #ffa300" }}
       aria-labelledby="alert-heading"
     >
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] py-10 lg:py-12">
+      <div className="max-w-[1280px] mx-auto py-10 lg:py-12">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-center">
 
           {/* Left — copy */}

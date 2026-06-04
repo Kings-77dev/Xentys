@@ -13,7 +13,7 @@ interface ServiceCardProps {
 
 export function ServiceCard({ type, title, description, ctaLabel, ctaHref, icon }: ServiceCardProps) {
   return (
-    <article className="bg-white border border-border rounded-none p-8 flex flex-col gap-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+    <article className="bg-white border border-border rounded-none p-8 flex flex-col gap-4 transition-all duration-200 hover:-translate-y-2 hover:shadow-xl">
       <div className="w-12 h-12 bg-amber/10 rounded-none flex items-center justify-center text-amber-text">
         {icon}
       </div>

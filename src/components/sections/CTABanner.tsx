@@ -3,11 +3,11 @@ import Link from "next/link";
 export function CTABanner() {
   return (
     <section
-      className="bg-navy relative overflow-hidden py-10 lg:py-[52px]"
+      className="bg-navy relative overflow-hidden py-10 lg:py-[52px] px-6 md:px-10 lg:px-20"
       style={{ borderLeft: "5px solid #ffa300" }}
       aria-labelledby="cta-banner-heading"
     >
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+      <div className="max-w-[1280px] mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center gap-8">
 
           {/* Copy */}

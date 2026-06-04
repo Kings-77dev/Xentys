@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-navy" aria-label="Site footer">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px] pt-12 lg:pt-16 pb-6 lg:pb-8">
+    <footer className="bg-navy px-6 md:px-10 lg:px-20" aria-label="Site footer">
+      <div className="max-w-[1280px] mx-auto pt-12 lg:pt-16 pb-6 lg:pb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1.5fr] gap-8 md:gap-12 pb-10 border-b border-white/10 mb-8">
 
           {/* Brand */}
@@ -99,8 +99,8 @@ export default function Footer() {
             © 2025 Xentys B.V. · NEN-4400-1 certified · SNA keurmerk
           </p>
           <nav className="flex gap-5" aria-label="Legal links">
-            <Link href="#" className="text-[11px] text-white/30 hover:text-white/50 transition-colors duration-[180ms]">Privacy Policy</Link>
-            <Link href="#" className="text-[11px] text-white/30 hover:text-white/50 transition-colors duration-[180ms]">Cookie Policy</Link>
+            <Link href="#" className="text-[11px] text-white/30 hover:text-white/70 transition-colors duration-[180ms]">Privacy Policy</Link>
+            <Link href="#" className="text-[11px] text-white/30 hover:text-white/70 transition-colors duration-[180ms]">Cookie Policy</Link>
           </nav>
         </div>
       </div>

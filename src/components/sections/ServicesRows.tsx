@@ -53,17 +53,28 @@ export function ServicesRows() {
   const stageRef  = useRef<HTMLDivElement>(null);
   const barRef    = useRef<HTMLSpanElement>(null);   // the growing amber span
 
-  // ── Continuous scroll-based progress fill ──────────────────────
+  // ── Scroll: progress bar fill + active index ──────────────────
   const onScroll = useCallback(() => {
     const stage = stageRef.current;
     const bar   = barRef.current;
     if (!stage || !bar) return;
+
+    // Amber progress bar
     const rect  = stage.getBoundingClientRect();
     const vh    = window.innerHeight;
     const total = rect.height - vh * 0.5;
     const passed = Math.max(0, Math.min(total, -rect.top + vh * 0.4));
     const pct   = total > 0 ? (passed / total) * 100 : 0;
     bar.style.height = pct + "%";
+
+    // Active index — last row whose top edge is above 40% of viewport
+    const trigger = vh * 0.40;
+    let newActive = 0;
+    rowRefs.current.forEach((row, i) => {
+      if (!row) return;
+      if (row.getBoundingClientRect().top <= trigger) newActive = i;
+    });
+    setActiveIndex(newActive);
   }, []);
 
   useEffect(() => {
@@ -76,24 +87,6 @@ export function ServicesRows() {
     };
   }, [onScroll]);
 
-  // ── IntersectionObserver — active item ────────────────────────
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) {
-          const idx = Number((visible.target as HTMLElement).dataset.index ?? 0);
-          setActiveIndex(idx);
-        }
-      },
-      { rootMargin: "-30% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
-    );
-    rowRefs.current.forEach((r) => r && io.observe(r));
-    return () => io.disconnect();
-  }, []);
-
   // ── Click rail item → scroll to service ─────────────────────
   const scrollToService = (idx: number) => {
     const row = rowRefs.current[idx];
@@ -105,8 +98,8 @@ export function ServicesRows() {
   };
 
   return (
-    <section className="bg-white border-t border-b border-[#e8eaed]" aria-labelledby="services-heading">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
+    <section className="bg-white border-t border-b border-[#e8eaed] px-6 md:px-10 lg:px-20" aria-labelledby="services-heading">
+      <div className="max-w-[1280px] mx-auto">
 
         {/* Header */}
         <div className="pt-[88px] pb-12">
@@ -252,23 +245,31 @@ export function ServicesRows() {
           </div>
         </div>
 
-        {/* ── Mobile / Tablet: simple stacked ─────────────────── */}
+        {/* ── Mobile / Tablet: text-first, image below, link right ─ */}
         <div className="lg:hidden flex flex-col gap-12 py-12">
           {services.map((s) => (
             <div key={s.id}>
-              <figure className="m-0 overflow-hidden mb-6" style={{ aspectRatio: "16/10", background: "#f6f8fa" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={s.imgSrc} alt={s.imgAlt} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-              </figure>
+              {/* Text first */}
               <span className={`inline-flex items-center px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] mb-3 ${s.tag.className}`}>
                 {s.tag.label}
               </span>
               <h3 className="font-bold text-navy mb-3" style={{ fontSize: "24px", letterSpacing: "-0.02em" }}>{s.title}</h3>
-              <p className="text-text-secondary mb-4" style={{ fontSize: "16px", lineHeight: 1.62 }}>{s.description}</p>
-              <Link href={s.href} className="text-[14px] font-semibold text-navy hover:text-amber-text transition-colors">
-                Learn more →
-              </Link>
-              <div className="h-px bg-[#e1e4e8] mt-12" aria-hidden="true" />
+              <p className="text-text-secondary mb-5" style={{ fontSize: "16px", lineHeight: 1.62 }}>{s.description}</p>
+
+              {/* Image below text */}
+              <figure className="m-0 overflow-hidden mb-4" style={{ aspectRatio: "16/10", background: "#f6f8fa" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={s.imgSrc} alt={s.imgAlt} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </figure>
+
+              {/* Link right-aligned */}
+              <div className="flex justify-end">
+                <Link href={s.href} className="text-[14px] font-semibold text-navy hover:text-amber-text transition-colors inline-flex items-center gap-1">
+                  Learn more →
+                </Link>
+              </div>
+
+              <div className="h-px bg-[#e1e4e8] mt-10 last:hidden" aria-hidden="true" />
             </div>
           ))}
         </div>
