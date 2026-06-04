@@ -7,9 +7,9 @@ type PlacementType = "permanent" | "interim" | "secondment" | null;
 type FormState = "idle" | "confirmed";
 
 const tiles = [
-  { id: "permanent"  as const, label: "Permanent hire",  sub: "Fixed-fee, 3-month replacement guarantee.",               tagLabel: "Permanent",  tagClass: "bg-[#f0fdf4] text-[#166534]" },
-  { id: "interim"    as const, label: "Interim cover",   sub: "Screened interim on ZZP or payroll, deployed in 5–10 days.", tagLabel: "Interim",    tagClass: "bg-[#fffbeb] text-[#92400e]" },
-  { id: "secondment" as const, label: "Secondment",      sub: "Procurement professional on xentys payroll, embedded.",  tagLabel: "Secondment", tagClass: "bg-[#eff6ff] text-[#1e40af]" },
+  { id: "permanent"  as const, label: "Permanent hire",  sub: "Fixed-fee, 3-month replacement guarantee.",               tagLabel: "Permanent",  tagClass: "border border-navy text-navy" },
+  { id: "interim"    as const, label: "Interim cover",   sub: "Screened interim on ZZP or payroll, deployed in 5–10 days.", tagLabel: "Interim",    tagClass: "border border-amber text-[#d97706]" },
+  { id: "secondment" as const, label: "Secondment",      sub: "Procurement professional on xentys payroll, embedded.",  tagLabel: "Secondment", tagClass: "border border-[#1e40af] text-[#1e40af]" },
 ];
 
 function SectionHead({ num, title }: { num: number; title: string }) {

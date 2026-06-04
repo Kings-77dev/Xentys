@@ -7,8 +7,8 @@ type ApplicationType = "specific" | "open" | null;
 type FormState = "form" | "confirm";
 
 const tiles = [
-  { id: "specific" as const, label: "I have a specific role in mind", tagLabel: "Specific role",    tagClass: "bg-[#e0f5e5] text-[#125e2e]" },
-  { id: "open"     as const, label: "I'm open to opportunities",       tagLabel: "Open application", tagClass: "bg-[#e0ebff] text-[#0a2e7a]" },
+  { id: "specific" as const, label: "I have a specific role in mind", tagLabel: "Specific role",    tagClass: "border border-[#125e2e] text-[#125e2e]" },
+  { id: "open"     as const, label: "I'm open to opportunities",       tagLabel: "Open application", tagClass: "border border-[#0a2e7a] text-[#0a2e7a]" },
 ];
 
 function TileRadio({ active }: { active: boolean }) {

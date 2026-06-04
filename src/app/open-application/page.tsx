@@ -129,8 +129,8 @@ export default function OpenApplicationPage() {
                   <SectionHead num={1} title="How would you like to engage?" />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-2">
                     {[
-                      { id: "specific" as const, label: "I have a specific role in mind",       tagLabel: "Specific role",    tagClass: "bg-[#f0fdf4] text-[#166534]" },
-                      { id: "open"     as const, label: "I'm open to procurement opportunities", tagLabel: "Open application", tagClass: "bg-[#eff6ff] text-[#1e40af]" },
+                      { id: "specific" as const, label: "I have a specific role in mind",       tagLabel: "Specific role",    tagClass: "border border-[#166534] text-[#166534]" },
+                      { id: "open"     as const, label: "I'm open to procurement opportunities", tagLabel: "Open application", tagClass: "border border-[#1e40af] text-[#1e40af]" },
                     ].map((t) => {
                       const active = appType === t.id;
                       return (

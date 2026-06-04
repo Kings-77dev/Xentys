@@ -2,10 +2,10 @@ import { cn } from "@/lib/cn";
 import type { PlacementType } from "@/data/vacancies";
 
 const variants: Record<PlacementType, string> = {
-  permanent: "bg-navy text-white",
-  interim:   "bg-amber text-navy",
-  secondment:"bg-[#0e7490] text-white",
-  executive: "bg-purple text-white",
+  permanent:  "border border-navy text-navy",
+  interim:    "border border-amber text-[#d97706]",
+  secondment: "border border-[#1e40af] text-[#1e40af]",
+  executive:  "border border-purple text-purple",
 };
 
 const labels: Record<PlacementType, string> = {

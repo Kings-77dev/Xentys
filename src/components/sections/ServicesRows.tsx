@@ -9,7 +9,7 @@ const services = [
     index: 0,
     label: "Permanent",
     title: "Permanent Recruitment",
-    tag: { label: "Permanent", className: "bg-amber text-navy tracking-widest uppercase rounded-[2px]" },
+    tag: { label: "Permanent", className: "border border-amber text-[#d97706]" },
     description:
       "Full-cycle search for permanent procurement hires. Fixed fee agreed upfront, no hidden costs. 3-month replacement guarantee on every placement. You receive 3–5 screened, briefed candidates only.",
     href: "/consultation",
@@ -22,7 +22,7 @@ const services = [
     index: 1,
     label: "Interim",
     title: "Interim Recruitment",
-    tag: { label: "Interim", className: "bg-navy text-white tracking-widest uppercase rounded-[2px]" },
+    tag: { label: "Interim", className: "border border-navy text-navy" },
     description:
       "Screened interim procurement professionals deployed within days — not weeks. Self-employed or payroll basis. Ideal for project capacity, maternity cover, or rapid scaling of your team.",
     href: "/consultation",
@@ -35,7 +35,7 @@ const services = [
     index: 2,
     label: "Secondment",
     title: "Secondment",
-    tag: { label: "Secondment", className: "bg-[#0e7490] text-white tracking-widest uppercase rounded-[2px]" },
+    tag: { label: "Secondment", className: "border border-[#1e40af] text-[#1e40af]" },
     description:
       "Procurement professionals on our payroll, embedded in your organisation. All employer obligations managed by Xentys. Flexible hours and duration throughout the full assignment period.",
     href: "/consultation",
@@ -220,7 +220,7 @@ export function ServicesRows() {
 
                   {/* Body */}
                   <div className="flex flex-col" style={{ gap: "16px", order: s.imageLeft ? 1 : 1 }}>
-                    <span className={`inline-flex items-center self-start px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] ${s.tag.className}`}>
+                    <span className={`inline-flex items-center self-start px-3 py-1 text-xs font-semibold ${s.tag.className}`}>
                       {s.tag.label}
                     </span>
                     <h3
@@ -250,7 +250,7 @@ export function ServicesRows() {
           {services.map((s) => (
             <div key={s.id}>
               {/* Text first */}
-              <span className={`inline-flex items-center px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] mb-3 ${s.tag.className}`}>
+              <span className={`inline-flex items-center px-3 py-1 text-xs font-semibold mb-3 ${s.tag.className}`}>
                 {s.tag.label}
               </span>
               <h3 className="font-bold text-navy mb-3" style={{ fontSize: "24px", letterSpacing: "-0.02em" }}>{s.title}</h3>

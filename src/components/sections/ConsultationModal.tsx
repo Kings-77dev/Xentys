@@ -9,9 +9,9 @@ type ContactPref = "phone" | "email";
 type FormState = "form" | "confirm";
 
 const tiles = [
-  { id: "permanent"  as const, label: "Permanent hire",  tagLabel: "Permanent",  tagClass: "bg-[#f0fdf4] text-[#166534]" },
-  { id: "interim"    as const, label: "Interim cover",   tagLabel: "Interim",    tagClass: "bg-[#fffbeb] text-[#92400e]" },
-  { id: "secondment" as const, label: "Secondment",      tagLabel: "Secondment", tagClass: "bg-[#eff6ff] text-[#1e40af]" },
+  { id: "permanent"  as const, label: "Permanent hire",  tagLabel: "Permanent",  tagClass: "border border-navy text-navy" },
+  { id: "interim"    as const, label: "Interim cover",   tagLabel: "Interim",    tagClass: "border border-amber text-[#d97706]" },
+  { id: "secondment" as const, label: "Secondment",      tagLabel: "Secondment", tagClass: "border border-[#1e40af] text-[#1e40af]" },
 ];
 
 const typeLabels: Record<string, string> = {
@@ -206,7 +206,7 @@ export function ConsultationModal({ open, onClose }: Props) {
                       aria-pressed={active}
                     >
                       <span className="flex items-center justify-between w-full">
-                        <span className={`text-[11px] font-semibold px-2 py-0.5 ${t.tagClass}`} style={{ borderRadius: 999 }}>
+                        <span className={`text-[11px] font-semibold px-2 py-0.5 ${t.tagClass}`} style={{ borderRadius: 2 }}>
                           {t.tagLabel}
                         </span>
                         <TileRadio active={active} />

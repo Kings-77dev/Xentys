@@ -107,7 +107,7 @@ export function SectorsFeature() {
                       </p>
                       <div className="flex flex-wrap gap-2 mb-5">
                         {sec.roles.map((r) => (
-                          <span key={r} className="text-[11.5px] px-2 py-1 bg-off-white text-text-secondary border border-border">
+                          <span key={r} className="text-[11.5px] px-2 py-1 text-text-secondary border border-border">
                             {r}
                           </span>
                         ))}
@@ -165,7 +165,7 @@ export function SectorsFeature() {
               <p className="text-[15px] text-text-secondary leading-relaxed mb-5">{s.desc}</p>
               <div className="flex flex-wrap gap-2 mb-6">
                 {s.roles.map((r) => (
-                  <span key={r} className="text-[11.5px] px-2 py-1 bg-off-white text-text-secondary border border-border">
+                  <span key={r} className="text-[11.5px] px-2 py-1 text-text-secondary border border-border">
                     {r}
                   </span>
                 ))}
